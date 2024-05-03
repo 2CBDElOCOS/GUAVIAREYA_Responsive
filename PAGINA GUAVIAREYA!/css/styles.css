@@ -395,16 +395,67 @@ button:hover{
 .hero2 h1{
     color: white;
     font-size: 40px;
-    margin-top: -80px;
 }      
 
 
 .hero2 .comida{
-    width: 200px;
-    height: 200px;
-    background-color: aqua;
+    width: 250px;
+    height: 250px;
+    background-color: rgb(180, 202, 202);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-left: 50px;
+    margin: 25px;
+    border-radius: 15px;
+}
 
+.restaurantes{
+    display: flex;
+    justify-content: center;
+
+}
+
+@media (max-width: 768px) {
+    .hero2 .comida {
+      width: calc(33.33% - 50px); /* Ajusta el ancho de los elementos para que quepan en una fila en pantallas más pequeñas */
+      margin: 10px; /* Reduce el margen entre los elementos */
+      width: 110px;
+      height: 110px;
+    }
+  
+    .row.restaurantes {
+      flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas más pequeñas */
+    }
+  }
+  
+
+  /*PRODUCTOS*/
+.card-img-top{
+    border-radius: 50px;
+    padding: 20px;
+}
+.card{
+    border-radius: 30px;
+    box-shadow: #b4caca;
+}
+.card-body{
+    padding: 25px;
+    margin-top: -15px;
+}       
+.btn-primary{
+    border-radius: 50px;
+    width: 120px;
+}
+.btn-primary:hover{
+    background-color: rgb(255, 144, 17);
+    border: none;
+}
+h3,h5{
+    color: rgb(0, 0, 0, 0.8);
+    font-weight: bold;
+}
+
+.btn{
+    background-color: #FFA500;
+    color: black;
+    border: none;
 }
