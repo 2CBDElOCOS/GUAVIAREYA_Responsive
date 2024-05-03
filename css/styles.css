@@ -401,10 +401,11 @@ button:hover{
 .hero2 .comida{
     width: 250px;
     height: 250px;
-    background-color: aqua;
+    background-color: rgb(180, 202, 202);
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: 25px;
+    border-radius: 15px;
 }
 
 .restaurantes{
