@@ -109,6 +109,8 @@ header {
 }
 
 
+
+
 /*hero*/
 
 
@@ -130,7 +132,7 @@ header {
         rgba(0,0,0,0.5),
         rgba(0,0,0,0.5)
     )
-    ,url("../../media/hero.jpg");
+    ,url("../media/hero.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -373,6 +375,7 @@ button:hover{
     top: -24px;
 }
 
+
 .hero2{
     display: flex;
     align-items: center;
@@ -397,12 +400,14 @@ button:hover{
     font-size: 40px;
 }      
 
-
 .hero2 .comida{
     width: 250px;
     height: 250px;
     background-color: rgb(180, 202, 202);
     display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centra verticalmente */
     grid-template-columns: 1fr 1fr;
     margin: 25px;
     border-radius: 15px;
@@ -413,6 +418,15 @@ button:hover{
     justify-content: center;
 
 }
+
+
+
+.comida img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
 
 @media (max-width: 768px) {
     .hero2 .comida {
@@ -427,6 +441,7 @@ button:hover{
     }
   }
   
+
 /*PRODUCTOS*/
 .card-img-top{
     border-radius: 50px;
@@ -442,43 +457,103 @@ button:hover{
     padding: 25px;
     margin-top: -15px;
 }
-     
-.btn-primary{
-    border-radius: 50px;
-    width: 120px;
-}
-.btn-primary:hover{
-    background-color: rgb(255, 144, 17);
-    border: none;
-}
+
+
 h3,h5{
     color: rgb(0, 0, 0, 0.8);
     font-weight: bold;
 }
 
-.btn{
-    background-color: #FFA500;
-    color: black;
-    border: none;
-}
 
 
-.ico-header {
+
+.ico-header,
+.ico-carro {
     padding-top: 3%;
     padding-bottom: 3%;
     text-align: center; /* Alineación centrada para el contenedor de íconos */
 }
 
-.ico-hader a {
+.ico-hader a,
+.ico-carro a {
     display: inline-block; /* Convertir en bloque en línea para aplicar alineación */
     margin: 0 10px; 
 }
 
 .ico-header i {
     font-size: 30px;
-    color: black;
+    color: rgb(255, 255, 255);
     border-radius: 50%;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
     transition: .3s ease;
     padding: 10px; 
+}
+
+.ico-header .bx{
+    margin-left: 50%;
+}
+
+/*carrito*/
+
+.name-ca{
+    padding-top: 30px;
+    color: #ff9f0d;
+}
+.name-car{
+    padding-top: 30px;
+    font-size: 14px;
+    font-weight: none;
+}
+
+.ico-carro i{
+    font-size: 30px;
+    color: #000000;
+    border-radius: 50%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: .3s ease;
+    padding: 10px;
+}
+
+.subcontainer3{
+    position: relative;
+    top: 30px;
+    border: 1px solid rgb(236, 236, 236);
+    padding: 5%;
+    border-radius: 15px;
+}
+.carrito{
+    border: 1px solid rgb(236, 236, 236);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-bottom: 2%;
+}
+
+.subcontainer3 .precio{
+    font-weight: bold;
+}
+
+.cantidad{
+    text-align: center;
+    padding-left:10px;
+}
+
+.subtotal{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    
+}
+.subtotal .valor{
+    padding-top: 2%;
+    text-align: center;
+    padding-right: 15%;
+}
+
+.btn-pagar{
+    background-color: #ff9f0d;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    margin-top: 1%;
 }
