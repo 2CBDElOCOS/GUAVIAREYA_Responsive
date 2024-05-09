@@ -1,0 +1,661 @@
+/* Estilos globales */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    scroll-behavior: none;
+    scroll-padding-top: 3rem;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+
+
+.color-acento{
+    color: #ff9f0d;
+}
+/* Estilos del encabezado */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 30px 14%;
+    transition: all .50s ease;
+    background-color: #000000;
+}
+
+/* Estilos del logo */
+.logo {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    font-size: 33px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Estilos del ícono del logo */
+.logo i {
+    margin-right: 4px;
+    color: rgb(255, 165, 0);
+}
+
+/* Estilos de la lista de navegación */
+.navlist a {
+    color: #fff;
+    font-weight: 600;
+    margin: 0 30px;
+    font-size: 14px;
+    transition: all .50s ease;
+    text-decoration: none;
+}
+
+/* Estilos de los enlaces de navegación al pasar el cursor */
+.navlist a:hover {
+    color: orange;
+}
+
+/* Estilos del enlace activo */
+.navlist a.active {
+    color: orange;
+    text-decoration: none;
+}
+
+/* Estilos de los íconos de navegación */
+.nav-icons {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: orange;
+    border-radius: 3rem;
+    box-shadow: #ff9f0d 0px 1px 25px;
+    width: 130px;
+}
+
+/* Estilos de los íconos */
+.nav-icons i {
+    font-size: 25px;
+    color: #111111;
+    margin-right: 8px;
+    margin-top: 5px;
+    margin-left: 5px;
+    transition: all .50s ease;
+}
+
+/* Estilos del ícono del menú */
+#menu-icon {
+    font-size: 32px;
+    color: #111111;
+    z-index: 10001;
+    cursor: pointer;
+    display: none;
+}
+
+/* Estilos al pasar el cursor sobre los íconos de navegación */
+.nav-icons i:hover {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+
+
+
+/*hero*/
+
+
+
+.subcontainer{
+    position: relative;
+    top: 120px;
+}
+
+.hero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 90vh;
+    color: #ffffff;
+    background-image: linear-gradient(
+        0deg,
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,0.5)
+    )
+    ,url("../media/hero.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    bottom: 40px;
+
+}
+
+.hero h1{
+    color: white;
+    font-size: 60px;
+}
+button{
+    font-size: 2.5em;
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    background-color: #ff9f0d;
+}
+button:hover{
+    background-color:#7b4c06 ;
+}
+
+/*Sobre Nosotros*/
+
+.sobre{
+    text-align:center;
+    padding: 100px 20px;
+    position: relative;
+    width: 50%;
+}
+
+.img-sobre{
+    padding: 100px 20px;
+    position: relative;
+    right:70px ;
+    filter: drop-shadow(
+        0 0 10px rgba(0,0,0,8)
+    );
+}
+
+/*Contactanos*/
+
+.contactanos{
+    position: relative;
+    top: 120px;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.tu-domi{
+    color: #fff;
+    padding-top: 3%;
+    text-align: center;
+}
+
+.correo{
+    color: #fff;
+    padding-top: 3%;
+    text-align: center;
+    padding-bottom: 3%;
+}
+
+.tlf{
+    color: #fff;
+    padding-top: 3%;
+    text-align: center;
+    padding-bottom: 3%;
+}
+.go-store{
+    padding-top: 2%;
+    text-align: center;
+}
+
+.ico-footer {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    text-align: center; /* Alineación centrada para el contenedor de íconos */
+}
+
+.ico-footer a {
+    display: inline-block; /* Convertir en bloque en línea para aplicar alineación */
+    margin: 0 10px; 
+}
+
+.ico-footer i {
+    font-size: 30px;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: .3s ease;
+    padding: 10px; 
+}
+
+
+
+
+/*------------ Contenedor de inicio de sesión ------------*/
+
+.box-area{
+    width: 700px;
+}
+/*------------ Cuadro derecho ------------*/
+
+.right-box{
+    padding: 40px 30px 40px 40px;
+}
+
+/*------------ Marca de posicion ------------*/
+
+::placeholder{
+    font-size: 16px;
+}
+
+.rounded-4{
+    border-radius: 20px;
+}
+.rounded-5{
+    border-radius: 30px;
+}
+
+
+/*------------pantallas pequeñas------------*/
+
+@media only screen and (max-width: 768px){
+
+     .box-area{
+        margin: 0 10px;
+
+     }
+     .left-box{
+        height: 100px;
+        overflow: hidden;
+     }
+     .right-box{
+        padding: 20px;
+     }
+
+}
+
+.img-fluid{
+    filter: drop-shadow(
+        0 0 10px rgba(0,0,0,8)
+    );
+}
+
+
+/*shop*/
+
+    /*header*/
+.nav-icons1{
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: orange;
+    border-radius: 3rem;
+    box-shadow: #ff9f0d 0px 1px 25px;
+    width: 140px;
+}
+
+.nav-icons1 i {
+    font-size: 25px;
+    color: #111111;
+    margin-right: 8px;
+    margin-top: 5px;
+    margin-left: 5px;
+    transition: all .50s ease;
+}
+.nav-icons1 i:hover {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+/*hero1*/
+
+
+.hero1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 90vh;
+    color: #ffffff;
+    background-image: linear-gradient(
+        0deg,
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,0.5)
+    )
+    ,url("../../media/hero.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    bottom: 40px;
+
+}
+
+.hero1 h1{
+    color: white;
+    font-size: 40px;
+    margin-top: 30px;
+}       
+
+.ico-hero {
+    text-align: center; /* Alineación centrada para el contenedor de íconos */
+    position: relative;
+    top: -120px;
+}
+
+.ico-hero a {
+    display: inline-block; /* Convertir en bloque en línea para aplicar alineación */
+    margin: 0 50px; 
+}
+
+.ico-hero i {
+    font-size: 60px;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: .3s ease;
+    padding: 10px; 
+}
+
+.ico-hero1:hover{
+    transform: scale(1.1);
+}
+/*contactanos*/
+.contactanos1{
+    position: relative;
+    top: 80px;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/*Comida*/
+
+.subcontainer2{
+    position: relative;
+    top: -24px;
+}
+
+
+.hero2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 101vh;
+    color: #ffffff;
+    background-image: linear-gradient(
+        0deg,
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,0.5)
+    )
+    ,url("../../media/hero.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+}
+
+.hero2 h1{
+    color: white;
+    font-size: 40px;
+}      
+
+.hero2 .comida{
+    width: 250px;
+    height: 250px;
+    background-color: rgb(180, 202, 202);
+    display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centra verticalmente */
+    grid-template-columns: 1fr 1fr;
+    margin: 25px;
+    border-radius: 15px;
+}
+
+.restaurantes{
+    display: flex;
+    justify-content: center;
+
+}
+
+
+
+.comida img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+
+@media (max-width: 768px) {
+    .hero2 .comida {
+      width: calc(33.33% - 50px); /* Ajusta el ancho de los elementos para que quepan en una fila en pantallas más pequeñas */
+      margin: 10px; /* Reduce el margen entre los elementos */
+      width: 110px;
+      height: 110px;
+    }
+  
+    .row.restaurantes {
+      flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas más pequeñas */
+    }
+  }
+  
+
+/*PRODUCTOS*/
+.card-img-top{
+    border-radius: 50px;
+    padding: 20px;
+}
+.card {
+    border-radius: 30px;
+    box-shadow: #b4caca;
+    
+}
+
+.card-body {
+    padding: 25px;
+    margin-top: -15px;
+}
+
+
+h3,h5{
+    color: rgb(0, 0, 0, 0.8);
+    font-weight: bold;
+}
+
+
+
+
+.ico-header,
+.ico-carro {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    text-align: center; /* Alineación centrada para el contenedor de íconos */
+}
+
+.ico-hader a,
+.ico-carro a {
+    display: inline-block; /* Convertir en bloque en línea para aplicar alineación */
+    margin: 0 10px; 
+}
+
+.ico-header i {
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: .3s ease;
+    padding: 10px; 
+}
+
+.ico-header .bx{
+    margin-left: 50%;
+}
+
+/*carrito*/
+
+.name-ca{
+    padding-top: 30px;
+    color: #ff9f0d;
+}
+.name-car{
+    padding-top: 30px;
+    font-size: 14px;
+    font-weight: none;
+}
+
+.ico-carro i{
+    font-size: 30px;
+    color: #000000;
+    border-radius: 50%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: .3s ease;
+    padding: 10px;
+}
+
+.subcontainer3{
+    position: relative;
+    top: 30px;
+    border: 1px solid rgb(236, 236, 236);
+    padding: 5%;
+    border-radius: 15px;
+}
+.carrito{
+    border: 1px solid rgb(236, 236, 236);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-bottom: 2%;
+}
+
+.subcontainer3 .precio{
+    font-weight: bold;
+}
+
+.cantidad{
+    text-align: center;
+    padding-left:10px;
+}
+
+.subtotal{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    
+}
+.subtotal .valor{
+    padding-top: 2%;
+    text-align: center;
+    padding-right: 15%;
+}
+
+.btn-pagar{
+    background-color: #ff9f0d;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    margin-top: 1%;
+}
+
+/**PEDIDOS**/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.header_fixed {
+    max-height: 100vh;
+    width: 100%;
+    overflow: auto;
+    border: 1px solid #dddddd;
+}
+
+.header_fixed thead th {
+    position: sticky;
+    top: 0;
+    background-color: black;
+    color: #e6e7e8;
+    font-size: 15px;
+}
+
+th,
+td {
+    border-bottom: 1px solid #dddddd;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+td img {
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+    border: 5px solid #e6e7e8;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+tr:nth-child(odd) {
+    background-color: #edeef1;
+}
+
+tr:hover td {
+    color: #44b478;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+/**PRODUCTOS AGREGAR**/
+
+
+/* Estilos específicos del card */
+.card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.card button {
+    background-color: #ffa500;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+
+.card input[type="text"],
+.card input[type="number"],
+.card input[type="file"],
+.card textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
