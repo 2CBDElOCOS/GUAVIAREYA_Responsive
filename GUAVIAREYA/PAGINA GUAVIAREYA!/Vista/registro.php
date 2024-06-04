@@ -30,42 +30,43 @@
 
       <!-------------------- ------ Contenedor derecho ---------------------------->
 
-      <div class="col-md-6 right-box">
-        <div class="row align-items-center">
+  <div class="col-md-6 right-box">
+      <div class="row align-items-center">
           <div class="header-text mb-4">
-            <h2 style="text-align: center;">REGISTRATE</h2>
+              <h2 style="text-align: center;">REGISTRATE</h2>
+          </div>
+          <form action="../Clases/tmp_pruebitas.php" method="POST">
+              <div class="input-group mb-3">
+                  <input type="text" name="Apodo" class="form-control form-control-lg bg-light fs-6" placeholder="Apodo">
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" name="Nombre" class="form-control form-control-lg bg-light fs-6" placeholder="Nombres">
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" name="Apellido" class="form-control form-control-lg bg-light fs-6" placeholder="Apellidos">
+              </div>
+              <div class="input-group mb-3">
+                <input type="email" name="Correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo">
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" name="Contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña">
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" name="Telefono" class="form-control form-control-lg bg-light fs-6" placeholder="Numero telefonico">
+              </div>
+              <div class="row">
+                <small>
+                    <input type="checkbox"> He leído y acepto <a href="terminos.html">los términos de uso y condiciones</a> y las
+                    <a href="politicas.php">políticas de privacidad</a>
+                </small>
+              </div>
+              <div class="input-group mb-3">
+                <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button>
+              </div>
+        </form>
+    </div>
+</div>
 
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Apodo">
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Nombres">
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Apellidos">
-          </div>
-          <div class="input-group mb-3">
-            <input type="email" class="form-control form-control-lg bg-light fs-6" placeholder="Correo">
-          </div>
-          <br>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña">
-          </div>
-          <br>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Numero telefonico">
-          </div>
-          <div class="row">
-            <small> <input type="checkbox"> He leído y acepto <a href="?seccion=terminos">los términos  de uso y condiciones </a> y las 
-                <a href="?seccion=politicas">las políticas de privacidad </a> </small>
-          </div>
-        
-          <div class="input-group mb-3">
-            <a href="?seccion=login"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a> 
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
