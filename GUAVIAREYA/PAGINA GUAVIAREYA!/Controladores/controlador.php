@@ -5,6 +5,11 @@ if (isset($_GET['seccion'])) {
     $seccion = $_GET['seccion'];
 }
 
-// Incluye la plantilla principal y la sección correspondiente
-include("../Vista/plantilla.php");
+if (strpos($seccion, 'ADMI_') === 0) {
+    // Si la sección comienza con "ADMI_", incluye la plantilla desde la ruta "../ADMI/"
+    include("../ADMI/plantilla_admi.php");
+} else {
+    // De lo contrario, incluye la plantilla desde la ruta "../Vista/"
+    include("../Vista/plantilla.php");
+}
 ?>

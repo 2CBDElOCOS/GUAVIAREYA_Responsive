@@ -7,16 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EDITAR PERFIL</title>
 
-    <!-- ===== ===== ENLACES ===== ===== -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    
 </head>
 
 <body>
     <div class="container">
         <div class="col-md-12 ico-footer1">
-            <a href="Perfil.html"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+            <a href="?seccion=perfil"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
         </div>
         <div class="main-body">
             <br>
@@ -85,7 +83,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                  <a class="btn btn-info " target="__blank" href="perfil.html">Guardar</a>
+                                  <a class="btn btn-info " target="__blank" href="?seccion=perfil">Guardar</a>
                                 </div>
                               </div>
 
@@ -96,16 +94,6 @@
 
         </div>
     </div>
-
-    
-
-    <!-- Scripts de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
-    <!-- Scripts de fontawesome -->
-    <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
 
 </body>
 

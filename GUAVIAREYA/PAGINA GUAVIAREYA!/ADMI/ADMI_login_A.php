@@ -1,8 +1,14 @@
-
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-
-  <title>Ingresar</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Ingresa Admi</title>
 </head>
 
 <body>
@@ -28,7 +34,7 @@
       <div class="col-md-6 right-box">
         <div class="row align-items-center">
           <div class="header-text mb-4">
-            <h2 style="text-align: center;">INICIA SESION</h2>
+            <h2 style="text-align: center;">ADMINISTRADOR</h2>
 
           </div>
           <div class="input-group mb-3">
@@ -39,20 +45,14 @@
           </div>
           <div class="input-group mb-5 d-flex justify-content-between">
             <div class="forgot">
-              <small><a href="?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
+              <small><a href="../Olvidaste.html">¿Olvidaste tu contraseña?</a></small>
             </div>
           </div>
           <div class="input-group mb-3">
-            <a href="?seccion=shop"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
-          </div>
-          <div class="input-group mb-3">
-            <button class="btn btn-lg btn-light w-100 fs-6"><img src="../media/google.png" style="width:20px"
-                class="me-2"><small>Inicia sesion con Google</small></button>
+            <a href="Shop_A.html"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
           </div>
           <div class="row">
-            <small>¿No tienes una cuenta? <a href="?seccion=registro">Registrate</a></small>
-            <br>
-            <small>¿Eres Administrador? <a href="../ADMI/ADMI_login_A.php">Ingresa aqui</a></small>
+            <small>¿No tienes una cuenta? <a href="../index.html">Comunicate con nosotros</a></small>
           </div>
         </div>
       </div>
