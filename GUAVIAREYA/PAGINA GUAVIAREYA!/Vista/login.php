@@ -33,12 +33,13 @@
           <div class="header-text mb-4">
             <h2 style="text-align: center;">INICIA SESION</h2>
 
+          <form action="../Clases/tmp_pruebitas.php" method="POST">
           </div>
           <div class="input-group mb-3">
-            <input type="email" class="form-control form-control-lg bg-light fs-6" placeholder="Correo">
+            <input type="email"  name="Correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo">
           </div>
           <div class="input-group mb-1">
-            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña">
+            <input type="password" name="Contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña">
           </div>
           <div class="input-group mb-5 d-flex justify-content-between">
             <div class="forgot">
@@ -48,6 +49,7 @@
           <div class="input-group mb-3">
             <a href="?seccion=shop"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
           </div>
+          </form>
           <div class="input-group mb-3">
             <button class="btn btn-lg btn-light w-100 fs-6"><img src="../media/google.png" style="width:20px"
                 class="me-2"><small>Inicia sesion con Google</small></button>
