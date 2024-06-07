@@ -1,8 +1,9 @@
-
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-
-  <title>Ingresar</title>
+  
+  <title>Ingresa Admi</title>
 </head>
 
 <body>
@@ -28,7 +29,7 @@
       <div class="col-md-6 right-box">
         <div class="row align-items-center">
           <div class="header-text mb-4">
-            <h2 style="text-align: center;">INICIA SESION</h2>
+            <h2 style="text-align: center;">ADMINISTRADOR</h2>
 
           </div>
           <div class="input-group mb-3">
@@ -43,16 +44,10 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <a href="?seccion=shop"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
-          </div>
-          <div class="input-group mb-3">
-            <button class="btn btn-lg btn-light w-100 fs-6"><img src="../media/google.png" style="width:20px"
-                class="me-2"><small>Inicia sesion con Google</small></button>
+            <a href="?seccion=ADMI_Shop_A"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
           </div>
           <div class="row">
-            <small>¿No tienes una cuenta? <a href="?seccion=registro">Registrate</a></small>
-            <br>
-            <small>¿Eres Administrador? <a href="?seccion=ADMI_login_A">Ingresa aqui</a></small>
+            <small>¿No tienes una cuenta? <a href="?seccion=home">Comunicate con nosotros</a></small>
           </div>
         </div>
       </div>

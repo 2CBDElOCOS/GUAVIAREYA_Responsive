@@ -28,7 +28,7 @@
       <div class="row hero">
         <div class="col-md">
           <h1>GuaviareYa</h1>
-            <a href="?seccion=login" target="_blank"><button style="border-radius: 30px;" >Tienda</button></a>
+            <a href="controlador.php?seccion=login" target="_blank"><button style="border-radius: 30px;" >Tienda</button></a>
         </div>
       </div>
     </div>
