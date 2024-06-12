@@ -40,14 +40,14 @@
           </div>
           <div class="input-group mb-5 d-flex justify-content-between">
             <div class="forgot">
-              <small><a href="?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
+              <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
             </div>
           </div>
           <div class="input-group mb-3">
-            <a href="?seccion=ADMI_Shop_A"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
+            <a href="controlador.php?seccion=ADMI_Shop_A"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
           </div>
           <div class="row">
-            <small>¿No tienes una cuenta? <a href="?seccion=home">Comunicate con nosotros</a></small>
+            <small>¿No tienes una cuenta? <a href="controlador.php?seccion=home">Comunicate con nosotros</a></small>
           </div>
         </div>
       </div>

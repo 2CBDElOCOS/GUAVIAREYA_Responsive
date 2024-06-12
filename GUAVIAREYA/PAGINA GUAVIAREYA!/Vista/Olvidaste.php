@@ -40,13 +40,13 @@
                         <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Correo">
                     </div>
                     <div class="input-group mb-3 d-flex justify-content-center">
-                        <a href="?seccion=Olvidaste2" style="text-decoration: none;">
+                        <a href="controlador.php?seccion=Olvidaste2" style="text-decoration: none;">
                             <button class="btn btn-lg btn-primary fs-6">Enviar</button>
                         </a>
                     </div>
                     
                     <div class="row">
-                        <small><a href="?seccion=login">Inicia sesion</a></small>
+                        <small><a href="controlador.php?seccion=login">Inicia sesion</a></small>
                     </div>
                 </div>
             </div>

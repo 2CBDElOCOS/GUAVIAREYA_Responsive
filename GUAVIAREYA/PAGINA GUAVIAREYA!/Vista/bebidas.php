@@ -23,7 +23,7 @@
         <div class="subcontainer2">
             <div class="row hero2">
                 <div class="col-md-12 ico-footer">
-                    <a href="?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+                    <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
                 </div>
 
                 <h1>BEBIDAS</h1>
@@ -47,14 +47,6 @@
     </section>
 
 
-
-    <!-- Scripts de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
-    <!-- Scripts de fontawesome -->
-    <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

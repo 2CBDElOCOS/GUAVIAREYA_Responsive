@@ -2,7 +2,7 @@
 
 <head>
 
-  <title>Ingresar</title>
+  <title><?php echo $seccion ; ?></title>
 </head>
 
 <body>
@@ -39,20 +39,20 @@
           </div>
           <div class="input-group mb-5 d-flex justify-content-between">
             <div class="forgot">
-              <small><a href="?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
+              <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
             </div>
           </div>
           <div class="input-group mb-3">
-            <a href="?seccion=shop"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
+            <a href="controlador.php?seccion=shop"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
           </div>
           <div class="input-group mb-3">
             <button class="btn btn-lg btn-light w-100 fs-6"><img src="../media/google.png" style="width:20px"
                 class="me-2"><small>Inicia sesion con Google</small></button>
           </div>
           <div class="row">
-            <small>¿No tienes una cuenta? <a href="?seccion=registro">Registrate</a></small>
+            <small>¿No tienes una cuenta? <a href="controlador.php?seccion=registro">Registrate</a></small>
             <br>
-            <small>¿Eres Administrador? <a href="?seccion=ADMI_login_A">Ingresa aqui</a></small>
+            <small>¿Eres Administrador? <a href="controlador.php?seccion=ADMI_login_A">Ingresa aqui</a></small>
           </div>
         </div>
       </div>

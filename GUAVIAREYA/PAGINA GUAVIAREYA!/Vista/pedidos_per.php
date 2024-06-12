@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+
+<!-- POR EL MOMENTO NO VAMOS A UTILIZAR ESTA PARTA DEL CODIGO -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

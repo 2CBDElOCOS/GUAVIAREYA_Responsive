@@ -27,7 +27,7 @@
 <body >
     <div class="container py-5">
         <div class="col-md-12 ico-header">
-            <a href="?seccion=ADMI_Shop_A"><i class="fa-solid fa-circle-arrow-left"></i></a>
+            <a href="controlador.php?seccion=ADMI_Shop_A"><i class="fa-solid fa-circle-arrow-left"></i></a>
         </div>
 
         <h1 style="text-align: center; color: white;">#RESTAURANTE</h1>
@@ -131,7 +131,7 @@
             </div>
 
             <div class="col-md-12 ico-header">
-                <a href="?seccion=ADMI_Agregar_P"><i class="fa-solid fa-plus"></i></a>
+                <a href="controlador.php?seccion=ADMI_Agregar_P"><i class="fa-solid fa-plus"></i></a>
             </div>
 
 

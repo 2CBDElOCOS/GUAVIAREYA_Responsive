@@ -11,7 +11,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h4>Dirección de entrega</h4><a href="perfil.html">Cambiar</a>
+                <h4>Dirección de entrega</h4><a href="controlador.php?seccion=perfil">Cambiar</a>
             </div>
             <div class="card-body">
                 <h5 class="card-title">Special title treatment</h5>

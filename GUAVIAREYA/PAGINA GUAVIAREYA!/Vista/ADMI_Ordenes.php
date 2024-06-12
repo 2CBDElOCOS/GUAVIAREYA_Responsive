@@ -9,7 +9,7 @@
 
     <div class="container">
         <div class="col-md-12 ico-carro">
-            <a href="?seccion=ADMI_Perfil_A"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+            <a href="controlador.php?seccion=ADMI_Perfil_A"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
         </div>
     </div>
 

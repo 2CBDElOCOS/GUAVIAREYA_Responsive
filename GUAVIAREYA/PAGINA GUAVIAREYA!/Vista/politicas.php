@@ -83,7 +83,7 @@
                                 puede ponerse en contacto con nuestro servicio de atención al cliente.
                             </p>
 
-                            <small><a href="?seccion=login">Registrate</a></small>
+                            <small><a href="controlador.php?seccion=login">Registrate</a></small>
 
 
 

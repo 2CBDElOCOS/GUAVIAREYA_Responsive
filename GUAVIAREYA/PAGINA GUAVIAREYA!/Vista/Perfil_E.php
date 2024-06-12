@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         <div class="col-md-12 ico-footer1">
-            <a href="?seccion=perfil"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+            <a href="controlador.php?seccion=perfil"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
         </div>
         <div class="main-body">
             <br>
@@ -33,7 +33,7 @@
                                     <h4>#USUARIO</h4>
                                     <p class="text-secondary mb-1">San Jose del Guaviare</p>
                                     <p class="text-muted font-size-sm">3021233232</p>
-                                    <a href="Perfil_P.html">TUS PEDIDOS</a>
+                                    <a href="controlador.php?seccion=Perfil_P">TUS PEDIDOS</a>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                  <a class="btn btn-info " target="__blank" href="?seccion=perfil">Guardar</a>
+                                  <a class="btn btn-info " target="__blank" href="controlador.php?seccion=perfil">Guardar</a>
                                 </div>
                               </div>
 

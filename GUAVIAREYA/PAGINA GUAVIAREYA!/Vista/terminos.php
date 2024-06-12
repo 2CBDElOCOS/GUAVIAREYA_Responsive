@@ -92,7 +92,7 @@
                                 establecidos por nuestra empresa. Si no están de acuerdo con los términos y condiciones,
                                 no deben utilizar nuestra plataforma.
                             </p>
-                            <small><a href="?seccion=login">Registrate</a></small>
+                            <small><a href="controlador.php?seccion=login">Registrate</a></small>
 
 
 

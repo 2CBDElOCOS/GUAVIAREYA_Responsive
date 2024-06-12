@@ -30,7 +30,7 @@
             </nav>
             <div class="nav-icons">
               <a href="#"><i class="bx bx-search"></i></a>
-              <a href="?seccion=ADMI_Perfil_A"><i class="bx bx-user-circle"></i></a>
+              <a href="controlador.php?seccion=ADMI_Perfil_A"><i class="bx bx-user-circle"></i></a>
             </div>
           </div>
         </div>
@@ -45,8 +45,8 @@
           <h1>Hola #Administrador, Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
-          <a href="?seccion=ADMI_Productos_A" target="_blank"><i class='bx bx-restaurant' ></i></a>
-          <a href="?seccion=ADMI_Bebidas_A" target="_blank"><i class="fa-solid fa-martini-glass-citrus"></i></a>
+          <a href="controlador.php?seccion=ADMI_Productos_A" target="_blank"><i class='bx bx-restaurant' ></i></a>
+          <a href="controlador.php?seccion=ADMI_Bebidas_A" target="_blank"><i class="fa-solid fa-martini-glass-citrus"></i></a>
         </div>
       </div>
     </div>

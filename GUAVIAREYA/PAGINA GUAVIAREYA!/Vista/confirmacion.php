@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <div class="col-md-12 ico-carro">
-            <a href="?seccion=shop"><i class="bx bxs-home"></i></a>
+            <a href="controlador.php?seccion=shop"><i class="bx bxs-home"></i></a>
         </div>
 
         <div class="subcontainer4">

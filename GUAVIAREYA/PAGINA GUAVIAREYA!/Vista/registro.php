@@ -54,12 +54,12 @@
             <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Numero telefonico">
           </div>
           <div class="row">
-            <small> <input type="checkbox"> He leído y acepto <a href="?seccion=terminos">los términos  de uso y condiciones </a> y las 
-                <a href="?seccion=politicas">las políticas de privacidad </a> </small>
+            <small> <input type="checkbox"> He leído y acepto <a href="controlador.php?seccion=terminos">los términos  de uso y condiciones </a> y las 
+                <a href="controlador.php?seccion=politicas">las políticas de privacidad </a> </small>
           </div>
         
           <div class="input-group mb-3">
-            <a href="?seccion=login"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a> 
+            <a href="controlador.php?seccion=login"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a> 
           </div>
         </div>
       </div>

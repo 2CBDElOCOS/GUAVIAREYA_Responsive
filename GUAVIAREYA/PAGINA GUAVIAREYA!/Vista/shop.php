@@ -12,19 +12,19 @@
     <header class="fixed-top bg-dark">
       <div class="row align-items-center">
         <div class="col-md-3">
-          <a href="?seccion=home" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
+          <a href="controlador.php?seccion=home" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
         </div>
         <div class="col-md-9 d-md-flex justify-content-md-end align-items-center">
           <nav class="navlist">
-            <a href="?seccion=home">Inicio</a>
-            <a href="?seccion=home">Sobre nosotros</a>
+            <a href="controlador.php?seccion=home">Inicio</a>
+            <a href="controlador.php?seccion=home">Sobre nosotros</a>
             <a href="#" target="_blank" class="active">Nuestra tienda</a>
             <a href="#contactanos">Contactanos </a>
           </nav>
           <div class="nav-icons1">
             <a href="#"><i class="bx bx-search"></i></a>
             <a href="#"><i class="bx bx-cart"></i></a>
-            <a href="?seccion=perfil"><i class="bx bx-user-circle"></i></a>
+            <a href="controlador.php?seccion=perfil"><i class="bx bx-user-circle"></i></a>
           </div>
         </div>
       </div>
@@ -39,8 +39,8 @@
           <h1>Hola #user,Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
-          <a href="?seccion=comida" target="_blank"><i class='bx bx-restaurant'></i></a>
-          <a href="?seccion=bebidas" target="_blank"><i class="fa-solid fa-martini-glass-citrus"></i></a>
+          <a href="controlador.php?seccion=comida" target="_blank"><i class='bx bx-restaurant'></i></a>
+          <a href="controlador.php?seccion=bebidas" target="_blank"><i class="fa-solid fa-martini-glass-citrus"></i></a>
         </div>
       </div>
     </div>

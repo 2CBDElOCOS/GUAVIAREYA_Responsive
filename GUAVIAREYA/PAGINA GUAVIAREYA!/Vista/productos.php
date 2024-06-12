@@ -30,8 +30,8 @@
 <body >
     <div class="container py-5">
         <div class="col-md-12 ico-header">
-            <a href="?seccion=comida"><i class="fa-solid fa-circle-arrow-left"></i></a>
-            <a href="?seccion=carrito"><i class="bx bx-cart"></i></a>
+            <a href="controlador.php?seccion=comida"><i class="fa-solid fa-circle-arrow-left"></i></a>
+            <a href="controlador.php?seccion=carrito"><i class="bx bx-cart"></i></a>
         </div>
 
         <h1 style="text-align: center; color: white;">#RESTAURANTE</h1>

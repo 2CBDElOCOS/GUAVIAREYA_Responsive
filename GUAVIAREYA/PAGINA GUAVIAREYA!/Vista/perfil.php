@@ -12,7 +12,7 @@
     <section id="hero3">
         <div class="subcontainer2">
             <div class="col-md-12 ico-footer1">
-                <a href="?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+                <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
             </div>
 
  
@@ -29,8 +29,8 @@
                                     <p class="text-secondary mb-1">San Jose del Guaviare</p>
                                     <p class="text-secondary mb-1">#Dirección</p>
                                     <p class="text-muted font-size-sm">3021233232</p>
-                                    <a href="?seccion=perfil_E">EDITAR DATOS</a>&nbsp;
-                                    <a href="?seccion=Perfil_P">TUS PEDIDOS</a>
+                                    <a href="controlador.php?seccion=perfil_E">EDITAR DATOS</a>&nbsp;
+                                    <a href="controlador.php?seccion=Perfil_P">TUS PEDIDOS</a>
                                 </div>
                             </div>
                         </div>

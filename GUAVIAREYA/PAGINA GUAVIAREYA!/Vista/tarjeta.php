@@ -7,7 +7,7 @@
     
     <div class="container">
         <div class="col-md-12 ico-footer1">
-            <a href="?seccion=carrito"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+            <a href="controlador.php?seccion=carrito"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
         </div>
         <div class="subcontainer4">
             
@@ -50,7 +50,7 @@
 
             </div>
 
-            <a href="?seccion=facturacion" style="text-decoration: none; color: #fff;"><button class="hacer-pedido"> Aceptar</button></a>
+            <a href="controlador.php?seccion=facturacion" style="text-decoration: none; color: #fff;"><button class="hacer-pedido"> Aceptar</button></a>
         </div>
     </div>
 </body>

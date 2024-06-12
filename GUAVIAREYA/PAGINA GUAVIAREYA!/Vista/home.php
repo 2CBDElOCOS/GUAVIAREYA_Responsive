@@ -1,3 +1,9 @@
+<head>
+  
+  <title><?php  $seccion = 'home';
+  echo $seccion;?></title>
+</head>
+
 <div class="container">
       <!--header-->
       <header class="fixed-top bg-dark">
@@ -13,8 +19,8 @@
               <a href="#contactanos">Contactanos </a>
             </nav>
             <div class="nav-icons">
-              <a href="?seccion=login"><i class="bx bx-search"></i></a>
-              <a href="?seccion=login"><i class="bx bx-cart"></i></a>
+              <a href="controlador.php?seccion=login"><i class="bx bx-search"></i></a>
+              <a href="controlador.php?seccion=login"><i class="bx bx-cart"></i></a>
             </div>
           </div>
         </div>
@@ -76,7 +82,7 @@
           <h4>Guaviareya@gmail.com</h4>
         </div>
         <div class="col-md-2 go-store">
-            <a href="?seccion=login" target="_blank"><button style="border-radius: 30px;">Tienda</button></a>
+            <a href="controlador.php?seccion=login" target="_blank"><button style="border-radius: 30px;">Tienda</button></a>
         </div>
         <div class="col-md-5 tlf">
           <h4>+57 3143920233</h4>

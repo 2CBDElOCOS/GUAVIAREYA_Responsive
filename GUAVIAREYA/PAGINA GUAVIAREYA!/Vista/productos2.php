@@ -8,7 +8,7 @@
 <body>
     <div class="container py-5">
         <div class="col-md-12 ico-footer">
-            <a href="shop.html"><i class="fa-solid fa-circle-arrow-left"></i></a>
+            <a href="controlador.php?seccion=shop"><i class="fa-solid fa-circle-arrow-left"></i></a>
         </div>
         <h1 class="text-center">#RESTAURANTE</h1>
         

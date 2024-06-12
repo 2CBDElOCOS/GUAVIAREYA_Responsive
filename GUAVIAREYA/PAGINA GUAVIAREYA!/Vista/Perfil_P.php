@@ -11,7 +11,7 @@
     <div class="container">
         <div class="main-body">
             <div class="col-md-12 ico-footer1">
-                <a href="?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+                <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
             </div>
             <div class="">
                 <h4>Tus Pedidos</h4>
@@ -31,7 +31,7 @@
                                     <p class="text-secondary mb-1">San Jose del Guaviare</p>
                                     <p class="text-secondary mb-1">#Dirección</p>
                                     <p class="text-muted font-size-sm">3021233232</p>
-                                    <a href="?seccion=perfil_E">EDITAR DATOS</a>
+                                    <a href="controlador.php?seccion=perfil_E">EDITAR DATOS</a>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                                 <div class="card-body"><br>
                                     <h6 class="d-flex align-items-center mb-3">¡No tienes ningún pedido! ¡Cambiemos eso!
                                     </h6>
-                                    <a href="shop.html"><button class="btn btn-primary" type="submit">¡Ordena
+                                    <a href="controlador.php?seccion=shop"><button class="btn btn-primary" type="submit">¡Ordena
                                             ya!</button></a>
                                 </div>
                             </div>

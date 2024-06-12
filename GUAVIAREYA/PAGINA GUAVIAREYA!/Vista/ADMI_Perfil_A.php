@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <div class="col-md-12 ico-carro">
-            <a href="?seccion=ADMI_Shop_A"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+            <a href="controlador.php?seccion=ADMI_Shop_A"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
         </div>
         <div class="main-body">
             <br>
@@ -30,11 +30,11 @@
                                     <p class="text-secondary mb-1">San Jose del Guaviare</p>
                                     <p class="text-secondary mb-1">#Dirección</p>
                                     <p class="text-muted font-size-sm">3021233232</p>
-                                    <a href="?seccion=ADMI_Editar_A"style="text-decoration: none;">EDITAR DATOS</a><br>
-                                    <a href="?seccion=ADMI_Ordenes" style="text-decoration: none;">Ordenes</a><br>
-                                    <a href="?seccion=ADMI_Horarios"style="text-decoration: none;">Horarios</a>
+                                    <a href="controlador.php?seccion=ADMI_Editar_A"style="text-decoration: none;">EDITAR DATOS</a><br>
+                                    <a href="controlador.php?seccion=ADMI_Ordenes" style="text-decoration: none;">Ordenes</a><br>
+                                    <a href="controlador.php?seccion=ADMI_Horarios"style="text-decoration: none;">Horarios</a>
                                     <br>
-                                    <i class='bx bx-exit' style="font-size: 20px;" ></i><a href="?seccion=home" style="text-decoration: none;text-align: center;">Cerrar sesión</a>
+                                    <i class='bx bx-exit' style="font-size: 20px;" ></i><a href="controlador.php?seccion=home" style="text-decoration: none;text-align: center;">Cerrar sesión</a>
                                     
                                 </div>
                             </div>

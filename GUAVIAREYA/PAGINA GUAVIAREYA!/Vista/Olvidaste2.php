@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="input-group mb-3 input-group mb-3 d-flex justify-content-center">
-                        <a href="login.html"><button class="btn btn-lg btn-primary w-100 fs-6">Confirmar</button></a>
+                        <a href="controlador.php?seccion=login"><button class="btn btn-lg btn-primary w-100 fs-6">Confirmar</button></a>
                     </div>
                 </div>
             </div>

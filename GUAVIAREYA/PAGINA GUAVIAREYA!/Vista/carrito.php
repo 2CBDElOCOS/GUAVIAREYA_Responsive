@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="col-md-12 ico-carro">
-            <a href="?seccion=productos"><i class="fa-solid fa-circle-arrow-left"></i></a>
+            <a href="controlador.php?seccion=productos"><i class="fa-solid fa-circle-arrow-left"></i></a>
         </div>
         <div class="subcontainer3">
             <div class="row">
@@ -68,7 +68,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="?seccion=tarjeta"><button class="btn-pagar">Pagar</button></a>
+                    <a href="controlador.php?seccion=tarjeta"><button class="btn-pagar">Pagar</button></a>
                 </div>
             </div>
         </div>

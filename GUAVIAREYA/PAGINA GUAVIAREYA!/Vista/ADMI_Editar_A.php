@@ -27,7 +27,7 @@
                                     <h4>#RESTAURANTE</h4>
                                     <p class="text-secondary mb-1">San Jose del Guaviare</p>
                                     <p class="text-muted font-size-sm">3021233232</p>
-                                    <a href="?seccion=ADMI_Horario2">EDITAR HORARIO</a>&nbsp;
+                                    <a href="controlador.php?seccion=ADMI_Horario2">EDITAR HORARIO</a>&nbsp;
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                  <a class="btn btn-info " target="__blank" href="?seccion=ADMI_Perfil_A">Guardar</a>
+                                  <a class="btn btn-info " target="__blank" href="controlador.php?seccion=ADMI_Perfil_A">Guardar</a>
                                 </div>
                               </div>
 
