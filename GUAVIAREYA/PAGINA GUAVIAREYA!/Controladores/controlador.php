@@ -1,4 +1,5 @@
 <?php
+
 $seccion = "home"; // Sección por defecto.
 
 if (isset($_GET['seccion'])) {
