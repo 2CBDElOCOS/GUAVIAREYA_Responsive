@@ -1,5 +1,5 @@
 <head>
-    <title><?php echo $seccion; ?></title>
+  <title><?php echo $seccion; ?></title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
           <div class="header-text mb-4">
             <h2 style="text-align: center;">INICIA SESION</h2>
           </div>
-          <form method="POST" action="/Controladores/Controlador_Usuario.php?accion=IniciarSesion">
+          <form method="POST" action="Controlador_Usuario.php">
             <div class="input-group mb-3">
               <input type="email" name="Correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo">
             </div>
@@ -58,4 +58,5 @@
   </div>
 
 </body>
+
 </html>

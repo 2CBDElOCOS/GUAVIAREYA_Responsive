@@ -1,3 +1,16 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['correo'])) {
+    header("location: ../Controladores/controlador.php?seccion=login");
+}
+
+if ($_SESSION['correo'] == "") {
+    header("location: ../Controladores/controlador.php?seccion=login");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +49,7 @@
     <div class="subcontainer">
       <div class="row hero">
         <div class="col-md-12 text-hero">
-          <h1>Hola #user,Bienvenido</h1>
+          <h1>Hola <?php echo $_SESSION['correo']; ?>,Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
           <a href="controlador.php?seccion=comida" target="_blank"><i class='bx bx-restaurant'></i></a>
