@@ -35,7 +35,7 @@
           <div class="header-text mb-4">
               <h2 style="text-align: center;">REGISTRATE</h2>
           </div>
-          <form action="../Controlador/Controlador_Usuario.php" method="POST">
+          <form action="Controlador_Registrar.php" method="POST">
               <div class="input-group mb-3">
                   <input type="text" name="Apodo" class="form-control form-control-lg bg-light fs-6" placeholder="Apodo">
               </div>

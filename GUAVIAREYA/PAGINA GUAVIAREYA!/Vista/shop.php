@@ -49,7 +49,7 @@ if ($_SESSION['correo'] == "") {
     <div class="subcontainer">
       <div class="row hero">
         <div class="col-md-12 text-hero">
-          <h1>Hola <?php echo $_SESSION['correo']; ?>,Bienvenido</h1>
+          <h1>Hola <?php echo $_SESSION['Apodo']; ?>, Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
           <a href="controlador.php?seccion=comida" target="_blank"><i class='bx bx-restaurant'></i></a>
