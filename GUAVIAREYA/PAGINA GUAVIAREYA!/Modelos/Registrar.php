@@ -37,7 +37,7 @@ class Registrar {
 
                 // Redirigir a la tienda después de registrar los datos
                 $conn->close();
-                header("location: ../Controladores/controlador.php?seccion=shop");
+                header("location: ../Controladores/controlador.php?seccion=login");
                 exit(); // Salir del script después de redirigir
             } else {
                 echo "Error al registrar los datos: " . $conn->error;

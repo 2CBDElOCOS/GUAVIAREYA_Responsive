@@ -5,17 +5,6 @@
 
     <title>GuaviareYa!</title>
 
-
-        <style>
-            body {
-                background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../media/hero.jpg");
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center center;
-            }
-        </style>
-
-
 </head>
 
 <body>
@@ -55,13 +44,6 @@
 
 
 
-    <!-- Scripts de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
-    <!-- Scripts de fontawesome -->
-    <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

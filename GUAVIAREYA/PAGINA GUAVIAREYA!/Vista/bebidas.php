@@ -5,16 +5,6 @@
 
     <title>GuaviareYa!</title>
 
-
-
-        <style>
-            body {
-                background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../media/hero.jpg");
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center center;
-            }
-        </style>
 </head>
 
 <body>
