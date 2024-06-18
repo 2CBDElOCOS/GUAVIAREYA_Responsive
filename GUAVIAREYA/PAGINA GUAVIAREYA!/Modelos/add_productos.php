@@ -37,7 +37,7 @@ class add_productos {
                 // Redirigir a otra página después de registrar los datos
                 $conn->close();
                 header("location: controlador.php?seccion=ADMI_Productos_A");
-                exit(); // Salir del script después de redirigir
+
             } else {
                 echo "Error al ingresar productos: " . $conn->error;
             }

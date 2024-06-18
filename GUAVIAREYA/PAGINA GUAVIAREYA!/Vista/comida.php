@@ -7,7 +7,7 @@
 
 </head>
 
-<body>
+<body class="body">
 
     <section id="hero3">
         <div class="subcontainer2">

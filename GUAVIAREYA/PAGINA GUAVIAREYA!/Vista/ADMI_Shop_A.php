@@ -7,7 +7,7 @@
 
 </head>
 
-<body>
+<body class="body">
 
   <div class="container">
     <!--header-->

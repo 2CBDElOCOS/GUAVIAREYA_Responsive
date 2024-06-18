@@ -10,6 +10,19 @@
     scroll-padding-top: 3rem;
 }
 
+.btn-primary:hover{
+    background-color: rgb(194, 112, 18);
+    border: none;
+}
+.btn-primary{
+    background-color: rgb(255, 144, 17);
+    border: none;
+}
+
+.fa-solid{
+    margin-left: 290px;
+    font-size: 20px;
+}
 
 
 

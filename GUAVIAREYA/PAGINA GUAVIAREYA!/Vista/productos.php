@@ -7,15 +7,16 @@
 
 </head>
 
-<body >
-    <div class="container py-5">
+<body class="body">
+    <div class="container">
+        
         <div class="col-md-12 ico-header">
             <a href="controlador.php?seccion=comida"><i class="fa-solid fa-circle-arrow-left"></i></a>
             <a href="controlador.php?seccion=carrito"><i class="bx bx-cart"></i></a>
         </div>
 
         <h1 style="text-align: center; color: white;">#RESTAURANTE</h1>
-        
+
         <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
             <div class="col">
@@ -28,7 +29,7 @@
                     </div>
                     <div class="mb-5 d-flex justify-content-around">
                         <h3>12.000</h3>
-                        <button class="btn btn-primary" >Agregar</button>
+                        <button class="btn btn-primary">Agregar</button>
                     </div>
                 </div>
             </div>
@@ -106,7 +107,9 @@
                         <button class="btn btn-primary">Agregar</button>
                     </div>
                 </div>
+
             </div>
+
 
 
         </div>
