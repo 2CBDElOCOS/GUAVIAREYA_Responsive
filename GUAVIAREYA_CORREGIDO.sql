@@ -152,6 +152,7 @@ FROM Usuarios, Pedidos
 WHERE Usuarios.correo = Pedidos.correo
 GROUP BY Usuarios.correo, Usuarios.Nombre, Usuarios.Apellido;
 
+SELECT Apodo, Nombre, Apellido, Telefono FROM Usuarios WHERE Correo="Janflazy@gmail.com";
 
 -- Seleccionar todas las tablas
 SELECT * FROM Usuarios;
