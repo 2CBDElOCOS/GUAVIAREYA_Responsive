@@ -15,8 +15,8 @@ CREATE TABLE Usuarios (
     Fec_Regis DATETIME NOT NULL,
     img_U LONGBLOB NOT NULL
 );
-INSERT INTO Usuarios (Correo,Apodo) VALUES ('Luis@gmail.com', 'Luis', 'Zapata', '','123456','3219418416');
 
+select * from Usuarios;
 /*ALTER TABLE Usuarios
 ADD Apodo VARCHAR(50) NOT NULL AFTER ID_User;*/
 
@@ -35,9 +35,9 @@ CREATE TABLE Productos (
     ID_Producto INT NOT NULL PRIMARY KEY,
     ID_Restaurante INT NOT NULL,
     Nombre_P VARCHAR(50) NOT NULL,
+    Descripcion varchar (300) not null,
     Valor_P INT NOT NULL,
     img_P LONGBLOB NOT NULL
-    
 );
 
 CREATE TABLE Dirrecion_Entregas (
@@ -60,7 +60,6 @@ CREATE TABLE Pagos (
 CREATE TABLE Domiciliarios (
     ID_Domiciliario INT NOT NULL PRIMARY KEY,
     Correo VARCHAR(50) NOT NULL,
-    ID_Pedido INT NOT NULL,
     Nombre_Domiciliario VARCHAR(20) NOT NULL,
     Telefono_Domi VARCHAR(15) NOT NULL,
     img_do LONGBLOB NOT NULL
@@ -68,10 +67,11 @@ CREATE TABLE Domiciliarios (
 
 CREATE TABLE Pedidos (
     ID_pedido INT NOT NULL PRIMARY KEY,
+	ID_Restaurante INT NOT NULL,
     ID_Producto INT NOT NULL,
-    ID_Restaurante INT NOT NULL,
-    Correo VARCHAR(50) NOT NULL,
-    cantidad INT NOT NULL
+    Descripcion varchar (300) not null,
+	cantidad INT NOT NULL,
+    Sub_total double not null
 );      
 
 CREATE TABLE Pedidos_factura (
@@ -79,6 +79,7 @@ CREATE TABLE Pedidos_factura (
     ID_pedido INT NOT NULL,
     Correo VARCHAR(50) NOT NULL,
     ID_Restaurante INT NOT NULL,
+	ID_Producto INT NOT NULL,
 	ID_Dire_Entre INT NOT NULL,
     ID_pago INT NOT NULL,
     ID_Domiciliario INT NOT NULL,
@@ -117,6 +118,10 @@ ADD CONSTRAINT FK_Dirrecion_Entregas_Pedidos_factura
 FOREIGN KEY (ID_Dire_Entre) REFERENCES Dirrecion_Entregas (ID_Dire_Entre);
 
 ALTER TABLE Pedidos_factura
+ADD CONSTRAINT FK_Pedidos_Pedidos_factura
+FOREIGN KEY (ID_Producto) REFERENCES Dirrecion_Entregas (ID_Producto);
+
+ALTER TABLE Pedidos_factura
 ADD CONSTRAINT FK_Domiciliarios_Pedidos_factura
 FOREIGN KEY (ID_Domiciliario) REFERENCES Domiciliarios (ID_Domiciliario);
 
@@ -140,6 +145,8 @@ ALTER TABLE Domiciliarios
 ADD CONSTRAINT FK_Usuarios_Domiciliarios
 FOREIGN KEY (Correo) REFERENCES Usuarios (Correo);
 
+
+/*
 -- Joins y selects
 
 -- Join usuario-pago
@@ -152,7 +159,6 @@ FROM Usuarios, Pedidos
 WHERE Usuarios.correo = Pedidos.correo
 GROUP BY Usuarios.correo, Usuarios.Nombre, Usuarios.Apellido;
 
-SELECT Apodo, Nombre, Apellido, Telefono FROM Usuarios WHERE Correo="Janflazy@gmail.com";
 
 -- Seleccionar todas las tablas
 SELECT * FROM Usuarios;
@@ -164,7 +170,7 @@ SELECT * FROM Pagos;
 SELECT * FROM Pedidos;
 select * from Pedidos_factura;
 
-INSERT INTO Usuarios (Correo, Apodo, Nombre, Apellido,Contrasena,Telefono) VALUES ('Zapata', 'Luis', 'Zapata', 'Luis@gmail.com','123456','3219418416');
+
 
 
 
