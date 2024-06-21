@@ -1,29 +1,25 @@
 <?php
-class delete_productos{
-    static function delete_productos(){
-        $servername = "127.0.0.1";
-        $username = "root";   
-        $password = "";
-        $dbname = "bd_guaviareya";
-        
+include 'Conexion.php';
+
+class delete_productos {
+    static function delete_productos() {
         // Verificar si se ha enviado el ID del producto a borrar
         if (isset($_POST['ID_Producto'])) {
             // Obtener el ID del producto a borrar
             $id_producto = $_POST['ID_Producto'];
 
-            // Crear conexión
-            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Crear conexión usando la función Conexion
+            $conn = Conexion();
 
-            // Verificar conexión
-            if ($conn->connect_error) {
-                die("Conexión fallida: " . $conn->connect_error);
-            }
-            
-            // Preparar la consulta SQL para borrar el producto de la tabla tb_productos
-            $sql = "DELETE FROM tb_productos WHERE ID_Producto = '$id_producto'";
+            // Preparar la consulta SQL para borrar el producto de la tabla Productos
+            $sql = "DELETE FROM Productos WHERE ID_Producto = ?";
+
+            // Preparar la declaración
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id_producto);
 
             // Ejecutar la consulta
-            if ($conn->query($sql) === TRUE) {
+            if ($stmt->execute()) {
                 // Redirigir a otra página después de borrar el producto
                 $conn->close();
                 header("location: ../Vista/ADMI_Productos_A.php");
@@ -33,9 +29,10 @@ class delete_productos{
             }
 
             // Cerrar la conexión
+            $conn->close();
         } else {
             echo "No se recibió el ID del producto a borrar";
         }
     }
-}  
+}
 ?>

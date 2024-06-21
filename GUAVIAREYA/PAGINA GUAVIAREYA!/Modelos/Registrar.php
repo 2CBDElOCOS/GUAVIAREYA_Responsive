@@ -1,12 +1,8 @@
 <?php
+include 'Conexion.php';
 
 class Registrar {
     static function Registrar() {
-        $servername = "127.0.0.1";
-        $username = "root";
-        $password = "";
-        $dbname = "bd_guaviareya";
-
         // Verificar si se han enviado los datos del formulario
         if (isset($_POST['Apodo']) && isset($_POST['Nombre']) && isset($_POST['Apellido']) && isset($_POST['Correo']) && isset($_POST['Contrasena']) && isset($_POST['Telefono'])) {
 
@@ -18,15 +14,10 @@ class Registrar {
             $contrasena = $_POST['Contrasena'];
             $telefono = $_POST['Telefono'];
 
-            // Crear conexión
-            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Crear conexión usando la función Conexion
+            $conn = Conexion();
 
-            // Verificar conexión
-            if ($conn->connect_error) {
-                die("Conexión fallida: " . $conn->connect_error);
-            }
-
-            // Preparar la consulta SQL para insertar los datos en la tabla tb_Personas
+            // Preparar la consulta SQL para insertar los datos en la tabla Usuarios
             $sql = "INSERT INTO Usuarios (Apodo, Nombre, Apellido, Correo, Contrasena, Telefono) VALUES ('$apodo', '$nombre', '$apellido', '$correo', '$contrasena', '$telefono')";
 
             // Ejecutar la consulta
