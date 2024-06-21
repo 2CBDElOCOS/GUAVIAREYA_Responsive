@@ -825,6 +825,15 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
+button.delete{
+    color: #000000;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
 
 .card input[type="text"],
 .card input[type="number"],

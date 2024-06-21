@@ -1,8 +1,11 @@
 <?php
-include 'Conexion.php';
+class Login{
+    static function IniciarSesion(){
+        $servername = "127.0.0.1";
+        $username = "root";
+        $password = "";
+        $dbname = "bd_guaviareya";
 
-class Login {
-    static function IniciarSesion() {
         // Verificar si se han enviado los datos del formulario
         if (isset($_POST['Correo']) && isset($_POST['Contrasena'])) {
 
@@ -10,11 +13,16 @@ class Login {
             $correo = $_POST['Correo'];
             $contrasena = $_POST['Contrasena'];
 
-            // Crear conexión usando la función getConnection
-            $conn = Conexion();
+            // Crear conexión
+            $conn = new mysqli($servername, $username, $password, $dbname);
 
+            // Verificar conexión
+            if ($conn->connect_error) {
+                die("Conexión fallida: " . $conn->connect_error);
+            }
+            
             // Preparar la consulta SQL para seleccionar los datos de la tabla Usuarios
-            $sql = "SELECT Apodo, Nombre FROM Usuarios WHERE Correo = '$correo' AND Contrasena = '$contrasena'";
+            $sql = "SELECT Apodo FROM Usuarios WHERE Correo = '$correo' AND Contrasena = '$contrasena'";
 
             // Ejecutar la consulta
             $result = $conn->query($sql);
@@ -33,5 +41,6 @@ class Login {
             // Cerrar la conexión
             $conn->close();
         }
-    }}
+    }
+}
 ?>

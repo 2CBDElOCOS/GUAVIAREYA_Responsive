@@ -25,7 +25,7 @@
                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                     class="rounded-circle" width="150">
                                 <div class="mt-3">
-                                    <h4>#APODO</h4>
+                                    <h4>#USUARIO</h4>
                                     <p class="text-secondary mb-1">San Jose del Guaviare</p>
                                     <p class="text-secondary mb-1">#Dirección</p>
                                     <p class="text-muted font-size-sm">3021233232</p>
