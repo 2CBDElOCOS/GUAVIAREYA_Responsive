@@ -55,7 +55,7 @@
               </div>
               <div class="row">
                 <small>
-                    <input type="checkbox"> He leído y acepto <a href="terminos.html">los términos de uso y condiciones</a> y las
+                    <input type="checkbox"> He leído y acepto <a href="controlador.php?seccion=terminos">los términos de uso y condiciones</a> y las
                     <a href="politicas.php">políticas de privacidad</a>
                 </small>
               </div>
