@@ -1,28 +1,46 @@
 <?php
-include 'Conexion.php';
+class delete_productos
+{
+    static function delete_productos()
+    {
+        $servername = "127.0.0.1";
+        $username = "root";
+        $password = "";
+        $dbname = "bd_guaviareya";
 
-class delete_productos {
-    static function delete_productos() {
         // Verificar si se ha enviado el ID del producto a borrar
         if (isset($_POST['ID_Producto'])) {
             // Obtener el ID del producto a borrar
             $id_producto = $_POST['ID_Producto'];
 
-            // Crear conexión usando la función Conexion
-            $conn = Conexion();
+            // Crear conexión
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Verificar conexión
+            if ($conn->connect_error) {
+                die("Conexión fallida: " . $conn->connect_error);
+            }
+
+            // Obtener el nombre del archivo de imagen del producto
+            $sql = "SELECT img_P FROM Productos WHERE ID_Producto = '$id_producto'";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            $img_P = $row['img_P'];
+
+            // Borrar el archivo de imagen
+            $image_path = "../media_productos/" . $img_P;
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
 
             // Preparar la consulta SQL para borrar el producto de la tabla Productos
-            $sql = "DELETE FROM Productos WHERE ID_Producto = ?";
-
-            // Preparar la declaración
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("i", $id_producto);
+            $sql = "DELETE FROM Productos WHERE ID_Producto = '$id_producto'";
 
             // Ejecutar la consulta
-            if ($stmt->execute()) {
+            if ($conn->query($sql) === TRUE) {
                 // Redirigir a otra página después de borrar el producto
                 $conn->close();
-                header("location: ../Vista/ADMI_Productos_A.php");
+                header("location: controlador.php?seccion=ADMI_Productos_A");
                 exit(); // Salir del script después de redirigir
             } else {
                 echo "Error al borrar el producto: " . $conn->error;
@@ -35,4 +53,3 @@ class delete_productos {
         }
     }
 }
-?>
