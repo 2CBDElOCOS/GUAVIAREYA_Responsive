@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>PERFILPEDIDOS</title>
+    <title>PERFIL PEDIDOS</title>
 
 </head>
 

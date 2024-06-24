@@ -27,7 +27,7 @@
         <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
 
     <?php
-    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A') {
+    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A'|| $seccion == 'Cambiar_clave') {
     ?>
         <link rel="stylesheet" href="../css/styles.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
