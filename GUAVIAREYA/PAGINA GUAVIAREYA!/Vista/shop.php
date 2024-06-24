@@ -53,7 +53,6 @@ if ($_SESSION['correo'] == "") {
         </div>
         <div class="col-md-12 ico-hero">
           <a href="controlador.php?seccion=comida" target="_blank"><i class='bx bx-restaurant'></i></a>
-          <a href="controlador.php?seccion=bebidas" target="_blank"><i class="fa-solid fa-martini-glass-citrus"></i></a>
         </div>
       </div>
     </div>

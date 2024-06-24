@@ -39,7 +39,6 @@
         </div>
         <div class="col-md-12 ico-hero">
           <a href="controlador.php?seccion=ADMI_Productos_A" target="_blank"><i class='bx bx-restaurant' ></i></a>
-          <a href="controlador.php?seccion=ADMI_Bebidas_A" target="_blank"><i class="fa-solid fa-martini-glass-citrus"></i></a>
         </div>
       </div>
     </div>

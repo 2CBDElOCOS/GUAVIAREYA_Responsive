@@ -3,10 +3,6 @@
 
 <head>
     <title>GuaviareYa!</title>
-    <!-- Add the necessary styles and scripts -->
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
-    <script src="path/to/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body class="body">
@@ -24,12 +20,15 @@
             $mostrarProductos = new mostrar_productos();
             $productos = $mostrarProductos->obtenerProductos();
 
-            foreach ($productos as $i => $producto) {   
+            foreach ($productos as $producto) {   
                 echo '
                 <div class="col">
                     <div class="card">
-                        <i class="fa fa-trash"></i>
-                        <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media/pi1.png" class="rounded float-start" alt="...">
+                        <form method="post" action="../Controladores/controlador_eliminar.php" onsubmit="return confirm(\'¿Estás seguro de que quieres eliminar este producto?\');">
+                            <input type="hidden" name="ID_Producto" value="' . $producto['ID_Producto'] . '">
+                            <button type="submit" <i class="fa fa-trash"></i></button>
+                        </form>
+                        <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media_productos/' . $producto['img_P'] . '" class="rounded float-start" alt="Imagen de ' . $producto['Nombre_P'] . '">
                         <div class="card-body">
                             <h5 class="card-title">' . $producto['Nombre_P'] . '</h5>
                             <p class="card-text">' . $producto['Descripcion'] . '</p>
@@ -50,4 +49,3 @@
 </body>
 
 </html>
-

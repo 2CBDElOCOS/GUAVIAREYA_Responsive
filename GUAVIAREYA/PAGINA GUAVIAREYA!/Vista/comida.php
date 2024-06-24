@@ -15,25 +15,32 @@
                 <div class="col-md-12 ico-footer">
                     <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
                 </div>
-                    
+
                 <h1>RESTAURANTES</h1>
 
-                <div class="row restaurantes">
-                    <div class="col-md-4 comida">
-                        <a href="controlador.php?seccion=productos"><img src="../media/RES1.png" alt="pizza hot"></a>
+                <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+                    <?php
+                    include('../Modelos/mostrar_restaurantes.php');
+
+                    $mostrarProductos = new mostrar_restaurantes();
+                    $restaurantes = $mostrarProductos->obtenerRestaurantes();
+
+                    foreach ($restaurantes as $restaurantes) {
+                        echo '
+                <div class="col">
+                    <div class="card">
+                        <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media_restaurantes/' . $restaurantes['img_R'] . '" class="rounded float-start" alt="Imagen de ' . $restaurantes['Nombre_R'] . '">
+                        <div class="card-body">
+                            <h5 class="card-title"> NOMBRE: '. $restaurantes['Nombre_R'] . '</h5>
+                            <p class="card-text">  Direcion: ' . $restaurantes['Dirrecion'] . '</p>
+                            <p class="card-text">  Telefono: '  . $restaurantes['Telefono'] . '</p>
+                        </div>
                     </div>
-                    <div class="col-md-4 comida">
-                        <img src="../media/RES2.png" alt="" >
-                    </div>
-                    <div class="col-md-4 comida">
-                        <img src="../media/RES3.png" alt="" >
-                    </div>
+                </div>';
+                    }
+                    ?>
                 </div>
-                <div class="row restaurantes">
-                    <div class="col-md-4 comida"></div>
-                    <div class="col-md-4 comida"></div>
-                    <div class="col-md-4 comida"></div>
-                </div>
+
             </div>
 
 
