@@ -14,7 +14,7 @@
     <header class="fixed-top bg-dark">
         <div class="row align-items-center">
           <div class="col-md-3">
-            <a href="#" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
+            <a href="controlador.php?seccion=home" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
           </div>
           <div class="col-md-9 d-md-flex justify-content-md-end align-items-center">
             <nav class="navlist">

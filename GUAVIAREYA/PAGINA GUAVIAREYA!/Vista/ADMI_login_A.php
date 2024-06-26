@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  
+
   <title>Ingresa Admi</title>
 </head>
 
@@ -29,28 +29,31 @@
       <div class="col-md-6 right-box">
         <div class="row align-items-center">
           <div class="header-text mb-4">
-            <h2 style="text-align: center;">ADMINISTRADOR</h2>
-
+            <h2 style="text-align: center;">Administrador</h2>
           </div>
-          <div class="input-group mb-3">
-            <input type="email" class="form-control form-control-lg bg-light fs-6" placeholder="Correo">
-          </div>
-          <div class="input-group mb-1">
-            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña">
-          </div>
-          <div class="input-group mb-5 d-flex justify-content-between">
-            <div class="forgot">
-              <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
+          <form method="POST" action="Controlador_Usuario_admi.php">
+            <div class="input-group mb-3">
+              <input type="email" name="correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo">
             </div>
-          </div>
-          <div class="input-group mb-3">
-            <a href="controlador.php?seccion=ADMI_Shop_A"><button class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button></a>
-          </div>
+            <div class="input-group mb-1">
+              <input type="password" name="contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña">
+            </div>
+            <div class="input-group mb-5 d-flex justify-content-between">
+              <div class="forgot">
+                <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button>
+            </div>
+          </form>
           <div class="row">
-            <small>¿No tienes una cuenta? <a href="controlador.php?seccion=home">Comunicate con nosotros</a></small>
+          <small>¿No tienes una cuenta? <a href="controlador.php?seccion=home">Comunicate con nosotros</a></small>
+
           </div>
         </div>
       </div>
+
 
     </div>
   </div>

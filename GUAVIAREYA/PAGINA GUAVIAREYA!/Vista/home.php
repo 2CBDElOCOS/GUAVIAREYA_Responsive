@@ -17,6 +17,7 @@
               <a href="#sobre">Sobre nosotros</a>
               <a href="controlador.php?seccion=login" target="_blank">Nuestra tienda</a>
               <a href="#contactanos">Contactanos </a>
+              <a href="">video</a>
             </nav>
             <div class="nav-icons">
               <a href="controlador.php?seccion=login"><i class="bx bx-search"></i></a>
