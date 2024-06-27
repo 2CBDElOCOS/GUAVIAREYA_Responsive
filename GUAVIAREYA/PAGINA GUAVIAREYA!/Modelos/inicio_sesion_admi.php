@@ -7,7 +7,6 @@ class Login {
     static function IniciarSesion() {
         // Verificar si se han enviado los datos del formulario
         if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
-            
             // Obtener los datos del formulario
             $correo = $_POST['correo'];
             $contrasena = $_POST['contrasena'];
@@ -16,28 +15,37 @@ class Login {
             $conn = Conexion();
 
             // Preparar la consulta SQL para seleccionar los datos de la tabla administrador
-            $sql = "SELECT apodo FROM administrador WHERE correo = '$correo' AND contrasena = '$contrasena'";
+            $sql = "SELECT apodo, ID_Restaurante FROM administrador WHERE correo = ? AND contrasena = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $correo, $contrasena);
+            $stmt->execute();
+            $stmt->store_result();
 
-            // Ejecutar la consulta
-            $result = $conn->query($sql);
+            // Verificar si se encontró un administrador con las credenciales dadas
+            if ($stmt->num_rows > 0) {
+                // Vincular los resultados a variables
+                $stmt->bind_result($apodo, $id_restaurante);
 
-            // Verificar si se obtuvo un resultado
-            if ($result->num_rows > 0) {
-                // Obtener los datos del resultado
-                $row = $result->fetch_assoc();
-                // Guardar el apodo del usuario en la sesión
-                $_SESSION['apodo'] = $row['apodo'];
+                // Obtener el primer (y único) resultado
+                $stmt->fetch();
 
-                // Cerrar la conexión y retornar 1 indicando éxito
+                // Iniciar sesión y guardar datos necesarios en la sesión
+                session_start();
+                $_SESSION['apodo'] = $apodo;
+                $_SESSION['id_restaurante'] = $id_restaurante;
+
+                // Cerrar la declaración y la conexión
+                $stmt->close();
                 $conn->close();
-                return 1;
-            } else {
-                // Retornar 0 indicando que las credenciales son incorrectas
-                return 0;
-            }
 
-            // Cerrar la conexión
-            $conn->close();
+                // Retornar verdadero indicando éxito
+                return true;
+            } else {
+                // Si no se encontraron resultados, retornar falso indicando credenciales incorrectas
+                $stmt->close();
+                $conn->close();
+                return false;
+            }
         }
     }
 }

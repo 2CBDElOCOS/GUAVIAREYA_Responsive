@@ -2,7 +2,7 @@
 include 'Conexion.php';
 
 class Registrar {
-    static function Registrar() {
+    static function registrarUsuario() {
         // Verificar si se han enviado los datos del formulario
         if (isset($_POST['Apodo']) && isset($_POST['Nombre']) && isset($_POST['Apellido']) && isset($_POST['Correo']) && isset($_POST['Contrasena']) && isset($_POST['Telefono'])) {
 

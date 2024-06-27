@@ -10,6 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     Registrar::registrarUsuario();
 } else {
     // Cargar la vista de registro si no se han enviado datos
-    include("../Vista/registro.php");
+    header("location: ../Controladores/controlador.php?seccion=registro.php");
 }
 ?>

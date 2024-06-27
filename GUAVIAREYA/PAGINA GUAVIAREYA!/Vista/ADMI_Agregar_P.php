@@ -8,15 +8,6 @@
 <body style="max-width: 400px; justify-content: center; margin: 0 auto;">
     <form id="productForm" enctype="multipart/form-data" method="POST" action="controlador_productos.php" class="card" style="margin-top: 100px;">
         <h1>Agregar Producto</h1>
-        <label for="ID_Producto" class="label">
-            <h4>ID_Producto</h4>
-        </label>
-        <input type="text" id="ID_Producto" name="ID_Producto">
-
-        <label for="ID_Restaurante" class="label">
-            <h4>ID_Restaurante</h4>
-        </label>
-        <input type="text" id="ID_Restaurante" name="ID_Restaurante">
 
         <label for="Nombre_P" class="label">
             <h4>Nombre del Producto:</h4>

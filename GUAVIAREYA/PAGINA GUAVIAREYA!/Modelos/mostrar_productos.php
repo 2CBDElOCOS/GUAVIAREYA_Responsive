@@ -1,35 +1,32 @@
 <?php
 include 'Conexion.php';
 
-// Clase para mostrar productos
 class mostrar_productos {
-    private $conn; // Variable privada para almacenar la conexión
+    public function obtenerProductosPorRestaurante($id_restaurante) {
+        $conn = Conexion();
 
-    // Constructor para inicializar la conexión
-    public function __construct() {
-        $this->conn = Conexion(); // Utilizar la función Conexion para establecer la conexión
-    }
-
-    // Método para obtener todos los productos desde la base de datos
-    public function obtenerProductos() {
-        $sql = "SELECT * FROM Productos"; // Consulta SQL para seleccionar todos los productos
-        $result = $this->conn->query($sql); // Ejecutar la consulta SQL
-        $productos = []; // Inicializar un array para almacenar los productos
-
-        // Verificar si se obtuvieron resultados
-        if ($result->num_rows > 0) {
-            // Recorrer los resultados y agregar cada fila como un elemento al array de productos
-            while ($row = $result->fetch_assoc()) {
-                $productos[] = $row;
-            }
+        if ($conn->connect_error) {
+            die("Conexión fallida: " . $conn->connect_error);
         }
 
-        return $productos; // Retornar el array de productos
-    }
+        // Preparar la consulta SQL para obtener productos por ID_Restaurante
+        $sql = "SELECT * FROM Productos WHERE ID_Restaurante = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die("Error en la preparación de la consulta: " . $conn->error);
+        }
+        $stmt->bind_param("i", $id_restaurante);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    // Destructor para cerrar la conexión cuando el objeto se destruye
-    public function __destruct() {
-        $this->conn->close(); // Cerrar la conexión
+        $productos = [];
+        while ($row = $result->fetch_assoc()) {
+            $productos[] = $row;
+        }
+
+        $stmt->close();
+        $conn->close();
+        return $productos;
     }
 }
 ?>
