@@ -1,17 +1,7 @@
 CREATE SCHEMA bd_guaviareya;
 USE bd_guaviareya;
-/*DROP SCHEMA bd_guaviareya;*/
 
--- Creación de tablas
-
-CREATE TABLE administrador(
-    correo VARCHAR(50) NOT NULL PRIMARY KEY,
-    apodo VARCHAR(50) NOT NULL,
-    contrasena VARCHAR(50) NOT NULL
-);
-
-select * from administrador;
-
+-- Tabla Usuarios
 CREATE TABLE Usuarios (
     Correo VARCHAR(50) NOT NULL PRIMARY KEY,
     Apodo VARCHAR(50) NOT NULL,
@@ -23,6 +13,7 @@ CREATE TABLE Usuarios (
     img_U VARCHAR(200) NOT NULL
 );
 
+-- Tabla Restaurantes
 CREATE TABLE Restaurantes (
     ID_Restaurante INT NOT NULL PRIMARY KEY,
     Nombre_R VARCHAR(50) NOT NULL,
@@ -31,8 +22,23 @@ CREATE TABLE Restaurantes (
     img_R VARCHAR(200) NOT NULL
 );
 
+select * from Restaurantes;
+-- Tabla Administrador
+CREATE TABLE administrador (
+    correo VARCHAR(50) NOT NULL PRIMARY KEY,
+    apodo VARCHAR(50) NOT NULL,
+    ID_Restaurante INT NOT NULL,
+    contrasena VARCHAR(50) NOT NULL,
+    CONSTRAINT FK_Restaurantes_Administrador FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
+);
+
+select * from administrador;
+
+SELECT * FROM Productos WHERE ID_Restaurante = 2;
+
+-- Tabla Productos
 CREATE TABLE Productos (
-    ID_Producto INT NOT NULL PRIMARY KEY,
+    ID_Producto INT AUTO_INCREMENT PRIMARY KEY,
     ID_Restaurante INT NOT NULL,
     Nombre_P VARCHAR(50) NOT NULL,
     Descripcion VARCHAR(300) NOT NULL,
@@ -41,6 +47,8 @@ CREATE TABLE Productos (
     CONSTRAINT FK_Restaurantes_Productos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
 );
 
+select * from Productos;
+-- Tabla Direccion_Entregas
 CREATE TABLE Direccion_Entregas (
     ID_Dire_Entre INT NOT NULL PRIMARY KEY,
     Correo VARCHAR(50) NOT NULL,
@@ -50,6 +58,7 @@ CREATE TABLE Direccion_Entregas (
     CONSTRAINT FK_Usuarios_Direccion_Entregas FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
 );
 
+-- Tabla Pagos
 CREATE TABLE Pagos (
     ID_Pago INT NOT NULL PRIMARY KEY,
     Correo VARCHAR(50) NOT NULL,
@@ -60,6 +69,7 @@ CREATE TABLE Pagos (
     CONSTRAINT FK_Usuarios_Pagos FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
 );
 
+-- Tabla Domiciliarios
 CREATE TABLE Domiciliarios (
     ID_Domiciliario INT NOT NULL PRIMARY KEY,
     Correo VARCHAR(50) NOT NULL,
@@ -69,6 +79,7 @@ CREATE TABLE Domiciliarios (
     CONSTRAINT FK_Usuarios_Domiciliarios FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
 );
 
+-- Tabla Pedidos
 CREATE TABLE Pedidos (
     ID_pedido INT NOT NULL PRIMARY KEY,
     ID_Restaurante INT NOT NULL,
@@ -80,6 +91,7 @@ CREATE TABLE Pedidos (
     CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
 );
 
+-- Tabla Pedidos_factura
 CREATE TABLE Pedidos_factura (
     ID_Pedifac INT NOT NULL PRIMARY KEY,
     ID_pedido INT NOT NULL,
@@ -105,8 +117,8 @@ CREATE TABLE Pedidos_factura (
 -- Joins y selects
 
 -- Join usuario-pago
-SELECT * FROM Usuarios t1, Pagos t2
-WHERE t2.Correo = t1.Correo;
+SELECT * FROM Usuarios t1
+JOIN Pagos t2 ON t2.Correo = t1.Correo;
 
 -- Join de Usuario - n° pedidos
 SELECT Usuarios.Correo, Usuarios.Nombre, Usuarios.Apellido, COUNT(Pedidos.ID_pedido) AS Num_Pedidos
@@ -123,13 +135,3 @@ SELECT * FROM Domiciliarios;
 SELECT * FROM Pagos;
 SELECT * FROM Pedidos;
 SELECT * FROM Pedidos_factura;
-
--- Drop de todas las tablas
--- DROP TABLE IF EXISTS Pedidos_factura;
--- DROP TABLE IF EXISTS Pedidos;
--- DROP TABLE IF EXISTS Domiciliarios;
--- DROP TABLE IF EXISTS Direccion_Entregas;
--- DROP TABLE IF EXISTS Productos;
--- DROP TABLE IF EXISTS Restaurantes;
--- DROP TABLE IF EXISTS Pagos;
--- DROP TABLE IF EXISTS Usuarios;
