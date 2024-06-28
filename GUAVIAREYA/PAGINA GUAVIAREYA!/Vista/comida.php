@@ -32,7 +32,7 @@
                         <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media_restaurantes/' . $restaurantes['img_R'] . '" class="rounded float-start" alt="Imagen de ' . $restaurantes['Nombre_R'] . '">
                         <div class="card-body">
                             <h5 class="card-title"> NOMBRE: '. $restaurantes['Nombre_R'] . '</h5>
-                            <p class="card-text">  Direcion: ' . $restaurantes['Direcion'] . '</p>
+                            <p class="card-text">  Direcion: ' . $restaurantes['Direccion'] . '</p>
                             <p class="card-text">  Telefono: '  . $restaurantes['Telefono'] . '</p>
                         </div>
                     </div>
