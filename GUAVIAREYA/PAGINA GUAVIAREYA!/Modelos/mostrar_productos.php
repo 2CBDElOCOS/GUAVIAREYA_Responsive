@@ -2,28 +2,31 @@
 include 'Conexion.php';
 
 class mostrar_productos {
-    private $conn;
+    public function obtenerProductosPorRestaurante($id_restaurante) {
+        $conn = Conexion();
 
-    public function __construct() {
-        $this->conn = Conexion(); // Utilizar la función Conexion
-    }
-
-    public function obtenerProductos() {
-        $sql = "SELECT * FROM Productos";
-        $result = $this->conn->query($sql);
-        $productos = [];
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $productos[] = $row;
-            }
+        if ($conn->connect_error) {
+            die("Conexión fallida: " . $conn->connect_error);
         }
 
-        return $productos;
-    }
+        // Preparar la consulta SQL para obtener productos por ID_Restaurante
+        $sql = "SELECT * FROM Productos WHERE ID_Restaurante = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die("Error en la preparación de la consulta: " . $conn->error);
+        }
+        $stmt->bind_param("i", $id_restaurante);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    public function __destruct() {
-        $this->conn->close();
+        $productos = [];
+        while ($row = $result->fetch_assoc()) {
+            $productos[] = $row;
+        }
+
+        $stmt->close();
+        $conn->close();
+        return $productos;
     }
 }
 ?>

@@ -35,7 +35,7 @@
     <div class="subcontainer">
       <div class="row hero1">
         <div class="col-md-12 text-hero">
-          <h1>Hola #Administrador, Bienvenido</h1>
+          <h1>Hola <?php echo $_SESSION['apodo']; ?>, Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
           <a href="controlador.php?seccion=ADMI_Productos_A" target="_blank"><i class='bx bx-restaurant' ></i></a>

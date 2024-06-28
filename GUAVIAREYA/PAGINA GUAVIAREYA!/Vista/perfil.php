@@ -40,8 +40,6 @@ $user = DataUser::getUserByEmail($userEmail);
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <br>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-                                    class="rounded-circle" width="150">
                                <?php echo htmlspecialchars($user['img_U']); ?>
                                 <div class="mt-3">
                                     <?php echo htmlspecialchars($user['Apodo']); ?>
@@ -57,9 +55,6 @@ $user = DataUser::getUserByEmail($userEmail);
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="controlador.php?seccion=Perfil_P">Tus pedidos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="controlador.php?seccion=Controlador_Logout">Cerrar sesion</a>
                                     </li>
                                     </ul>
                                 </div>

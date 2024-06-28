@@ -1,44 +1,43 @@
 <?php
 include 'Conexion.php';
 
+// Clase para manejar el inicio de sesión
 class Login {
-    static function IniciarSesion($correo, $contrasena) {
-        if (isset($_SESSION['intentos'])) {
-            $_SESSION['intentos']++;
-        } else {
-            $_SESSION['intentos'] = 1;
-        }
+    // Método estático para iniciar sesión
+    static function IniciarSesion() {
+        // Verificar si se han enviado los datos del formulario
+        if (isset($_POST['Correo']) && isset($_POST['Contrasena'])) {
 
-        if ($_SESSION['intentos'] >= 3) {
-            // Si hay 3 intentos fallidos, bloquear temporalmente
-            $_SESSION['bloqueado_hasta'] = time() + 60; // Bloquear por 60 segundos
-            unset($_SESSION['intentos']);
-            return 2; // Indicar que está bloqueado
-        }
+            // Obtener los datos del formulario
+            $correo = $_POST['Correo'];
+            $contrasena = $_POST['Contrasena'];
 
-        // Crear conexión usando la función getConnection
-        $conn = Conexion();
+            // Crear conexión usando la función Conexion
+            $conn = Conexion();
 
-        // Preparar la consulta SQL para seleccionar los datos de la tabla Usuarios
-        $sql = "SELECT Apodo, Nombre FROM Usuarios WHERE Correo = '$correo' AND Contrasena = '$contrasena'";
+            // Preparar la consulta SQL para seleccionar los datos de la tabla Usuarios
+            $sql = "SELECT Apodo, Nombre FROM Usuarios WHERE Correo = '$correo' AND Contrasena = '$contrasena'";
 
-        // Ejecutar la consulta
-        $result = $conn->query($sql);
+            // Ejecutar la consulta
+            $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $_SESSION['Apodo'] = $row['Apodo'];
+            // Verificar si se obtuvo un resultado
+            if ($result->num_rows > 0) {
+                // Obtener los datos del resultado
+                $row = $result->fetch_assoc();
+                // Guardar el apodo del usuario en la sesión
+                $_SESSION['Apodo'] = $row['Apodo'];
+                
+                // Cerrar la conexión y retornar 1 indicando éxito
+                $conn->close();
+                return 1;
+            } else {
+                // Retornar 0 indicando que las credenciales son incorrectas
+                return 0;
+            }
 
-            // Reiniciar contador de intentos al iniciar sesión exitosamente
-            unset($_SESSION['intentos']);
-
-            // Cerrar la conexión y redirigir a otra página después de registrar los datos
-            $conn->close();
-            return 1; // Indicar que el inicio de sesión fue exitoso
-        } else {
             // Cerrar la conexión
             $conn->close();
-            return 0; // Indicar que los datos de inicio de sesión son incorrectos
         }
     }
 }
