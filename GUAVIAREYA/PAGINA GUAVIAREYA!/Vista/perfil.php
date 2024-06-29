@@ -33,29 +33,34 @@ $user = DataUser::getUserByEmail($userEmail);
                 <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
             </div>
 
- 
+
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <br>
-                               <?php echo htmlspecialchars($user['img_U']); ?>
+                                <?php echo htmlspecialchars($user['img_U']); ?>
                                 <div class="mt-3">
                                     <?php echo htmlspecialchars($user['Apodo']); ?>
                                     <p class="text-secondary mb-1">San Jose del Guaviare</p>
                                     <p class="text-secondary mb-1">#Dirección</p>
                                     <p class="text-muted font-size-sm"><?php echo htmlspecialchars($user['Telefono']); ?></p>
                                     <ul class="nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="controlador.php?seccion=perfil_E">Editar datos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="controlador.php?seccion=Cambiar_clave">Cambiar Contraseña</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="controlador.php?seccion=Perfil_P">Tus pedidos</a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" aria-current="page" href="controlador.php?seccion=perfil_E">Editar datos</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="controlador.php?seccion=Cambiar_clave">Cambiar Contraseña</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="controlador.php?seccion=Perfil_P">Tus pedidos</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
+                                        </li>
+
+
                                     </ul>
                                 </div>
                             </div>
@@ -97,7 +102,7 @@ $user = DataUser::getUserByEmail($userEmail);
                                     <h6 class="mb-0">Teléfono</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    #Telefono
+                                    <?php echo htmlspecialchars($user['Telefono']); ?>
                                 </div>
                             </div>
                             <hr>
@@ -131,4 +136,3 @@ $user = DataUser::getUserByEmail($userEmail);
 </body>
 
 </html>
-

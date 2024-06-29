@@ -34,7 +34,7 @@
                                     <a href="controlador.php?seccion=ADMI_Ordenes" style="text-decoration: none;">Ordenes</a><br>
                                     <a href="controlador.php?seccion=ADMI_Horarios"style="text-decoration: none;">Horarios</a>
                                     <br>
-                                    <i class='bx bx-exit' style="font-size: 20px;" ></i><a href="controlador.php?seccion=home" style="text-decoration: none;text-align: center;">Cerrar sesión</a>
+                                    <i class='bx bx-exit' style="font-size: 20px;" ></i><a href="../Controladores/controlador_cerrar_session.php" style="text-decoration: none;text-align: center;">Cerrar sesión</a>
                                     
                                 </div>
                             </div>
