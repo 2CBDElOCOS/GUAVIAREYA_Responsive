@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-
-  <title>Ingresa Admi</title>
+    <meta charset="UTF-8">
+    <title>Ingresa Admi</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -25,17 +26,23 @@
                     </div>
                     <form method="POST" action="Controlador_Usuario_admi.php">
                         <div class="input-group mb-3">
-                            <input type="email" name="correo" class="form-control form-control-lg bg-light fs-6"
-                                placeholder="Correo">
+                            <input type="email" name="correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo" required>
                         </div>
                         <div class="input-group mb-1">
-                            <input type="password" name="contrasena"
-                                class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña">
+                            <input type="password" name="contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña" required>
                         </div>
+
+                        <?php if (isset($_GET['error'])): ?>
+                        <div class="w-100">
+                            <div class="alert alert-danger mt-2 w-100" role="alert">
+                                <?php echo htmlspecialchars($_GET['error']); ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
                         <div class="input-group mb-5 d-flex justify-content-between">
                             <div class="forgot">
-                                <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu
-                                        contraseña?</a></small>
+                                <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
                             </div>
                         </div>
                         <div class="input-group mb-3">
@@ -43,7 +50,7 @@
                         </div>
                     </form>
                     <div class="row">
-                        <small>¿No tienes una cuenta? <a href="controlador.php?seccion=home">Comunicate con nosotros</a></small>
+                        <small>¿No tienes una cuenta? <a href="controlador.php?seccion=home">Comunícate con nosotros</a></small>
                     </div>
                 </div>
             </div>
