@@ -37,6 +37,13 @@
                     <input type="hidden" name="ID_Producto" value="' . $producto['ID_Producto'] . '">
                     <button type="submit"><i class="fa fa-trash"></i></button>
                 </form>
+                <br>
+                
+                <form method="post" action="../Controladores/controlador_editar.php" onsubmit="return confirm(\'¿Estás seguro de que quieres editar este producto?\');">
+                    <input type="hidden" name="ID_Producto" value="' . $producto['ID_Producto'].  '">
+                    <button type="submit"><i class="fa-regular fa-pen-to-square"></i></button>
+                </form>
+
                 <img style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: 20px;" src="../media_productos/' . $producto['img_P'] . '" class="rounded float-start" alt="Imagen de ' . $producto['Nombre_P'] . '">
                 <div class="card-body">
                     <h5 class="card-title">' . $producto['Nombre_P'] . '</h5>

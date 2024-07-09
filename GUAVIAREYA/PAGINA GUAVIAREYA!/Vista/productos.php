@@ -17,9 +17,9 @@
 
         $mostrarProductos = new mostrar_productos();
 
-        // Verificar si el ID_Restaurante está almacenado en la sesión
-        if (isset($_SESSION['ID_Restaurante'])) {
-            $id_restaurante = $_SESSION['ID_Restaurante'];
+        // Obtener el ID del restaurante de la URL
+        if (isset($_GET['id_restaurante'])) {
+            $id_restaurante = $_GET['id_restaurante'];
 
             // Obtener el nombre del restaurante
             $nombre_restaurante = $mostrarProductos->obtenerNombreRestaurante($id_restaurante);
@@ -41,7 +41,7 @@
                         </div>
                         <div class="mb-5 d-flex justify-content-between align-items-center">
                             <h3>' . $producto['Valor_P'] . '</h3>
-                            <form method="post" action="../Controladores/controlador_agregar.php">
+                            <form method="post" action="controlador.php?seccion=carrito">
                                 <input type="hidden" name="ID_Producto" value="' . $producto['ID_Producto'] . '">
                                 <button type="submit" class="btn btn-primary"> Agregar</button>
                             </form>
@@ -51,7 +51,7 @@
             }
             echo '</div>';
         } else {
-            // Manejar el caso donde el ID_Restaurante no está presente en la sesión
+            // Manejar el caso donde el ID_Restaurante no está presente en la URL
             echo '<h1 style="text-align: center; color: white;">No se ha especificado un restaurante válido.</h1>';
         }
         ?>

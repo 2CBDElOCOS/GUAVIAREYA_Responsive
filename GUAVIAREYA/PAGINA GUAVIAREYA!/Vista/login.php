@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Inicio de Sesión</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -60,27 +59,7 @@
     </div>
     <!-- Script para mostrar SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-        // Función para obtener parámetros de la URL
-        function obtenerParametroUrl(nombre) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(nombre);
-        }
-
-        // Mostrar SweetAlert si el usuario está bloqueado temporalmente
-        document.addEventListener('DOMContentLoaded', function() {
-            const error = obtenerParametroUrl('error');
-            const tiempoRestante = obtenerParametroUrl('time');
-
-            if (error === 'blocked') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Cuenta bloqueada temporalmente',
-                    html: `Tu cuenta está bloqueada temporalmente.<br>Por favor espera ${tiempoRestante} segundos para intentar de nuevo.`
-                });
-            }
-        });
-    </script>
+    <script src="../JS/alerta_bloqueo.js"></script>
 </body>
 
 </html>
