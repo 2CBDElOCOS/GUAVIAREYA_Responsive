@@ -1,36 +1,44 @@
 <?php
 include 'Conexion.php';
 
-// Clase para manejar el inicio de sesión
 class Login {
-    // Método estático para iniciar sesión
     static function IniciarSesion($correo, $contrasena) {
-        // Crear conexión usando la función Conexion
+        if (isset($_SESSION['intentos'])) {
+            $_SESSION['intentos']++;
+        } else {
+            $_SESSION['intentos'] = 1;
+        }
+
+        if ($_SESSION['intentos'] >= 3) {
+            // Si hay 3 intentos fallidos, bloquear temporalmente
+            $_SESSION['bloqueado_hasta'] = time() + 30; // Bloquear por 30 segundos (ajustable según necesidades)
+            unset($_SESSION['intentos']);
+            return 2; // Indicar que está bloqueado
+        }
+
+        // Crear conexión usando la función getConnection
         $conn = Conexion();
 
         // Preparar la consulta SQL para seleccionar los datos de la tabla Usuarios
-        $sql = "SELECT Apodo, Nombre FROM Usuarios WHERE Correo = ? AND Contrasena = ?";
+        $sql = "SELECT Apodo, Nombre FROM Usuarios WHERE Correo = '$correo' AND Contrasena = '$contrasena'";
 
-        // Preparar la sentencia
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $correo, $contrasena);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        // Ejecutar la consulta
+        $result = $conn->query($sql);
 
-        // Verificar si se obtuvo un resultado
         if ($result->num_rows > 0) {
-            // Obtener los datos del resultado
             $row = $result->fetch_assoc();
-            // Guardar el apodo del usuario en la sesión
             $_SESSION['Apodo'] = $row['Apodo'];
 
-            // Cerrar la conexión y retornar 1 indicando éxito
+            // Reiniciar contador de intentos al iniciar sesión exitosamente
+            unset($_SESSION['intentos']);
+
+            // Cerrar la conexión y redirigir a otra página después de registrar los datos
             $conn->close();
-            return 1;
+            return 1; // Indicar que el inicio de sesión fue exitoso
         } else {
-            // Retornar 0 indicando que las credenciales son incorrectas
+            // Cerrar la conexión
             $conn->close();
-            return 0;
+            return 0; // Indicar que los datos de inicio de sesión son incorrectos
         }
     }
 }

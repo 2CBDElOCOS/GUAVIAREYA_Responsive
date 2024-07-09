@@ -2,119 +2,60 @@
 <html lang="en">
 
 <head>
-
     <title>GuaviareYa!</title>
-
 </head>
 
 <body class="body">
-    <div class="container">
-        
+    <div class="container py-5">
         <div class="col-md-12 ico-header">
-            <a href="controlador.php?seccion=comida"><i class="fa-solid fa-circle-arrow-left"></i></a>
+            <a href="controlador.php?seccion=comida"><i class="fa fa-circle-arrow-left"></i></a>
             <a href="controlador.php?seccion=carrito"><i class="bx bx-cart"></i></a>
         </div>
 
-        <h1 style="text-align: center; color: white;">#RESTAURANTE</h1>
+        <?php
+        include('../Modelos/mostrar_productos.php');
 
-        <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+        $mostrarProductos = new mostrar_productos();
 
-            <div class="col">
-                <div class="card">
-                    <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media/pi1.png" class="rounded float-start" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza 1</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-                            dignissimos accusantium amet similique velit iste.</p>
-                    </div>
-                    <div class="mb-5 d-flex justify-content-around">
-                        <h3>12.000</h3>
-                        <button class="btn btn-primary">Agregar</button>
-                    </div>
-                </div>
-            </div>
+        // Verificar si el ID_Restaurante está almacenado en la sesión
+        if (isset($_SESSION['ID_Restaurante'])) {
+            $id_restaurante = $_SESSION['ID_Restaurante'];
 
-            <div class="col">
-                <div class="card">
-                    <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media/pi2.png" class="rounded float-start" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza 2</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-                            dignissimos accusantium amet similique velit iste.</p>
-                    </div>
-                    <div class="mb-5 d-flex justify-content-around">
-                        <h3>12.000</h3>
-                        <button class="btn btn-primary">Agregar</button>
-                    </div>
-                </div>
-            </div>
+            // Obtener el nombre del restaurante
+            $nombre_restaurante = $mostrarProductos->obtenerNombreRestaurante($id_restaurante);
+            echo '<h1 style="text-align: center; color: white;">' . $nombre_restaurante . '</h1>';
 
-            <div class="col">
-                <div class="card">
-                    <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media/pi3.png" class="rounded float-start" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza 3</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-                            dignissimos accusantium amet similique velit iste.</p>
-                    </div>
-                    <div class="mb-5 d-flex justify-content-around">
-                        <h3>12.000</h3>
-                        <button class="btn btn-primary">Agregar</button>
-                    </div>
-                </div>
-            </div>
+            echo '<div class="row row-cols-1 row-cols-md-3 g-4 py-5">';
+            // Obtener los productos asociados a este ID_Restaurante
+            $productos = $mostrarProductos->obtenerProductosPorRestaurante($id_restaurante);
 
-            <div class="col">
-                <div class="card">
-                    <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media/pi4.png" class="rounded float-start" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza 4</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-                            dignissimos accusantium amet similique velit iste.</p>
+            // Mostrar los productos
+            foreach ($productos as $producto) {
+                echo '
+                <div class="col">
+                    <div class="card">
+                        <img style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: 20px;" src="../media_productos/' . $producto['img_P'] . '" class="rounded float-start" alt="Imagen de ' . $producto['Nombre_P'] . '">
+                        <div class="card-body">
+                            <h5 class="card-title">' . $producto['Nombre_P'] . '</h5>
+                            <p class="card-text">' . $producto['Descripcion'] . '</p>
+                        </div>
+                        <div class="mb-5 d-flex justify-content-between align-items-center">
+                            <h3>' . $producto['Valor_P'] . '</h3>
+                            <form method="post" action="../Controladores/controlador_agregar.php">
+                                <input type="hidden" name="ID_Producto" value="' . $producto['ID_Producto'] . '">
+                                <button type="submit" class="btn btn-primary"> Agregar</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="mb-5 d-flex justify-content-around">
-                        <h3>12.000</h3>
-                        <button class="btn btn-primary">Agregar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top:20px;" src="../media/pi5.png" class="rounded float-start" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza 5</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-                            dignissimos accusantium amet similique velit iste.</p>
-                    </div>
-                    <div class="mb-5 d-flex justify-content-around">
-                        <h3>12.000</h3>
-                        <button class="btn btn-primary" type="submit">Agregar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <img style="width: 200px;height: 200px;display: block; margin-left: auto; margin-right: auto;margin-top: 20px;" src="../media/pi6.png" class="rounded float-start" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza 6</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-                            dignissimos accusantium amet similique velit iste.</p>
-                    </div>
-                    <div class="mb-5 d-flex justify-content-around">
-                        <h3>12.000</h3>
-                        <button class="btn btn-primary">Agregar</button>
-                    </div>
-                </div>
-
-            </div>
-
-
-
-        </div>
+                </div>';
+            }
+            echo '</div>';
+        } else {
+            // Manejar el caso donde el ID_Restaurante no está presente en la sesión
+            echo '<h1 style="text-align: center; color: white;">No se ha especificado un restaurante válido.</h1>';
+        }
+        ?>
     </div>
-
 </body>
 
 </html>

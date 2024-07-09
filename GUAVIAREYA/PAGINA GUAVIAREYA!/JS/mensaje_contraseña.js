@@ -15,7 +15,7 @@ document.getElementById('Contrasena').addEventListener('input', function() {
     if (!/[0-9]/.test(password)) {
         messages.push('La contraseña debe tener al menos un número.');
     }
-    if (!/[!@#\$%\^&\*]/.test(password)) {
+    if (!/[!@#\$%\^&\*.]/.test(password)) {
         messages.push('La contraseña debe tener al menos un carácter especial.');
     }
 
@@ -41,3 +41,4 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         alert('Por favor, ingrese una contraseña válida.');
     }
 });
+

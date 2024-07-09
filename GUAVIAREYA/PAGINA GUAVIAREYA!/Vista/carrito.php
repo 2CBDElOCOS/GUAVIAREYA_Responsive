@@ -33,7 +33,7 @@
                 <div class="col-md-3">
                     <input type="number" name="cantidad" min="0" max="20" value="1" class="cantidad">
                 </div>
-                <div class="col-md-3 precio ">
+                <div class="col-md-2 precio ">
                     <p>COP 21.000</p>
                    <a href=""><i class="fa-solid fa-trash" style="color: orange; font-size: 25px;"></i></a> 
                 </div>
