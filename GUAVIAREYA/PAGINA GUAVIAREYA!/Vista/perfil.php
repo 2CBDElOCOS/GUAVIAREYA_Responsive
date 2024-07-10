@@ -23,12 +23,30 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
 
 <head>
 
-    <title>PERFIL</title>
+    <title>MI PERFIL</title>
 
 </head>
 
 <body>
-
+    <div class="row">
+        <div class="col-md-12">
+            <?php
+            if (isset($_GET['error'])) {
+                $error_message = '';
+                switch ($_GET['error']) {
+                    case '1':
+                        $error_message = 'Error al subir la foto, o no se encontró foto de perfil.';
+                        break;
+                    // Puedes agregar más casos según sea necesario
+                    default:
+                        $error_message = 'Error desconocido.';
+                        break;
+                }
+                echo "<div class='alert alert-danger' role='alert'>$error_message</div>";
+            }
+            ?>
+        </div>
+    </div>
     <section id="hero3">
         <div class="subcontainer2">
             <div class="col-md-12 ico-footer1">
@@ -44,7 +62,7 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
                                 <br>
                                 <div>
                                     <?php if ($imgUrl): ?>
-                                         <img src="<?php echo $imgUrl; ?>" alt="Foto de perfil" style="border-radius: 50%; height: 120px; width: 120px; margin-bottom: 10px;">
+                                         <img src="<?php echo $imgUrl; ?>" alt="Foto de perfil" style="border-radius: 50%; height: 120px; width: 120px; margin-bottom: 10px;"> 
                                     <?php else: ?>
                                         <p>No se ha encontrado ninguna foto de perfil.</p>
                                     <?php endif; ?>
@@ -52,7 +70,7 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
 
                                 <div class="col 1">
                                 <form method="POST" action="Controlador_Foto.php" enctype="multipart/form-data">
-                                    <input type="file" id="img_U" name="img_U" accept="image/*" style="width: 350px; padding:5px;">
+                                    <input type="file" id="img_U" name="img_U" accept="image/*">
                                     <button type="submit">Aceptar</button>
                                 </form>
                                 </div>
@@ -71,7 +89,7 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Cambiar_clave">Cambiar Contraseña</a></a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_P">Tus pedidos</a></li>
-                                        <li><a class="dropdown-item" href="controlador.php?seccion=Cambiar_clave">Dirección de entregas</a></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=pedidos_per">Dirección de entregas</a></li>
                                         <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
                                     </ul>
                                 </div>
@@ -129,11 +147,13 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
                             <hr>
                         </div>
                     </div>
+                    
                 </div>
+
             </div>
-
-
+            
         </div>
+        
     </section>
 
 

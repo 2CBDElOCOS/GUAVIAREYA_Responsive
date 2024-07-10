@@ -6,7 +6,7 @@
         $seccion == 'home' || $seccion == 'shop' || $seccion == 'comida' || $seccion == 'bebidas' ||
         $seccion == 'productos' || $seccion == 'carrito' || $seccion == 'tarjeta' || $seccion == 'productos2' ||
         $seccion == 'facturacion' || $seccion == 'confirmacion' || $seccion == 'ADMI_Shop_A' || $seccion == 'ADMI_Productos_A' ||
-        $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A' 
+        $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A'
     ) {
     ?>
         <link rel="stylesheet" href="../css/styles.css" />
@@ -28,8 +28,9 @@
 
 
     <?php
-    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A'|| $seccion == 'Cambiar_clave') {
+    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A'|| $seccion == 'Cambiar_clave'|| $seccion == 'pedidos_per') {
     ?>
+        <link rel="stylesheet" href="../css/style3.css" />
         <link rel="stylesheet" href="../css/styles.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
 
@@ -38,7 +39,7 @@
         <!-- Scripts de fontawesome -->
         <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
     <?php
-    } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A' || $seccion=='terminos' || $seccion=='politicas') {
+    } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A') {
     ?>
     <link rel="stylesheet" href="../css/style3.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">

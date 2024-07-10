@@ -17,8 +17,10 @@
                 <h4>CAMBIAR CONTRASEÑA</h4>
             </div>
 
+
+
             <!-- Formulario de cambio de contraseña -->
-            <form action="Controlador_Cambio_Clave.php" method="POST">
+            <form id="passwordForm" action="Controlador_CambioClave.php" method="POST">
                 <div class="row gutters-sm">
                     <div class="col-md-8">
                         <div class="card mb-3">
@@ -30,7 +32,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <br>
-                                        <input type="password" name="ContrasenaAnterior" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña anterior" required>
+                                        <input type="password" id="ContrasenaAnterior" name="ContrasenaAnterior" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña anterior" required>
                                     </div>
                                 </div>
                                 <hr>
@@ -41,7 +43,11 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <br>
-                                        <input type="password" name="NuevaContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Nueva contraseña" required>
+                                        <input type="password" id="NuevaContrasena" name="NuevaContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Nueva contraseña" required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <br>
+                                        <small id="password-strength" class="password-strength"></small>
                                     </div>
                                 </div>
                                 <hr>
@@ -50,7 +56,7 @@
                                         <h6 class="mb-0">Confirma la nueva contraseña</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="password" name="ConfirmarContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Confirma la nueva contraseña" required>
+                                        <input type="password" id="ConfirmarContrasena" name="ConfirmarContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Confirma la nueva contraseña" required>
                                     </div>
                                 </div>
                                 <hr>
@@ -62,11 +68,38 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
+                            <div class="row">
+                <div class="col-md-8">
+                    <!-- Mensaje de error -->
+                    <?php
+                    if (isset($_GET['error'])) {
+                        $error_message = '';
+                        switch ($_GET['error']) {
+                            case '1':
+                                $error_message = 'Todos los campos son obligatorios.';
+                                break;
+                            case '2':
+                                $error_message = 'Las contraseñas no coinciden.';
+                                break;
+                            case '3':
+                                $error_message = 'Contraseña anterior incorrecta.';
+                                break;
+                            default:
+                                $error_message = 'Error desconocido.';
+                                break;
+                        }
+                        echo "<div class='alert alert-danger' role='alert'>$error_message</div>";
+                    }
+                    ?>
+                </div>
+            </div>
             </form>
+
 
         </div>
     </div>
-
+    <script src="../JS/mensaje_pass2.js"></script>
 </body>
 </html>

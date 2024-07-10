@@ -1,118 +1,128 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
+    header("location: ../Controladores/controlador.php?seccion=login");
+    exit();
+}
+
+// Incluir el archivo del modelo
+include '../Modelos/DataUser.php';
+include '../Modelos/Direccion_Entregas.php';
+
+// Obtener la información del usuario desde la base de datos
+$user = DataUser::getUserByEmail($_SESSION['correo']);
+$imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna que contiene la URL de la imagen
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-
-<!-- POR EL MOMENTO NO VAMOS A UTILIZAR ESTA PARTA DEL CODIGO -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEDIDOS</title>
-
-    <!-- ===== ===== lINKS ===== ===== -->
-    <link rel="stylesheet" href="..css/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>MIS PEDIDOS</title>
 </head>
 
 <body>
-    <!-- ===== ===== Cuerpo Principal-Fondo ===== ===== -->
-    <span class="main_bg"></span>
-
-
-    <!-- ===== ===== Contenedor-principal ===== ===== -->
-    <div class="container">
-
-        <!-- ===== ===== Encabezado/Barra de navegación ===== ===== -->
-        <header>
-            <div class="gua">
-                <br><br>
-                <span><h3>MI PERFIL</h3></span>
-            </div>
-        </header>
-
-
-        <!-- ===== ===== Perfil principal del usuario ===== ===== -->
-        <section class="userProfile card">
-            <div class="profile">
-                <figure><img src="../media/profile.jpg" alt="profile" width="250px" height="250px"></figure>
-            </div>
-        </section>
-
-
-        <!-- ===== ===== Sección de Trabajo y Habilidades ===== ===== -->
-        <section class="work_skills card">
-
-            <!-- ===== ===== Contenedor de Trabajo ===== ===== -->
-            <div class="work">
-                <h1 class="heading">UBICACIONES</h1>
-                <div class="primary">
-                    <h1>San Jorge</h1>
-                    <span>Primaria</span>
-                    <p>CRA 20-13 <br> CASA ROJA</p>
-                </div>
-
-                <div class="secondary">
-                    <h1>GOBERNACION</h1>
-                    <span>Secundaria</span>
-                    <p>PISO 3</p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ===== ===== Secciones de detalles del usuario ===== ===== -->
-        <section class="userDetails card">
-            <div class="userName">
-                <h1 class="name">#User</h1>
-                <div class="map">
-                    <i class="ri-map-pin-fill ri"></i>
-                    <span>San Jose del Guaviare</span>
-                </div>
-            </div>
-            <br><br>
-            <div class="rank">
-                <h1 class="heading">Total de pedidos ordenados</h1>
-                <span>0 <box-icon name='sad'></box-icon></span>
-            </div>
-
-            <div class="btns">
-                <ul>
-                    <li class="sendMsg active">
-                        <i class="ri-check-fill ri"></i>
-                        <a href="pedidos_per.html">Tus pedidos</a>
-                    </li>
-
-                    <li class="sendMsg">
-                        <i class="ri-chat-4-fill ri"></i>
-                        <a href="perfil.html">Contacto</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-
-        <!-- ===== ===== Acerca de las secciones ===== ===== -->
-        <section class="timeline_about card">
-            <div class="tabs">
-                <ul>
-                    <li class="about active">
-                        <i class="ri-user-3-fill ri"></i>
-                        <span>Historial</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="row">
-                        <div class="col-sm-6">
-                             <h4 class="label"> ¡No tienes ningún pedido! ¡Cambiemos eso!</h4>
-                        </div>
-            </div>
-            <br>
-            <div class="col-12">
-                <button class="btn btn-primary" type="submit">Ordena ahora</button>
-            </div>
-        </section>
+    <div class="row">
+        <div class="col-md-12">
+            <?php
+            if (isset($_GET['error'])) {
+                $error_message = '';
+                switch ($_GET['error']) {
+                    case '1':
+                        $error_message = 'Error al agregar la dirección de entrega.';
+                        break;
+                    // Puedes agregar más casos según sea necesario
+                    default:
+                        $error_message = 'Error desconocido.';
+                        break;
+                }
+                echo "<div class='alert alert-danger' role='alert'>$error_message</div>";
+            }
+            ?>
+        </div>
     </div>
+
+    <section id="hero3">
+        <div class="subcontainer2">
+            <div class="col-md-12 ico-footer1">
+                <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+            </div>
+            
+            <div class="row">
+            <div class="col-md-10">
+                    <div class="card mb-12">
+                        <div class="card-body">
+                            <!-- Mostrar las direcciones de entrega -->
+                            <h3>Direcciones de Entrega</h3>
+                            <br>
+                            <?php
+                            // Obtener y mostrar las direcciones de entrega del usuario
+                            $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['correo']);
+                            if ($addresses) {
+                                foreach ($addresses as $address) {
+                                    echo "<div class='row'>";
+                                    echo "<div class='col-sm-3'>";
+                                    echo "<h6 class='mb-0'>Calle/Carrera y Número</h6>";
+                                    echo "</div>";
+                                    echo "<div class='col-sm-9 text-secondary'>";
+                                    echo htmlspecialchars($address['CL_Cra_AV'] . ' ' . $address['Numero_Casa']);
+                                    echo "</div>";
+                                    echo "</div>";
+                                    echo "<hr>";
+                                    echo "<div class='row'>";
+                                    echo "<div class='col-sm-3'>";
+                                    echo "<h6 class='mb-0'>Barrio</h6>";
+                                    echo "</div>";
+                                    echo "<div class='col-sm-9 text-secondary'>";
+                                    echo htmlspecialchars($address['Barrio']);
+                                    echo "</div>";
+                                    echo "</div>";
+                                    
+                                    echo "<hr>";
+                                    echo "<br>";
+                                }
+                            } else {
+                                echo "<p>No se encontraron direcciones de entrega.</p>";
+                            }
+                            ?>
+                            <!-- Fin de mostrar las direcciones de entrega -->
+
+                            <!-- Formulario para agregar una nueva dirección -->
+                            <hr>
+                            <h3>Agregar Nueva Dirección de Entrega</h3>
+                             <form action="ControladorDireccionEntrega.php" method="POST">
+                                <div class="mb-3">
+                                    <label for="Numero_Casa" class="form-label">Número de Casa</label>
+                                    <input type="text" class="form-control" id="Numero_Casa" name="Numero_Casa" placeholder="Casa N°" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="CL_Cra_AV" class="form-label">Calle/Carrera o Avenida</label>
+                                    <input type="text" class="form-control" id="CL_Cra_AV" name="CL_Cra_AV" placeholder="Direccion" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Barrio" class="form-label">Barrio</label>
+                                    <input type="text" class="form-control" id="Barrio" name="Barrio" placeholder="Nombre del barrio" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Agregar Dirección</button>
+                            </form>
+                            <!-- Fin del formulario para agregar una nueva dirección -->
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
 
 </body>
 
