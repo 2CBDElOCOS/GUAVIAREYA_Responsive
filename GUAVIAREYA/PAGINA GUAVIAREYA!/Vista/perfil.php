@@ -12,8 +12,10 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
 include '../Modelos/DataUser.php';
 
 // Obtener la información del usuario desde la base de datos
-$userEmail = $_SESSION['correo'];
-$user = DataUser::getUserByEmail($userEmail);
+$user = DataUser::getUserByEmail($_SESSION['correo']);
+$imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna que contiene la URL de la imagen
+
+
 ?>
 
 <!DOCTYPE html>
@@ -40,27 +42,37 @@ $user = DataUser::getUserByEmail($userEmail);
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <br>
-                                <?php echo htmlspecialchars($user['img_U']); ?>
+                                <div>
+                                    <?php if ($imgUrl): ?>
+                                         <img src="<?php echo $imgUrl; ?>" alt="Foto de perfil" style="border-radius: 50%; height: 120px; width: 120px; margin-bottom: 10px;">
+                                    <?php else: ?>
+                                        <p>No se ha encontrado ninguna foto de perfil.</p>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="col 1">
+                                <form method="POST" action="Controlador_Foto.php" enctype="multipart/form-data">
+                                    <input type="file" id="img_U" name="img_U" accept="image/*">
+                                    <button type="submit">Aceptar</button>
+                                </form>
+                                </div>
+
                                 <div class="mt-3">
                                     <?php echo htmlspecialchars($user['Apodo']); ?>
                                     <p class="text-secondary mb-1">San Jose del Guaviare</p>
                                     <p class="text-secondary mb-1">#Dirección</p>
                                     <p class="text-muted font-size-sm"><?php echo htmlspecialchars($user['Telefono']); ?></p>
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="controlador.php?seccion=perfil_E">Editar datos</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="controlador.php?seccion=Cambiar_clave">Cambiar Contraseña</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="controlador.php?seccion=Perfil_P">Tus pedidos</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
-                                        </li>
-
-
+                                    <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Acciones
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=perfil_E">Editar datos</a></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=Cambiar_clave">Cambiar Contraseña</a></a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_P">Tus pedidos</a></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=Cambiar_clave">Dirección de entregas</a></li>
+                                        <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
                                     </ul>
                                 </div>
                             </div>
