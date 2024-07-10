@@ -19,7 +19,7 @@ Class DataUser {
         $user = null;
 
         // Preparar y ejecutar la consulta SQL para obtener el usuario por correo electrónico
-        $stmt = $conn->prepare("SELECT Correo, Apodo, Nombre, Apellido, Telefono, img_U FROM Usuarios WHERE Correo = ?");
+        $stmt = $conn->prepare("SELECT Correo, Apodo, Nombre, Apellido, Telefono, img_U, Contrasena FROM Usuarios WHERE Correo = ?");
         if ($stmt === false) {
             // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
@@ -43,6 +43,8 @@ Class DataUser {
         // Retornar el usuario obtenido
         return $user;
     }
+
+
 
     // Método estático para actualizar un usuario por su correo electrónico
     public static function updateUser($email, $nombre, $apellido, $telefono) {
@@ -106,26 +108,27 @@ Class DataUser {
             return 'Error al actualizar la base de datos.';
         }
     }
+    public static function updatePassword($email, $newPassword) {
+        $conn = Conexion();
 
-    public static function updatePassword($email, $hashedPassword) {
-    $conn = Conexion();
+        // Preparar y ejecutar la consulta SQL para actualizar la contraseña
+        $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
+        if ($stmt === false) {
+            throw new Exception("Error preparando la consulta: " . $conn->error);
+        }
 
-    // Preparar y ejecutar la consulta SQL para actualizar la contraseña
-    $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
-    if ($stmt === false) {
-        throw new Exception("Error preparando la consulta: " . $conn->error);
+        // Vincular los parámetros a la consulta preparada
+        $stmt->bind_param("ss", $newPassword, $email);
+        $success = $stmt->execute();
+
+        // Cerrar la conexión
+        $stmt->close();
+        $conn->close();
+
+        // Retornar si la actualización fue exitosa
+        return $success;
     }
 
-    // Vincular los parámetros a la consulta preparada
-    $stmt->bind_param("ss", $hashedPassword, $email);
-    $success = $stmt->execute();
 
-    // Cerrar la conexión
-    $stmt->close();
-    $conn->close();
-
-    // Retornar si la actualización fue exitosa
-    return $success;
-}
 }
 ?>
