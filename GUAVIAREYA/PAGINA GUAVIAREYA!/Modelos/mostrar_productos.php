@@ -51,5 +51,28 @@ class mostrar_productos {
         $conn->close();
         return $row['Nombre_R'];
     }
+
+    public function obtenerProductoPorID($id_producto) {
+        $conn = Conexion();
+
+        if ($conn->connect_error) {
+            die("Conexión fallida: " . $conn->connect_error);
+        }
+
+        // Preparar la consulta SQL para obtener un producto por su ID
+        $query = "SELECT * FROM Productos WHERE ID_Producto = ?";
+        $stmt = $conn->prepare($query);
+        if ($stmt === false) {
+            die("Error en la preparación de la consulta: " . $conn->error);
+        }
+        $stmt->bind_param("i", $id_producto);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $producto = $result->fetch_assoc();
+
+        $stmt->close();
+        $conn->close();
+        return $producto;
+    }
 }
 ?>

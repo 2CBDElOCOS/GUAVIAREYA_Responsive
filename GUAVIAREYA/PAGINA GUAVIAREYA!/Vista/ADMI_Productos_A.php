@@ -39,8 +39,9 @@
                 </form>
                 <br>
                 
-                <form method="post" action="../Controladores/controlador_editar.php" onsubmit="return confirm(\'¿Estás seguro de que quieres editar este producto?\');">
-                    <input type="hidden" name="ID_Producto" value="' . $producto['ID_Producto'].  '">
+                <form method="get" action="controlador.php">
+                    <input type="hidden" name="seccion" value="ADMI_Agregar_P">
+                    <input type="hidden" name="id" value="' . $producto['ID_Producto'] . '">
                     <button type="submit"><i class="fa-regular fa-pen-to-square"></i></button>
                 </form>
 
@@ -59,7 +60,8 @@
         } else {
             echo '<h1 style="text-align: center; color: white;">No se ha especificado un restaurante válido.</h1>';
         }
-        ?> <div class="col-md-12 ico-header">
+        ?> 
+        <div class="col-md-12 ico-header">
             <a href="controlador.php?seccion=ADMI_Agregar_P"><i class="fa fa-plus"></i></a>
         </div>
     </div>

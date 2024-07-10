@@ -3,7 +3,7 @@ require_once('../Modelos/DataUser.php');
 
 session_start();
 if (!isset($_SESSION['correo'])) {
-    header("Location: ../Controladores/controlador.php?seccion=login");
+    header("location: ../Vista/Perfil.php");
     exit();
 }
 
@@ -14,10 +14,9 @@ $result = $gestorUsuarios->subirFotoPerfil($userEmail, $_FILES['img_U']);
 
 if ($result === true) {
     // Redirigir al perfil del usuario con un mensaje de éxito
-    header("Location: ../Vista/perfil.php?mensaje=exito");
+    header("location: controlador.php?seccion=perfil");
 } else {
     // Redirigir al perfil del usuario con un mensaje de error
-    header("Location: ../Vista/perfil.php?mensaje=" . urlencode($result));
+    header("location: controlador.php?seccion=perfil=" . urlencode($result));
 }
 exit();
-?>

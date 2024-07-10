@@ -3,19 +3,34 @@ include('Conexion.php');
 
 class editar_producto {
 
-    public function editarProducto($id_producto) {
+    public function editarProducto($id_producto, $nombre, $descripcion, $valor, $imagen) {
         $conn = Conexion();
 
-        // Aquí deberías obtener los nuevos datos del formulario
-        // Por ejemplo, para actualizar el nombre del producto:
-        if (isset($_POST['nombre_producto'])) {
-            $nuevo_nombre = $_POST['nombre_producto'];
-            $query = "UPDATE Productos SET Nombre_p = '$nuevo_nombre' WHERE ID_productos = '$id_producto';";
-            $conn->query($query);
+        // Actualizar los datos del producto
+        $query = "UPDATE Productos SET Nombre_P = ?, Descripcion = ?, Valor_P = ?";
+        $types = "ssd";
+        $params = [$nombre, $descripcion, $valor];
+
+        // Si hay una nueva imagen, agregarla a la consulta
+        if ($imagen !== null) {
+            $query .= ", img_P = ?";
+            $types .= "s";
+            $params[] = $imagen;
         }
 
-        // Puedes agregar más campos para actualizar según tus necesidades
+        $query .= " WHERE ID_Producto = ?";
+        $types .= "i";
+        $params[] = $id_producto;
 
+        $stmt = $conn->prepare($query);
+        if ($stmt === false) {
+            die("Error en la preparación de la consulta: " . $conn->error);
+        }
+
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+
+        $stmt->close();
         $conn->close();
     }
 }
