@@ -42,7 +42,7 @@
                         </div>
                         <div class="row mb-3">
                             <small>
-                                <input type="checkbox" required> He leído y acepto <a href="controlador.php?seccion=terminos">los términos de uso y condiciones</a> y las <a href="politicas.php">políticas de privacidad</a>
+                                <input type="checkbox" required> He leído y acepto <a href="controlador.php?seccion=terminos">los términos de uso y condiciones</a> y las <a href="controlador.php?seccion=politicas">políticas de privacidad</a>
                             </small>
                         </div>
                         <div class="input-group mb-3">
