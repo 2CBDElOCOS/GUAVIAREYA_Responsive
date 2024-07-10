@@ -17,6 +17,6 @@ if ($result === true) {
     header("location: controlador.php?seccion=perfil");
 } else {
     // Redirigir al perfil del usuario con un mensaje de error
-    header("location: controlador.php?seccion=perfil=" . urlencode($result));
+    header("location: ../Controladores/controlador.php?seccion=perfil&error=1");
 }
 exit();
