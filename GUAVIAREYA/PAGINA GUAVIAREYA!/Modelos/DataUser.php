@@ -3,12 +3,6 @@ include 'Conexion.php';
 
 // Clase para manejar operaciones relacionadas con los usuarios
 Class DataUser {
-    private $conn; // Propiedad para almacenar la conexión
-
-    // Constructor para inicializar la conexión
-    public function __construct() {
-        $this->conn = Conexion(); // Establecer la conexión en el constructor
-    }
 
     // Método estático para obtener un usuario por su correo electrónico
     public static function getUserByEmail($email) {
@@ -67,65 +61,37 @@ Class DataUser {
         // Retornar si la actualización fue exitosa
         return $success;
     }
-    
-    // Método para subir la foto de perfil del usuario
-    public function subirFotoPerfil($userEmail, $file) {
-        // Verificar si hay algún error en el archivo subido
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            return 'Error al subir el archivo.';
+
+    // Método para validar la clave
+    function validar_clave($clave, &$error_clave) {
+        // Verificar si la clave tiene al menos 6 caracteres
+        if (strlen($clave) < 6) {
+            $error_clave = "La clave debe tener al menos 6 caracteres";
+            return false;
         }
-
-        // Verificar el tamaño del archivo (máximo 5MB)
-        if ($file['size'] > 5242880) {
-            return 'El archivo es demasiado grande. El tamaño máximo permitido es de 5MB.';
+        // Verificar si la clave tiene más de 16 caracteres
+        if (strlen($clave) > 16) {
+            $error_clave = "La clave no puede tener más de 16 caracteres";
+            return false;
         }
-
-        // Verificar el tipo de archivo
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        if (!in_array($file['type'], $allowedTypes)) {
-            return 'Tipo de archivo no permitido. Solo se permiten archivos JPG, PNG y GIF.';
+        // Verificar si la clave tiene al menos una letra minúscula
+        if (!preg_match('`[a-z]`', $clave)) {
+            $error_clave = "La clave debe tener al menos una letra minúscula";
+            return false;
         }
-
-        // Mover el archivo subido a la carpeta de destino
-        $uploadDir = '../media_profiles/';
-        $fileName = basename($file['name']);
-        $uploadFilePath = $uploadDir . $fileName;
-
-        if (!move_uploaded_file($file['tmp_name'], $uploadFilePath)) {
-            return 'Error al mover el archivo subido.';
+        // Verificar si la clave tiene al menos una letra mayúscula
+        if (!preg_match('`[A-Z]`', $clave)) {
+            $error_clave = "La clave debe tener al menos una letra mayúscula";
+            return false;
         }
-
-        // Actualizar la base de datos con la nueva ruta de la foto de perfil
-        $sql = "UPDATE Usuarios SET img_U = ? WHERE Correo = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ss', $uploadFilePath, $userEmail);
-
-        if ($stmt->execute()) {
-            return true; // Subida exitosa
-        } else {
-            return 'Error al actualizar la base de datos.';
+        // Verificar si la clave tiene al menos un carácter numérico
+        if (!preg_match('`[0-9]`', $clave)) {
+            $error_clave = "La clave debe tener al menos un carácter numérico";
+            return false;
         }
+        // Si todas las validaciones son correctas, no hay error
+        $error_clave = "";
+        return true;
     }
-
-    public static function updatePassword($email, $hashedPassword) {
-    $conn = Conexion();
-
-    // Preparar y ejecutar la consulta SQL para actualizar la contraseña
-    $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
-    if ($stmt === false) {
-        throw new Exception("Error preparando la consulta: " . $conn->error);
-    }
-
-    // Vincular los parámetros a la consulta preparada
-    $stmt->bind_param("ss", $hashedPassword, $email);
-    $success = $stmt->execute();
-
-    // Cerrar la conexión
-    $stmt->close();
-    $conn->close();
-
-    // Retornar si la actualización fue exitosa
-    return $success;
-}
 }
 ?>

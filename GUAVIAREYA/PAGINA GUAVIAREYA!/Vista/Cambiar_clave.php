@@ -17,8 +17,8 @@
                 <h4>CAMBIAR CONTRASEÑA</h4>
             </div>
 
-            <!-- Formulario de cambio de contraseña -->
-            <form action="Controlador_Cambio_Clave.php" method="POST">
+            <!-- Formulario de edición de perfil -->
+            <form action="Controlador_EditarUser.php" method="POST">
                 <div class="row gutters-sm">
                     <div class="col-md-8">
                         <div class="card mb-3">
@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <br>
-                                        <input type="password" name="ContrasenaAnterior" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña anterior" required>
+                                        <input type="text" name="Contrasena" class="form-control form-control-lg bg-light fs-6"  placeholder="Contraseña anterior">
                                     </div>
                                 </div>
                                 <hr>
@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <br>
-                                        <input type="password" name="NuevaContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Nueva contraseña" required>
+                                        <input type="text" name="Contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Nueva contraseña">
                                     </div>
                                 </div>
                                 <hr>
@@ -50,7 +50,7 @@
                                         <h6 class="mb-0">Confirma la nueva contraseña</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="password" name="ConfirmarContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Confirma la nueva contraseña" required>
+                                        <input type="tel" name="Contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Confirma la nueva contraseña">
                                     </div>
                                 </div>
                                 <hr>
