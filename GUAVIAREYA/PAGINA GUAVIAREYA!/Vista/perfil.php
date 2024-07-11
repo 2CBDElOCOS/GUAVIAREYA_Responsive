@@ -60,17 +60,17 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <br>
-                                <div>
+                                <div style="width: 140px;">
                                     <?php if ($imgUrl): ?>
-                                         <img src="<?php echo $imgUrl; ?>" alt="Foto de perfil" style="border-radius: 50%; height: 120px; width: 120px; margin-bottom: 10px;"> 
+                                         <img src="<?php echo $imgUrl; ?>" alt="Foto de perfil" style="height: 140px; background-color: rgb(233, 236, 239);">
                                     <?php else: ?>
                                         <p>No se ha encontrado ninguna foto de perfil.</p>
                                     <?php endif; ?>
                                 </div>
-
+                                <br>
                                 <div class="col 1">
                                 <form method="POST" action="Controlador_Foto.php" enctype="multipart/form-data">
-                                    <input type="file" id="img_U" name="img_U" accept="image/*">
+                                    <input type="file"  style="width: 390px; padding: 5px; font-size 15px;"  id="img_U" name="img_U" accept="image/*">
                                     <button type="submit">Aceptar</button>
                                 </form>
                                 </div>
