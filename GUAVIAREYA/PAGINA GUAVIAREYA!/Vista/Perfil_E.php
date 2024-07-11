@@ -22,18 +22,6 @@
                 <div class="row gutters-sm">
                     <div class="col-md-8">
                         <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <br>
-                                        <h6 class="mb-0">Actualizar foto de perfil</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <br>
-                                        <input type="text" name="Apellido" class="form-control form-control-lg bg-light fs-6" placeholder="Apellido">
-                                    </div>
-                                </div>
-                                <hr>
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <br>
