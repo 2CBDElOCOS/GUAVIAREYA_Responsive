@@ -60,9 +60,9 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <br>
-                                <div style="width: 140px;">
+                                <div class="mx-auto" style="width: 140px;">
                                     <?php if ($imgUrl): ?>
-                                         <img src="<?php echo $imgUrl; ?>" alt="Foto de perfil" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                         <img src="<?php echo $imgUrl; ?>" alt="Foto de perfil" style="height: 140px; background-color: rgb(233, 236, 239);"> 
                                     <?php else: ?>
                                         <p>No se ha encontrado ninguna foto de perfil.</p>
                                     <?php endif; ?>

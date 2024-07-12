@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
     $id_producto = $_GET['id'];
     $mostrarProductos = new mostrar_productos();
-    $producto = $mostrarProductos->obtenerProductoPorID($id_producto);
+    $producto = $mostrarProductos->obtenerProductoPorId($id_producto);
 
     echo json_encode($producto);
 } else {

@@ -1,4 +1,5 @@
 <?php
+// Modelos/mostrar_productos.php
 include 'Conexion.php';
 
 class mostrar_productos {
@@ -52,7 +53,7 @@ class mostrar_productos {
         return $row['Nombre_R'];
     }
 
-    public function obtenerProductoPorID($id_producto) {
+    public function obtenerProductoPorId($id_producto) {
         $conn = Conexion();
 
         if ($conn->connect_error) {
@@ -60,8 +61,8 @@ class mostrar_productos {
         }
 
         // Preparar la consulta SQL para obtener un producto por su ID
-        $query = "SELECT * FROM Productos WHERE ID_Producto = ?";
-        $stmt = $conn->prepare($query);
+        $sql = "SELECT * FROM Productos WHERE ID_Producto = ?";
+        $stmt = $conn->prepare($sql);
         if ($stmt === false) {
             die("Error en la preparación de la consulta: " . $conn->error);
         }
@@ -75,4 +76,5 @@ class mostrar_productos {
         return $producto;
     }
 }
+
 ?>

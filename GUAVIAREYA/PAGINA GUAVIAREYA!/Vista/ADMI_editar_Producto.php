@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Agregar Producto</title>
+    <title>Editar Producto</title>
 </head>
 
 <body style="max-width: 400px; justify-content: center; margin: 0 auto;">
-    <form id="productForm" enctype="multipart/form-data" method="POST" action="controlador_productos.php" class="card" style="margin-top: 100px;">
-        <h1>Agregar Producto</h1>
+    <form id="productForm" enctype="multipart/form-data" method="POST" action="../Controladores/controlador_editar_produ.php" class="card" style="margin-top: 100px;">
+        <h1 id="form-title">Agregar Producto</h1>
+
+        <input type="hidden" id="ID_Producto" name="ID_Producto">
 
         <label for="Nombre_P" class="label">
             <h4>Nombre del Producto:</h4>
@@ -29,10 +31,10 @@
         </label>
         <input type="file" id="img_P" name="img_P" accept="image/*">
 
-        <button type="submit">Agregar</a></button>
+        <button type="submit" id="form-button">Confirmar Cambios</button>
     </form>
 
-
+    <script src="../JS/editar_producto.js"></script>
 </body>
 
 </html>

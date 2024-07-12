@@ -39,8 +39,8 @@
                 </form>
                 <br>
                 
-                <form method="get" action="controlador.php">
-                    <input type="hidden" name="seccion" value="ADMI_Agregar_P">
+                <form method="get" action="../Controladores/controlador.php?" onsubmit="return confirm(\'¿Estás seguro de que quieres editar este producto?\');">
+                    <input type="hidden" name="seccion" value="ADMI_editar_Producto">
                     <input type="hidden" name="id" value="' . $producto['ID_Producto'] . '">
                     <button type="submit"><i class="fa-regular fa-pen-to-square"></i></button>
                 </form>
