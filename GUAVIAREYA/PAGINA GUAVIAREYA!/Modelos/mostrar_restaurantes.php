@@ -1,4 +1,3 @@
-
 <?php
 include 'Conexion.php';
 
@@ -11,7 +10,10 @@ class mostrar_restaurantes {
         $this->conn = Conexion(); // Utilizar la función Conexion para establecer la conexión
     }
 
-    // Método para obtener todos los restaurantes desde la base de datos
+    /**
+     * Método para obtener todos los restaurantes desde la base de datos
+     * @return array Arreglo de restaurantes obtenidos
+     */
     public function obtenerRestaurantes() {
         $sql = "SELECT * FROM Restaurantes"; // Consulta SQL para seleccionar todos los restaurantes
         $result = $this->conn->query($sql); // Ejecutar la consulta SQL
@@ -25,7 +27,8 @@ class mostrar_restaurantes {
             }
         }
 
-        return $restaurantes; // Retornar el array de restaurantes
+        // Retornar el array de restaurantes
+        return $restaurantes;
     }
 
     // Destructor para cerrar la conexión cuando el objeto se destruye

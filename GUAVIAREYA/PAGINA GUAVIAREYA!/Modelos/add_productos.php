@@ -1,8 +1,18 @@
 <?php
 include 'Conexion.php';
 
-// Clase para agregar productos
+/**
+ * Clase para agregar productos
+ */
 class add_productos {
+    /**
+     * Método estático para agregar productos
+     *
+     * Este método verifica si se han enviado los datos del formulario, obtiene los datos, 
+     * mueve el archivo de imagen al directorio deseado y luego inserta los datos en la tabla Productos.
+     *
+     * @return void
+     */
     static function add_productos() {
         // Verificar si se han enviado los datos del formulario
         if (isset($_POST['Nombre_P'], $_POST['descripcion'], $_POST['Valor_P'], $_FILES['img_P'])) {

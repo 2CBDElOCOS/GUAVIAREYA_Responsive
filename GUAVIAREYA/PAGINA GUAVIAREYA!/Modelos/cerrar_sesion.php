@@ -1,5 +1,15 @@
 <?php
+/**
+ * Clase para cerrar la sesión actual del usuario
+ */
 class CerrarSession {
+    /**
+     * Método estático para cerrar la sesión
+     *
+     * Este método destruye todas las variables de sesión y opcionalmente la cookie de sesión.
+     *
+     * @return void
+     */
     public static function cerrar() {
         // Iniciar la sesión si no está iniciada
         if (session_status() == PHP_SESSION_NONE) {

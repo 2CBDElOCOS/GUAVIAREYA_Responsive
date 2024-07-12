@@ -1,9 +1,19 @@
 <?php
 include 'Conexion.php';
 
-// Clase para manejar la eliminación de productos
+/**
+ * Clase para manejar la eliminación de productos
+ */
 class delete_productos {
-    // Método estático para borrar productos
+    /**
+     * Método estático para borrar productos
+     *
+     * Este método verifica si se ha enviado el ID del producto a borrar, obtiene la información del producto
+     * incluyendo la imagen, la elimina del servidor si existe, y luego borra el producto de la base de datos.
+     * Finalmente, redirige a otra página después de borrar el producto.
+     *
+     * @return void
+     */
     static function delete_productos() {
         // Verificar si se ha enviado el ID del producto a borrar
         if (isset($_POST['ID_Producto'])) {

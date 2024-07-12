@@ -1,7 +1,20 @@
 <?php
 include 'Conexion.php';
 
+/**
+ * Clase Login
+ * 
+ * Esta clase maneja las operaciones relacionadas con el inicio de sesión de administradores.
+ */
 class Login {
+    /**
+     * Método estático para iniciar sesión de un administrador.
+     *
+     * @param string $correo Correo electrónico del administrador.
+     * @param string $contrasena Contraseña del administrador.
+     * @return mixed Retorna el ID del restaurante si el inicio de sesión fue exitoso, o false si falló.
+     * @throws Exception Si hay un error en la preparación de la consulta SQL.
+     */
     static function IniciarSesion($correo, $contrasena) {
         $conn = Conexion();
 
@@ -12,7 +25,7 @@ class Login {
         $sql = "SELECT apodo, ID_Restaurante FROM administrador WHERE correo = ? AND contrasena = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
-            die("Error en la preparación de la consulta: " . $conn->error);
+            throw new Exception("Error en la preparación de la consulta: " . $conn->error);
         }
 
         $stmt->bind_param("ss", $correo, $contrasena);

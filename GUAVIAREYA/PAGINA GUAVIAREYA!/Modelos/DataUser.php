@@ -1,16 +1,26 @@
 <?php
 include 'Conexion.php';
 
-// Clase para manejar operaciones relacionadas con los usuarios
+/**
+ * Clase para manejar operaciones relacionadas con los usuarios
+ */
 Class DataUser {
     private $conn; // Propiedad para almacenar la conexión
 
-    // Constructor para inicializar la conexión
+    /**
+     * Constructor para inicializar la conexión
+     */
     public function __construct() {
         $this->conn = Conexion(); // Establecer la conexión en el constructor
     }
 
-    // Método estático para obtener un usuario por su correo electrónico
+    /**
+     * Método estático para obtener un usuario por su correo electrónico
+     *
+     * @param string $email Correo electrónico del usuario a buscar
+     * @return array|null Retorna un array asociativo con los datos del usuario si se encuentra, o null si no se encuentra
+     * @throws Exception Si hay un error preparando la consulta SQL
+     */
     public static function getUserByEmail($email) {
         // Crear conexión
         $conn = Conexion();
@@ -44,9 +54,16 @@ Class DataUser {
         return $user;
     }
 
-
-
-    // Método estático para actualizar un usuario por su correo electrónico
+    /**
+     * Método estático para actualizar un usuario por su correo electrónico
+     *
+     * @param string $email Correo electrónico del usuario a actualizar
+     * @param string $nombre Nuevo nombre del usuario
+     * @param string $apellido Nuevo apellido del usuario
+     * @param string $telefono Nuevo teléfono del usuario
+     * @return bool Retorna true si la actualización fue exitosa, o false si falló
+     * @throws Exception Si hay un error preparando la consulta SQL
+     */
     public static function updateUser($email, $nombre, $apellido, $telefono) {
         // Crear conexión
         $conn = Conexion();
@@ -70,7 +87,13 @@ Class DataUser {
         return $success;
     }
     
-    // Método para subir la foto de perfil del usuario
+    /**
+     * Método para subir la foto de perfil del usuario
+     *
+     * @param string $userEmail Correo electrónico del usuario
+     * @param array $file Array que representa el archivo subido ($_FILES['img_U'])
+     * @return bool|string Retorna true si la subida fue exitosa, o un mensaje de error si falla
+     */
     public function subirFotoPerfil($userEmail, $file) {
         // Verificar si hay algún error en el archivo subido
         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -108,12 +131,23 @@ Class DataUser {
             return 'Error al actualizar la base de datos.';
         }
     }
+
+    /**
+     * Método estático para actualizar la contraseña de un usuario por su correo electrónico
+     *
+     * @param string $email Correo electrónico del usuario
+     * @param string $newPassword Nueva contraseña del usuario
+     * @return bool Retorna true si la actualización fue exitosa, o false si falló
+     * @throws Exception Si hay un error preparando la consulta SQL
+     */
     public static function updatePassword($email, $newPassword) {
+        // Crear conexión
         $conn = Conexion();
 
         // Preparar y ejecutar la consulta SQL para actualizar la contraseña
         $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
         if ($stmt === false) {
+            // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
@@ -128,7 +162,5 @@ Class DataUser {
         // Retornar si la actualización fue exitosa
         return $success;
     }
-
-
 }
 ?>
