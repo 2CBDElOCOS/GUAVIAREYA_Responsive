@@ -41,9 +41,13 @@
                         </div>
                         <div class="mb-5 d-flex justify-content-between align-items-center">
                             <h3>' . $producto['Valor_P'] . '</h3>
-                            <form method="post" action="controlador.php?seccion=carrito">
+                            <form method="post" action="controlador_carrito.php?seccion=carrito">
                                 <input type="hidden" name="ID_Producto" value="' . $producto['ID_Producto'] . '">
-                                <button type="submit" class="btn btn-primary"> Agregar</button>
+                                <input type="hidden" name="Nombre_P" value="' . $producto['Nombre_P'] . '">
+                                <input type="hidden" name="Descripcion" value="' . $producto['Descripcion'] . '">
+                                <input type="hidden" name="img_P" value="' . $producto['img_P'] . '">
+                                <input type="hidden" name="Valor_P" value="' . $producto['Valor_P'] . '">
+                                <button type="submit" class="btn btn-primary">Agregar</button>
                             </form>
                         </div>
                     </div>

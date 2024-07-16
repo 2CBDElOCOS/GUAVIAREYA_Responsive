@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ID_Producto'])) {
 
     // Llama a la función para editar el producto en el modelo
     $editarProducto = new editar_producto();
-    $editarProducto->editarProducto($id_producto);
+    $editarProducto->editarProducto($id_producto, $nombre, $descripcion, $valor, $imagen);
 
     // Redirecciona a la página de administración de productos u otra página relevante
     header("Location: controlador.php?seccion=ADMI_Shop_A");
