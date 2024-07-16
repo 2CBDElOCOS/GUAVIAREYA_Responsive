@@ -162,5 +162,38 @@ Class DataUser {
         // Retornar si la actualización fue exitosa
         return $success;
     }
+
+    public static function eliminarCuenta($userEmail)
+    {
+    $conn = Conexion();
+
+    // Iniciar una transacción
+    $conn->begin_transaction();
+
+    try {
+        // Eliminar la dirección del usuario
+        $sql = "DELETE FROM Direccion_Entregas WHERE Correo = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $userEmail);
+        $stmt->execute();
+
+        // Eliminar el usuario
+        $sql = "DELETE FROM Usuarios WHERE Correo = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $userEmail);
+        $stmt->execute();
+
+        // Confirmar la transacción
+        $conn->commit();
+        
+        return true; // Eliminación exitosa
+    } catch (Exception $e) {
+        // Revertir la transacción en caso de error
+        $conn->rollback();
+        return 'Error al eliminar la cuenta: ' . $e->getMessage();
+    }
 }
+
+}
+
 ?>
