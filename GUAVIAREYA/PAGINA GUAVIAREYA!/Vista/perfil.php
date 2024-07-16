@@ -10,11 +10,13 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
 
 // Incluir el archivo del modelo
 include '../Modelos/DataUser.php';
+include '../Modelos/Direccion_Entregas.php';
 
 // Obtener la información del usuario desde la base de datos
 $user = DataUser::getUserByEmail($_SESSION['correo']);
 $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna que contiene la URL de la imagen
 
+$addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['correo']);
 
 ?>
 
@@ -77,8 +79,11 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
 
                                 <div class="mt-3">
                                     <?php echo htmlspecialchars($user['Apodo']); ?>
-                                    <p class="text-secondary mb-1">San Jose del Guaviare</p>
-                                    <p class="text-secondary mb-1">#Dirección</p>
+                                    <p class="text-secondary mb-1"><?php if (isset($addresses) && !empty($addresses)) {
+                                    $address = $addresses[0]; // Suponiendo que desea la primera dirección
+                                    echo htmlspecialchars($address['Direccion']); } else {
+                                    echo "No se encontraron direcciones para este usuario.";}?></p>
+
                                     <p class="text-muted font-size-sm"><?php echo htmlspecialchars($user['Telefono']); ?></p>
                                     <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,8 +94,11 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Cambiar_clave">Cambiar Contraseña</a></a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_P">Tus pedidos</a></li>
-                                        <li><a class="dropdown-item" href="controlador.php?seccion=pedidos_per">Dirección de entregas</a></li>
-                                        <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_Direcciones">Dirección de entregas</a></li>
+                                        <li><a class="dropdown-item" href="../Controladores/controlador_Logout.php">Cerrar sesión</a>
+
+                                       <li><a class="dropdown-item" href="../Controladores/controlador_EliminarCuenta.php" onclick="return confirm('¿Estás seguro que quieres eliminar tu cuenta?')">Eliminar cuenta</a></li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -141,7 +149,10 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
                                     <h6 class="mb-0">Dirección</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    #Dirección
+                                    <?php if (isset($addresses) && !empty($addresses)) {
+                                        $address = $addresses[0];
+                                        echo htmlspecialchars($address['Direccion']) . ' ' . htmlspecialchars($address['Barrio']);
+                                    }?>
                                 </div>
                             </div>
                             <hr>
@@ -155,14 +166,6 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
         </div>
         
     </section>
-
-
-
-
-
-
-
-
 
 
 </body>

@@ -1,3 +1,4 @@
+
 <?php
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
@@ -27,7 +28,7 @@ if ($_SESSION['correo'] == "") {
     <div class="container">
         <div class="main-body">
             <div class="col-md-12 ico-footer1">
-                <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+                <a href="controlador.php?seccion=perfil"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
             </div>
             <div class="">
                 <h4>Tus Pedidos</h4>

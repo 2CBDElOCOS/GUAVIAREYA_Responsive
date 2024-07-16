@@ -1,3 +1,18 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+
+if (!isset($_SESSION['correo'])) {
+  header("location: ../Controladores/controlador.php?seccion=login");
+  exit(); // Asegúrate de salir después de redirigir
+}
+
+if ($_SESSION['correo'] == "") {
+  header("location: ../Controladores/controlador.php?seccion=login");
+  exit(); // Asegúrate de salir después de redirigir
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
