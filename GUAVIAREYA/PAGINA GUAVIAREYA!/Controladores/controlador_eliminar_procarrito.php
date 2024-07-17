@@ -5,5 +5,6 @@ if (session_status() == PHP_SESSION_NONE) {
 
 include('../Modelos/delete_productos_carrito.php');
 
+
 delete_productos::delete_productos();
 ?>

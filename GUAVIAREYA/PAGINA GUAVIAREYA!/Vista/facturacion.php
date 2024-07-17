@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-12 diren">
                     <h6>Dirección de entrega</h6>
-                    <a href="controlador.php?seccion=Perfil_Direcciones">Cambiar</a>
+                    <a href="controlador.php?seccion=perfil">Cambiar</a>
                 </div>
 
                 <div class="col-md-12 datos">
