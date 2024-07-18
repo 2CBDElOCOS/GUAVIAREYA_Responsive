@@ -9,7 +9,26 @@
     <div class="container py-5">
         <div class="col-md-12 ico-header">
             <a href="controlador.php?seccion=comida"><i class="fa fa-circle-arrow-left"></i></a>
-            <a  style="text-decoration: none;" href="controlador.php?seccion=carrito"><i class="bx bx-cart"></i> <span id="contador-carrito" class="contador-carrito">0</span></a>
+            <a style="text-decoration: none;" href="controlador.php?seccion=carrito">
+                <i class="bx bx-cart"></i>
+                <span id="contador-carrito" class="contador-carrito">
+                    <?php
+                    // Inicializar la sesión si no está ya inicializada
+                    if (session_status() == PHP_SESSION_NONE) {
+                        session_start();
+                    }
+
+                    // Contar el número total de artículos en el carrito
+                    $contador_carrito = 0;
+                    if (isset($_SESSION['carrito'])) {
+                        foreach ($_SESSION['carrito'] as $item) {
+                            $contador_carrito += $item['cantidad'];
+                        }
+                    }
+                    echo $contador_carrito;
+                    ?>
+                </span>
+            </a>
         </div>
 
         <?php

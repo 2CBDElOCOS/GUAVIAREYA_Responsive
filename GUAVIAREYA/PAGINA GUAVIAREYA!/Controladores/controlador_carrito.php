@@ -13,7 +13,7 @@ if (isset($_GET['seccion'])) {
                 'Descripcion' => $_POST['Descripcion'],
                 'img_P' => $_POST['img_P'],
                 'Valor_P' => $_POST['Valor_P'],
-                'cantidad' => 1 // Puedes ajustar la cantidad según tus necesidades
+                'cantidad' => 1
             ];
 
             // Si la sesión del carrito no existe, crearla
@@ -21,18 +21,24 @@ if (isset($_GET['seccion'])) {
                 $_SESSION['carrito'] = [];
             }
 
-            // Agregar el producto al carrito
-            $_SESSION['carrito'][] = $producto;
+            // Buscar si el producto ya está en el carrito
+            $encontrado = false;
+            foreach ($_SESSION['carrito'] as &$item) {
+                if ($item['ID_Producto'] == $producto['ID_Producto']) {
+                    $item['cantidad'] += 1; // Incrementar la cantidad
+                    $encontrado = true;
+                    break;
+                }
+            }
 
-            // Redirigir al carrito
-            header('Location: controlador.php?seccion=carrito');
+            // Si el producto no está en el carrito, agregarlo
+            if (!$encontrado) {
+                $_SESSION['carrito'][] = $producto;
+            }
+
+            // Enviar respuesta de éxito
+            echo json_encode(['success' => true]);
             exit();
-
-        case 'carrito':
-            // Mostrar la página del carrito
-            header('Location: controlador.php?seccion=carrito');
-            break;
-
     }
 }
 ?>
