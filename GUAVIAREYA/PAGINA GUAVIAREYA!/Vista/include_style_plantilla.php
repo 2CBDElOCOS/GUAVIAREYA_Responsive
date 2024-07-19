@@ -26,18 +26,18 @@
         <!-- Scripts de fontawesome -->
         <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
 
-        <!-- Scripts de jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <?php
-    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A'|| $seccion == 'Cambiar_clave'|| $seccion == 'pedidos_per') {
+    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A'|| $seccion == 'Cambiar_clave'|| $seccion == 'pedidos_per'|| $seccion == 'ADMI_Editar_A'|| $seccion == 'ADMI_CambiarPass') {
     ?>
         <link rel="stylesheet" href="../css/style3.css" />
         <link rel="stylesheet" href="../css/styles.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
 
         <!-- Scripts de Bootstrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js'></script>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css'>
         <!-- Scripts de fontawesome -->
         <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
     <?php

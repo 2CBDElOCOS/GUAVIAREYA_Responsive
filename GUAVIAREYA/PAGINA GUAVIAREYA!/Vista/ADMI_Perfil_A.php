@@ -1,3 +1,23 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
+    header("location: ../Controladores/controlador.php?seccion=login");
+    exit();
+}
+
+// Incluir el archivo del modelo
+include '../Modelos/DataAdmi.php';
+
+// Obtener la información del usuario desde la base de datos
+$user = DataAdmi::getUserByEmail($_SESSION['correo']);
+$imgUrl = $user['img_A']; // Suponiendo que 'img_U' es el nombre de la columna que contiene la URL de la imagen
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,7 +32,7 @@
         </div>
         <div class="main-body">
             <br>
-            <div class=""><h4>TU PERFIl</h4></div>
+            <div class=""><h4>TU RESTAURANTE</h4></div>
 
 
             <!-- /Migajas de pan -->
@@ -21,20 +41,48 @@
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body">
+                            <!-- Rounded switch -->
+                            <form action="Controlador_AdmiSwitch.php" method="POST">
+                                <!-- Campo oculto para manejar el estado desmarcado -->
+                                <input type="hidden" name="estado" value="Cerrado">
+                                <!-- Checkbox para cambiar el estado -->
+                                <label class="switch">
+                                    <input type="checkbox" name="estado" value="Abierto" <?php echo $user['Estado'] === 'Abierto' ? 'checked' : ''; ?>>
+                                    <span class="slider round"></span>
+                                </label>
+                                <input type="hidden" name="id_restaurante" value="<?php echo htmlspecialchars($user['ID_Restaurante']); ?>">
+                               <button type="submit" class="btn btn-primary"
+                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-bs-title="">
+                                Aceptar
+                                </button>
+                            </form>
+
+
                             <div class="d-flex flex-column align-items-center text-center">
                                 <br>
                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                     class="rounded-circle" width="150">
                                 <div class="mt-3">
-                                    <h4>#RESTAURANTE</h4>
-                                    <p class="text-secondary mb-1">San Jose del Guaviare</p>
-                                    <p class="text-secondary mb-1">#Dirección</p>
-                                    <p class="text-muted font-size-sm">3021233232</p>
-                                    <a href="controlador.php?seccion=ADMI_Editar_A"style="text-decoration: none;">EDITAR DATOS</a><br>
-                                    <a href="controlador.php?seccion=ADMI_Ordenes" style="text-decoration: none;">Ordenes</a><br>
-                                    <a href="controlador.php?seccion=ADMI_Horarios"style="text-decoration: none;">Horarios</a>
+            
+                                    <p class="text-secondary mb-1"><?php echo htmlspecialchars($user['Nombre_R']); ?></p>
+                                    <p class="text-secondary mb-1"><?php echo htmlspecialchars($user['Direccion']); ?></p>
+                                    <p class="text-muted font-size-sm"><?php echo htmlspecialchars($user['Telefono']); ?></p>
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Acciones
+                                    </a>
+                                    
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Editar_A">Editar datos</a></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_CambiarPass">Cambiar Contraseña</a></a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_P">Ordenes</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
+                                    </ul>
                                     <br>
-                                    <i class='bx bx-exit' style="font-size: 20px;" ></i><a href="../Controladores/controlador_cerrar_session.php" style="text-decoration: none;text-align: center;">Cerrar sesión</a>
+                                
                                     
                                 </div>
                             </div>
@@ -49,7 +97,7 @@
                                     <h6 class="">Nombre</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    #Nombre
+                                    <?php echo htmlspecialchars($user['Nombre_R']); ?>
                                 </div>
                             </div>
                             <hr>
@@ -58,7 +106,7 @@
                                     <h6 class="mb-0">Teléfono</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    #Telefono
+                                    <?php echo htmlspecialchars($user['Telefono']); ?>
                                 </div>
                             </div>
                             <hr>
@@ -67,7 +115,7 @@
                                     <h6 class="mb-0">Dirección </h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    #Dirección
+                                    <?php echo htmlspecialchars($user['Direccion']); ?>
                                 </div>
                             </div>
                             <hr>
