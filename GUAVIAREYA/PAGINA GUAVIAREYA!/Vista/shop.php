@@ -38,7 +38,7 @@ if ($_SESSION['correo'] == "") {
           </nav>
           <div class="nav-icons1">
             <a href="#"><i class="bx bx-search"></i></a>
-            <a href="#"><i class="bx bx-cart"></i></a>
+            <a href="controlador.php?seccion=carrito"><i class="bx bx-cart"></i></a>
             <a href="controlador.php?seccion=perfil"><i class="bx bx-user-circle"></i></a>
           </div>
         </div>

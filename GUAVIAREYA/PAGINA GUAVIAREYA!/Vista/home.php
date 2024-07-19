@@ -19,10 +19,6 @@
               <a href="#contactanos">Contactanos </a>
               <a href="https://youtu.be/ZFf1asGqP_g?si=TSlNtdGUMVBZSdx8" target="_blank">video</a>
             </nav>
-            <div class="nav-icons">
-              <a href="controlador.php?seccion=login"><i class="bx bx-search"></i></a>
-              <a href="controlador.php?seccion=login" ><i class="bx bx-cart"></i></a>
-            </div>
           </div>
         </div>
 

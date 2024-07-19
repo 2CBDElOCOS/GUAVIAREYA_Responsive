@@ -22,7 +22,7 @@
             include('../Modelos/mostrar_productos.php');
 
             // Crear instancia de la clase mostrar_productos
-            $mostrarProductos = new mostrar_productos();
+            $mostrarProductos = new mostrar_productos();    
 
             // Inicializar el nombre del restaurante
             $nombre_restaurante = '';
@@ -80,7 +80,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <a href="controlador.php?seccion=tarjeta"><button class="btn-pagar">Pagar</button></a>
+                    <a href="controlador.php?seccion=facturacion"><button class="btn-pagar">Pagar</button></a>
                 </div>
             </div>
         </div>
