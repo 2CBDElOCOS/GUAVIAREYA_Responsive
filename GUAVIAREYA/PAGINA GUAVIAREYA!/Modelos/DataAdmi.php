@@ -4,7 +4,7 @@ include 'Conexion.php';
 /**
  * Clase para manejar operaciones relacionadas con los usuarios
  */
-Class DataUser {
+Class DataAdmi {
     private $conn; // Propiedad para almacenar la conexión
 
     /**
@@ -22,35 +22,38 @@ Class DataUser {
      * @throws Exception Si hay un error preparando la consulta SQL
      */
     public static function getUserByEmail($email) {
-        // Crear conexión
         $conn = Conexion();
-
-        // Inicializar la variable $user
         $user = null;
 
-        // Preparar y ejecutar la consulta SQL para obtener el usuario por correo electrónico
-        $stmt = $conn->prepare("SELECT Correo, Apodo, Nombre, Apellido, Telefono, img_U, Contrasena FROM Usuarios WHERE Correo = ?");
+        $stmt = $conn->prepare("
+            SELECT 
+                administrador.correo, 
+                administrador.contrasena, 
+                administrador.ID_Restaurante, 
+                Restaurantes.Estado, 
+                administrador.img_A, 
+                Restaurantes.Nombre_R, 
+                Restaurantes.Direccion, 
+                Restaurantes.Telefono 
+            FROM administrador 
+            JOIN Restaurantes ON administrador.ID_Restaurante = Restaurantes.ID_Restaurante 
+            WHERE administrador.correo = ?
+        ");
         if ($stmt === false) {
-            // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
-        // Vincular el parámetro $email a la consulta preparada
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // Verificar si se obtuvo un resultado
         if ($result && $result->num_rows > 0) {
-            // Obtener el resultado como un array asociativo
             $user = $result->fetch_assoc();
         }
 
-        // Cerrar la conexión
         $stmt->close();
         $conn->close();
 
-        // Retornar el usuario obtenido
         return $user;
     }
 
@@ -63,20 +66,34 @@ Class DataUser {
      * @param string $telefono Nuevo teléfono del usuario
      * @return bool Retorna true si la actualización fue exitosa, o false si falló
      * @throws Exception Si hay un error preparando la consulta SQL
-     */
-    public static function updateUser($email, $nombre, $apellido, $telefono) {
+        */
+    public static function updateadmi($email, $nombre, $telefono, $direccion) {
         // Crear conexión
         $conn = Conexion();
 
-        // Preparar y ejecutar la consulta SQL para actualizar el usuario por correo electrónico
-        $stmt = $conn->prepare("UPDATE Usuarios SET Nombre = ?, Apellido = ?, Telefono = ? WHERE Correo = ?");
+        // Obtener el ID del restaurante asociado al administrador
+        $stmt = $conn->prepare("SELECT ID_Restaurante FROM administrador WHERE correo = ?");
         if ($stmt === false) {
-            // Lanzar una excepción si hay un error preparando la consulta
+            throw new Exception("Error preparando la consulta: " . $conn->error);
+        }
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->bind_result($id_restaurante);
+        $stmt->fetch();
+        $stmt->close();
+
+        if (!$id_restaurante) {
+            throw new Exception("No se encontró un restaurante asociado al administrador.");
+        }
+
+        // Preparar y ejecutar la consulta SQL para actualizar los datos del restaurante
+        $stmt = $conn->prepare("UPDATE Restaurantes SET Nombre_R = ?, Direccion = ?, Telefono = ? WHERE ID_Restaurante = ?");
+        if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
         // Vincular los parámetros a la consulta preparada
-        $stmt->bind_param("ssss", $nombre, $apellido, $telefono, $email);
+        $stmt->bind_param("sssi", $nombre, $direccion, $telefono, $id_restaurante);
         $success = $stmt->execute();
 
         // Cerrar la conexión
@@ -86,6 +103,7 @@ Class DataUser {
         // Retornar si la actualización fue exitosa
         return $success;
     }
+
     
     /**
      * Método para subir la foto de perfil del usuario
@@ -145,7 +163,7 @@ Class DataUser {
         $conn = Conexion();
 
         // Preparar y ejecutar la consulta SQL para actualizar la contraseña
-        $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
+        $stmt = $conn->prepare("UPDATE Administrador SET Contrasena = ? WHERE Correo = ?");
         if ($stmt === false) {
             // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
@@ -163,45 +181,23 @@ Class DataUser {
         return $success;
     }
 
-
-    public static function verificarCorreo($email) {
+    public static function updateRestaurantStatus($id_restaurante, $estado) {
         $conn = Conexion();
-        $existe = false;
-        $stmt = $conn->prepare("SELECT Correo FROM Usuarios WHERE Correo = ?");
+
+        $stmt = $conn->prepare("UPDATE Restaurantes SET Estado = ? WHERE ID_Restaurante = ?");
         if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result && $result->num_rows > 0) {
-            $existe = true;
-        }
+
+        $stmt->bind_param("si", $estado, $id_restaurante);
+        $success = $stmt->execute();
+
         $stmt->close();
         $conn->close();
-        return $existe;
+
+        return $success;
     }
 
-    // Función para generar el archivo de enlace
-    public function generarArchivoEnlace($email, $rutaArchivo) {
-        // Verificar si el usuario existe
-        if (self::verificarCorreo($email)) {
-            // Generar el contenido del archivo
-            $enlace = "http://localhost:3000/Controladores/controlador.php?seccion=Olvidaste2";
-            $contenido = "Para recuperar tu contraseña, haz clic en el siguiente enlace:\n$enlace";
-
-            // Crear y escribir en el archivo
-            file_put_contents($rutaArchivo, $contenido);
-
-            // Verificar si el archivo fue creado y escrito correctamente
-            if (file_exists($rutaArchivo)) {
-                return "El archivo fue creado exitosamente en $rutaArchivo";
-            } else {
-                return "Hubo un problema al crear el archivo.";
-            }
-        } else {
-            return "El correo electrónico no existe en la base de datos.";
-        }
-    }
+    
 }
 ?>
