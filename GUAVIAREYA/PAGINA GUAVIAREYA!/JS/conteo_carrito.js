@@ -8,11 +8,19 @@ $(document).ready(function() {
 
         // Enviar datos del formulario usando AJAX
         $.post(url, form.serialize(), function(response) {
-            // Actualizar el contador del carrito
-            var contador = parseInt($('#contador-carrito').text());
-            $('#contador-carrito').text(contador + 1);
+            // Parsear la respuesta JSON
+            var data = JSON.parse(response);
 
-            // Opcional: Puedes mostrar un mensaje de éxito o una notificación al usuario
+            // Verificar si la respuesta fue exitosa
+            if (data.success) {
+                // Actualizar el contador del carrito
+                $('#contador-carrito').text(data.contador);
+
+                // Opcional: Puedes mostrar un mensaje de éxito o una notificación al usuario
+            } else {
+                // Manejar el caso donde la respuesta no fue exitosa
+                alert('Error al agregar el producto al carrito.');
+            }
         });
     });
 });

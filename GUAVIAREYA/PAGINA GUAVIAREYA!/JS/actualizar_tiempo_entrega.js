@@ -15,7 +15,7 @@ function updateEstimatedTimeAndFees() {
     } else if (basicOption.checked) {
         estimatedTime = '35-50 minutos';
         taxFees = 2000;
-        shippingCost = 3000;
+        shippingCost = 0;
     }
 
     estimatedTimeElement.textContent = estimatedTime;
@@ -67,4 +67,9 @@ hacerPedidoBtn.addEventListener('click', function (event) {
 document.addEventListener('DOMContentLoaded', function () {
     updateEstimatedTimeAndFees();
     checkPaymentMethodSelected(); // Habilitar o deshabilitar el botón al cargar la página
+});
+
+// Escuchar cambios en los radio buttons de envío
+document.querySelectorAll('input[name="envio"]').forEach(function (envio) {
+    envio.addEventListener('change', updateEstimatedTimeAndFees);
 });

@@ -36,8 +36,14 @@ if (isset($_GET['seccion'])) {
                 $_SESSION['carrito'][] = $producto;
             }
 
-            // Enviar respuesta de éxito
-            echo json_encode(['success' => true]);
+            // Contar el número total de artículos en el carrito
+            $contador_carrito = 0;
+            foreach ($_SESSION['carrito'] as $item) {
+                $contador_carrito += $item['cantidad'];
+            }
+
+            // Enviar respuesta de éxito con el nuevo contador
+            echo json_encode(['success' => true, 'contador' => $contador_carrito]);
             exit();
     }
 }

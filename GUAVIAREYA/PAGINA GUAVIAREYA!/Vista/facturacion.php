@@ -65,6 +65,7 @@
                         <p class="esti-tiempo">30-45 minutos</p>
                     </b>
                 </div>
+
                 <div class="col-md-12 flex-container">
                     <input type="radio" name="envio" id="Prioritaria">
                     <div class="label-container">
@@ -87,16 +88,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 flex-container">
-                    <input type="radio" name="envio" id="Economica">
-                    <div class="label-container">
-                        <b><label for="Economica">Economica 💹</label></b>
-                        <h6>Espera y ahorra</h6>
-                    </div>
-                    <div class="precio">
-                        <h6>-$5000</h6>
-                    </div>
-                </div>
             </div>
         </div>
 
