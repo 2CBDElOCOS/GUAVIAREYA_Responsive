@@ -1,67 +1,60 @@
 CREATE SCHEMA bd_guaviareya;
 USE bd_guaviareya;
 
--- Tabla usuarios
-CREATE TABLE usuarios (
-    correo VARCHAR(50) NOT NULL PRIMARY KEY,
-    apodo VARCHAR(50) NOT NULL,
-    nombre VARCHAR(50) NOT NULL,
-    apellido VARCHAR(50) NOT NULL,
-    contrasena VARCHAR(50) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    fec_regis DATETIME NOT NULL,
-    img_u VARCHAR(200) NOT NULL
-);
+-- Tabla Usuarios
+CREATE TABLE Usuarios (
+    Correo VARCHAR(50) NOT NULL PRIMARY KEY,
+    Apodo VARCHAR(50) NOT NULL,
+    Nombre VARCHAR(50) NOT NULL,
+    Apellido VARCHAR(50) NOT NULL,
+    Contrasena VARCHAR(50) NOT NULL,
+    Telefono VARCHAR(15) NOT NULL,
+    Fec_Regis DATETIME NOT NULL,
+    img_U VARCHAR(200) NOT NULL);
 
 -- Tabla restaurantes
-CREATE TABLE restaurantes (
-    id_restaurante INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_r VARCHAR(50) NOT NULL,
-    direccion VARCHAR(50) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    img_r VARCHAR(200) NOT NULL
-);
+CREATE TABLE Restaurantes (
+    ID_Restaurante INT NOT NULL PRIMARY KEY,
+    Nombre_R VARCHAR(50) NOT NULL,
+    Direccion VARCHAR(50) NOT NULL,
+    Telefono VARCHAR(15) NOT NULL,
+    img_R VARCHAR(200) NOT NULL);
 
 -- Tabla administrador
 CREATE TABLE administrador (
     correo VARCHAR(50) NOT NULL PRIMARY KEY,
     apodo VARCHAR(50) NOT NULL,
-    id_restaurante INT NOT NULL,
+    ID_Restaurante INT NOT NULL,
     contrasena VARCHAR(50) NOT NULL,
-    CONSTRAINT fk_restaurantes_administrador FOREIGN KEY (id_restaurante) REFERENCES restaurantes (id_restaurante)
-);
-
+    CONSTRAINT FK_Restaurantes_Administrador FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante));
+    
 -- Tabla productos
-CREATE TABLE productos (
-    id_producto INT AUTO_INCREMENT PRIMARY KEY,
-    id_restaurante INT NOT NULL,
-    nombre_p VARCHAR(50) NOT NULL,
-    descripcion VARCHAR(300) NOT NULL,
-    valor_p INT NOT NULL,
-    img_p VARCHAR(200) NOT NULL,
-    CONSTRAINT fk_restaurantes_productos FOREIGN KEY (id_restaurante) REFERENCES restaurantes (id_restaurante)
-);
+CREATE TABLE Productos (
+    ID_Producto INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Restaurante INT NOT NULL,
+    Nombre_P VARCHAR(50) NOT NULL,
+    Descripcion VARCHAR(300) NOT NULL,
+    Valor_P INT NOT NULL,
+    img_P VARCHAR(200) NOT NULL,
+    CONSTRAINT FK_Restaurantes_Productos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante));
 
 -- Tabla direccion_entregas
-CREATE TABLE direccion_entregas (
-    id_dire_entre INT AUTO_INCREMENT PRIMARY KEY,
-    correo VARCHAR(50) NOT NULL,
-    numero_casa VARCHAR(10) NOT NULL,
-    cl_cra_av VARCHAR(50) NOT NULL,
-    barrio VARCHAR(50) NOT NULL,
-    CONSTRAINT fk_usuarios_direccion_entregas FOREIGN KEY (correo) REFERENCES usuarios (correo)
-);
-
+CREATE TABLE Direccion_Entregas (
+    ID_Dire_Entre INT NOT NULL PRIMARY KEY,
+    Correo VARCHAR(50) NOT NULL,
+    Numero_Casa VARCHAR(10) NOT NULL,
+    CL_Cra_AV VARCHAR(50) NOT NULL,
+    Barrio VARCHAR(50) NOT NULL,
+    CONSTRAINT FK_Usuarios_Direccion_Entregas FOREIGN KEY (Correo) REFERENCES Usuarios (Correo));
+    
 -- Tabla domiciliarios
-CREATE TABLE domiciliarios (
-    id_domiciliario INT AUTO_INCREMENT PRIMARY KEY,
-    correo VARCHAR(50) NOT NULL,
-    nombre_domiciliario VARCHAR(20) NOT NULL,
-    telefono_domi VARCHAR(15) NOT NULL,
+CREATE TABLE Domiciliarios (
+    ID_Domiciliario INT NOT NULL PRIMARY KEY,
+    Correo VARCHAR(50) NOT NULL,
+    Nombre_Domiciliario VARCHAR(20) NOT NULL,
+    Telefono_Domi VARCHAR(15) NOT NULL,
     img_do VARCHAR(200) NOT NULL,
-    CONSTRAINT fk_usuarios_domiciliarios FOREIGN KEY (correo) REFERENCES usuarios (correo)
-);
-
+    CONSTRAINT FK_Usuarios_Domiciliarios FOREIGN KEY (Correo) REFERENCES Usuarios (Correo));
 -- Tabla pagos
 CREATE TABLE pagos (
     id_pago INT AUTO_INCREMENT PRIMARY KEY,
@@ -86,43 +79,42 @@ CREATE TABLE metodos_pago (
 );
 
 -- Tabla pedidos
-CREATE TABLE pedidos (
-    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
-    id_restaurante INT NOT NULL,
-    id_producto INT NOT NULL,
-    descripcion VARCHAR(300) NOT NULL,
+CREATE TABLE Pedidos (
+    ID_pedido INT NOT NULL PRIMARY KEY,
+    ID_Restaurante INT NOT NULL,
+    ID_Producto INT NOT NULL,
+    Descripcion VARCHAR(300) NOT NULL,
     cantidad INT NOT NULL,
-    sub_total DOUBLE NOT NULL,
-    CONSTRAINT fk_productos_pedidos FOREIGN KEY (id_producto) REFERENCES productos (id_producto),
-    CONSTRAINT fk_restaurantes_pedidos FOREIGN KEY (id_restaurante) REFERENCES restaurantes (id_restaurante)
-);
+    Sub_total DOUBLE NOT NULL,
+    CONSTRAINT FK_Productos_Pedidos FOREIGN KEY (ID_Producto) REFERENCES Productos (ID_Producto),
+    CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante));
 
 -- Tabla pedidos_factura
-CREATE TABLE pedidos_factura (
-    id_pedifac INT AUTO_INCREMENT PRIMARY KEY,
-    id_pedido INT NOT NULL,
-    correo VARCHAR(50) NOT NULL,
-    id_restaurante INT NOT NULL,
-    id_producto INT NOT NULL,
-    id_dire_entre INT NOT NULL,
-    id_pago INT NOT NULL,
-    id_domiciliario INT NOT NULL,
-    estado_pedido VARCHAR(50) NOT NULL,
-    subtotal INT NOT NULL,
-    valor_domi INT NOT NULL DEFAULT 5000,
-    valor_pagar INT NOT NULL,
-    CONSTRAINT fk_pedidos_pedidos_factura FOREIGN KEY (id_pedido) REFERENCES pedidos (id_pedido),
-    CONSTRAINT fk_usuarios_pedidos_factura FOREIGN KEY (correo) REFERENCES usuarios (correo),
-    CONSTRAINT fk_direccion_entregas_pedidos_factura FOREIGN KEY (id_dire_entre) REFERENCES direccion_entregas (id_dire_entre),
-    CONSTRAINT fk_productos_pedidos_factura FOREIGN KEY (id_producto) REFERENCES productos (id_producto),
-    CONSTRAINT fk_domiciliarios_pedidos_factura FOREIGN KEY (id_domiciliario) REFERENCES domiciliarios (id_domiciliario),
-    CONSTRAINT fk_restaurantes_pedidos_factura FOREIGN KEY (id_restaurante) REFERENCES restaurantes (id_restaurante),
-    CONSTRAINT fk_pagos_pedidos_factura FOREIGN KEY (id_pago) REFERENCES pagos (id_pago)
-);
+CREATE TABLE Pedidos_factura (
+    ID_Pedifac INT NOT NULL PRIMARY KEY,
+    ID_pedido INT NOT NULL,
+    Correo VARCHAR(50) NOT NULL,
+    ID_Restaurante INT NOT NULL,
+    ID_Producto INT NOT NULL,
+    ID_Dire_Entre INT NOT NULL,
+    ID_Pago INT NOT NULL,
+    ID_Domiciliario INT NOT NULL,
+    Estado_Pedido VARCHAR(50) NOT NULL,
+    Subtotal INT NOT NULL,
+    Valor_Domi INT NOT NULL DEFAULT 5000,
+    Valor_Pagar INT NOT NULL,
+    CONSTRAINT FK_Pedidos_Pedidos_factura FOREIGN KEY (ID_pedido) REFERENCES Pedidos (ID_pedido),
+    CONSTRAINT FK_Usuarios_Pedidos_factura FOREIGN KEY (Correo) REFERENCES Usuarios (Correo),
+    CONSTRAINT FK_Direccion_Entregas_Pedidos_factura FOREIGN KEY (ID_Dire_Entre) REFERENCES Direccion_Entregas (ID_Dire_Entre),
+    CONSTRAINT FK_Productos_Pedidos_factura FOREIGN KEY (ID_Producto) REFERENCES Productos (ID_Producto),
+    CONSTRAINT FK_Domiciliarios_Pedidos_factura FOREIGN KEY (ID_Domiciliario) REFERENCES Domiciliarios (ID_Domiciliario),
+    CONSTRAINT FK_Restaurantes_Pedidos_factura FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante),
+    CONSTRAINT FK_Pagos_Pedidos_factura FOREIGN KEY (ID_Pago) REFERENCES Pagos (ID_Pago));
 
 -- Seleccionar todas las tablas
-SELECT * FROM usuarios;
+SELECT * FROM Usuarios;
 SELECT * FROM restaurantes;
+SELECT * FROM administrador;
 SELECT * FROM productos;
 SELECT * FROM direccion_entregas;
 SELECT * FROM domiciliarios;
