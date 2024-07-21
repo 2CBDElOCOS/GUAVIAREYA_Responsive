@@ -10,6 +10,22 @@
             margin-bottom: 10px;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const metodoSeleccionado = "<?php echo isset($_SESSION['metodo_pago']) ? $_SESSION['metodo_pago'] : ''; ?>";
+            if (metodoSeleccionado) {
+                document.getElementById(metodoSeleccionado).checked = true;
+            }
+        });
+
+        function guardarMetodoSeleccionado(metodo) {
+            localStorage.setItem('metodoSeleccionado', metodo);
+        }
+
+        function redirigirTarjeta() {
+            window.location.href = "../Controladores/controlador.php?seccion=tarjeta";
+        }
+    </script>
 </head>
 
 <body>
@@ -67,7 +83,7 @@
                 </div>
 
                 <div class="col-md-12 flex-container">
-                    <input type="radio" name="envio" id="Prioritaria">
+                    <input type="radio" name="envio" id="Prioritaria" onclick="guardarMetodoSeleccionado('Prioritaria')">
                     <div class="label-container">
                         <b><label for="Prioritaria">Prioritaria 🚀</label></b>
                         <h6>envio directo</h6>
@@ -78,7 +94,7 @@
                 </div>
 
                 <div class="col-md-12 flex-container">
-                    <input type="radio" name="envio" id="Básica" checked>
+                    <input type="radio" name="envio" id="Básica" checked onclick="guardarMetodoSeleccionado('Básica')">
                     <div class="label-container">
                         <b><label for="Básica">Básica 🍔</label></b>
                         <h6>Entrega habitual</h6>
@@ -102,10 +118,10 @@
                     <label class="add_metodo">Agregar método de pago:</label>
                 </div>
                 <div class="col-md-3 tipos_metodos">
-                    <input class="add_metodos" type="radio" name="metodo_pago"> <img src="../media/tarjeta.png" alt="" width="80px">
+                    <input class="add_metodos" type="radio" name="metodo_pago" onclick="redirigirTarjeta()"> <img src="../media/tarjeta.png" alt="" width="80px">
                 </div>
                 <div class="col-md-3 tipos_metodo">
-                    <a href="controlador.php?seccion=tarjeta"><button style="border-radius: 30px; margin-top:15px">ir</button></a>
+                    <a href="../Controladores/controlador.php?seccion=tarjeta"><button style="border-radius: 30px; margin-top:15px">ir</button></a>
                 </div>
             </div>
         </div>
@@ -168,7 +184,7 @@
             <!-- Mensaje de error -->
             <div id="error-message" class="error-message">Debe seleccionar un método de pago.</div>
 
-            <a href="javascript:void(0);"><button id="hacerPedidoBtn" style="border-radius: 15px; margin-top:30px;">Hacer Pedido</button></a>
+            <a href="../Controladores/controlador.php?seccion=confirmacion"><button id="hacerPedidoBtn" style="border-radius: 15px; margin-top:30px;">Hacer Pedido</button></a>
         </div>
     </div>
 

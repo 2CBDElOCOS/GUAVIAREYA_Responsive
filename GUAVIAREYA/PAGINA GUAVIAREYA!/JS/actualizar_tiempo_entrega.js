@@ -11,11 +11,11 @@ function updateEstimatedTimeAndFees() {
     if (priorityOption.checked) {
         estimatedTime = '20-30 minutos';
         taxFees = 7000;
-        shippingCost = 5000;
+        shippingCost = 3000;
     } else if (basicOption.checked) {
         estimatedTime = '35-50 minutos';
         taxFees = 2000;
-        shippingCost = 0;
+        shippingCost = 3000;
     }
 
     estimatedTimeElement.textContent = estimatedTime;

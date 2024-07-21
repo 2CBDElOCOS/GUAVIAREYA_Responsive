@@ -1,20 +1,21 @@
 <?php
 
-include('Conexion.php');
+
+include('conexion.php');
 
 class add_metodo_pago
 {
-    public static function add_metodo_pago($numero, $nombre, $apellido, $expiracion, $cvv)
+    public static function add_metodo_pago($numero, $nombre, $apellido, $expiracion, $cvv, $correo)
     {
         // Get the database connection
         $conn = Conexion();
 
         // Prepare SQL statement
-        $sql = "INSERT INTO metodos_pago (numero, nombre, apellido, expiracion, cvv) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO metodos_pago (numero, nombre, apellido, expiracion, cvv, correo) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
         // Bind parameters
-        $stmt->bind_param("sssss", $numero, $nombre, $apellido, $expiracion, $cvv);
+        $stmt->bind_param("ssssss", $numero, $nombre, $apellido, $expiracion, $cvv, $correo);
 
         // Execute statement
         if ($stmt->execute()) {
@@ -30,4 +31,5 @@ class add_metodo_pago
         }
     }
 }
+
 ?>
