@@ -1,31 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <title>GuaviareYa!</title>
-    <style>
-        .error-message {
-            color: red;
-            display: none;
-            margin-bottom: 10px;
-        }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const metodoSeleccionado = "<?php echo isset($_SESSION['metodo_pago']) ? $_SESSION['metodo_pago'] : ''; ?>";
-            if (metodoSeleccionado) {
-                document.getElementById(metodoSeleccionado).checked = true;
-            }
-        });
-
-        function guardarMetodoSeleccionado(metodo) {
-            localStorage.setItem('metodoSeleccionado', metodo);
-        }
-
-        function redirigirTarjeta() {
-            window.location.href = "../Controladores/controlador.php?seccion=tarjeta";
-        }
-    </script>
 </head>
 
 <body>
@@ -40,7 +17,7 @@
                 <div class="col-md-12 datos">
                     <h6 class="direccion">Cl. 17 #103A-45</h6>
                     <p class="instru_entrega">Instrucciones de entrega (opcional)</p>
-                    <input class="detalles" type="text" placeholder="Detalles adicionales..">
+                    <input class="detalles" type="text" name="descripcion" placeholder="Detalles adicionales..">
                 </div>
             </div>
         </div>
@@ -49,29 +26,52 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Nombre Restaurante
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <!-- Aquí puedes mostrar los productos del carrito -->
-                                    <?php
-                                    if (!empty($_SESSION['carrito'])) {
-                                        foreach ($_SESSION['carrito'] as $producto) {
-                                            echo '<img src="../media_productos/' . htmlspecialchars($producto['img_P']) . '" alt="' . htmlspecialchars($producto['Nombre_P']) . '" width="110px">';
-                                            echo '<p>' . htmlspecialchars($producto['cantidad']) . ' ' . htmlspecialchars($producto['Nombre_P']) . '</p>';
-                                            echo '<p>$' . number_format($producto['Valor_P'], 0, ',', '.') . ' COP</p>';
-                                        }
-                                    } else {
-                                        echo '<p>No hay productos en el carrito.</p>';
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                        // Verificar si el carrito tiene productos
+                        if (!empty($_SESSION['carrito'])) {
+                            // Agrupar productos por restaurante
+                            $productosPorRestaurante = [];
+                            foreach ($_SESSION['carrito'] as $producto) {
+                                $id_restaurante = $producto['ID_Restaurante'];
+                                if (!isset($productosPorRestaurante[$id_restaurante])) {
+                                    $productosPorRestaurante[$id_restaurante] = [
+                                        'nombre_restaurante' => obtenerNombreRestaurante($id_restaurante),
+                                        'productos' => []
+                                    ];
+                                }
+                                $productosPorRestaurante[$id_restaurante]['productos'][] = $producto;
+                            }
+
+                            // Crear una sección en el acordeón por cada restaurante
+                            foreach ($productosPorRestaurante as $id_restaurante => $datos) {
+                                echo '<div class="accordion-item">';
+                                echo '<h2 class="accordion-header">';
+                                echo '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRestaurante' . $id_restaurante . '" aria-expanded="true" aria-controls="collapseRestaurante' . $id_restaurante . '">';
+                                echo '<p style="font-weight: bold; text-transform: uppercase;">'. htmlspecialchars($datos['nombre_restaurante']);
+                                echo '</button>';
+                                echo '</h2>';
+                                echo '<div id="collapseRestaurante' . $id_restaurante . '" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">';
+                                echo '<div class="accordion-body">';
+                                foreach ($datos['productos'] as $producto) {
+                                    echo '<img src="../media_productos/' . htmlspecialchars($producto['img_P']) . '" alt="' . htmlspecialchars($producto['Nombre_P']) . '" width="110px">';
+                                    echo '<p>' . htmlspecialchars($producto['cantidad']) . ' ' . htmlspecialchars($producto['Nombre_P']) . '</p>';
+                                    echo '<p>$' . number_format($producto['Valor_P'], 0, ',', '.') . ' COP</p>';
+                                }
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                        } else {
+                            echo '<p>No hay productos en el carrito.</p>';
+                        }
+
+                        // Función para obtener el nombre del restaurante
+                        function obtenerNombreRestaurante($id_restaurante) {
+                            include('../Modelos/mostrar_productos.php');
+                            $mostrarProductos = new mostrar_productos();
+                            return $mostrarProductos->obtenerNombreRestaurante($id_restaurante);
+                        }
+                        ?>
                     </div>
                 </div>
 
@@ -83,10 +83,10 @@
                 </div>
 
                 <div class="col-md-12 flex-container">
-                    <input type="radio" name="envio" id="Prioritaria" onclick="guardarMetodoSeleccionado('Prioritaria')">
+                    <input type="radio" name="envio" id="Prioritaria" onclick="updateEstimatedTimeAndFees()">
                     <div class="label-container">
                         <b><label for="Prioritaria">Prioritaria 🚀</label></b>
-                        <h6>envio directo</h6>
+                        <h6>envío directo</h6>
                     </div>
                     <div class="precio">
                         <h6>+$5000</h6>
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="col-md-12 flex-container">
-                    <input type="radio" name="envio" id="Básica" checked onclick="guardarMetodoSeleccionado('Básica')">
+                    <input type="radio" name="envio" id="Básica" checked onclick="updateEstimatedTimeAndFees()">
                     <div class="label-container">
                         <b><label for="Básica">Básica 🍔</label></b>
                         <h6>Entrega habitual</h6>
@@ -102,26 +102,6 @@
                     <div class="precio">
                         <h6>+$0</h6>
                     </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="subcontainer4">
-            <div class="row">
-                <div class="col-md-12 metodo">
-                    <b>
-                        <h6>✅ Método de pago</h6>
-                    </b>
-                </div>
-                <div class="col-md-6 tipos_metodo">
-                    <label class="add_metodo">Agregar método de pago:</label>
-                </div>
-                <div class="col-md-3 tipos_metodos">
-                    <input class="add_metodos" type="radio" name="metodo_pago" onclick="redirigirTarjeta()"> <img src="../media/tarjeta.png" alt="" width="80px">
-                </div>
-                <div class="col-md-3 tipos_metodo">
-                    <a href="../Controladores/controlador.php?seccion=tarjeta"><button style="border-radius: 30px; margin-top:15px">ir</button></a>
                 </div>
             </div>
         </div>
@@ -180,11 +160,17 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Mensaje de error -->
-            <div id="error-message" class="error-message">Debe seleccionar un método de pago.</div>
-
-            <a href="../Controladores/controlador.php?seccion=confirmacion"><button id="hacerPedidoBtn" style="border-radius: 15px; margin-top:30px;">Hacer Pedido</button></a>
+            <form method="post" action="../Controladores/controlador_pedidos.php" class="form-agregar">
+                <input type="hidden" name="ID_Restaurante" value="<?php echo $id_restaurante; ?>">
+                <?php foreach ($_SESSION['carrito'] as $index => $producto) : ?>
+                    <input type="hidden" name="Descripcion[]" value="<?php echo htmlspecialchars($producto['Descripcion']); ?>">
+                    <input type="hidden" name="ID_Producto[]" value="<?php echo htmlspecialchars($producto['ID_Producto']); ?>">
+                    <input type="hidden" name="Nombre_P[]" value="<?php echo htmlspecialchars($producto['Nombre_P']); ?>">
+                    <input type="hidden" name="img_P[]" value="<?php echo htmlspecialchars($producto['img_P']); ?>">
+                    <input type="hidden" name="Valor_P[]" value="<?php echo htmlspecialchars($producto['Valor_P']); ?>">
+                <?php endforeach; ?>
+                <button type="submit" class="btn-pagar">Hacer Pedido</button>
+            </form>
         </div>
     </div>
 

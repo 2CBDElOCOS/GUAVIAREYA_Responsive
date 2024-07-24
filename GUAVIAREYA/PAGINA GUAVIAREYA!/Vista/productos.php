@@ -42,7 +42,7 @@
 
             // Obtener el nombre del restaurante
             $nombre_restaurante = $mostrarProductos->obtenerNombreRestaurante($id_restaurante);
-            echo '<h1 style="text-align: center; color: white;">' . $nombre_restaurante . '</h1>';
+            echo '<h1 style="text-align: center; color: white;">' . htmlspecialchars($nombre_restaurante) . '</h1>';
 
             echo '<div class="row row-cols-1 row-cols-md-3 g-4 py-5">';
             // Obtener los productos asociados a este ID_Restaurante
@@ -53,19 +53,21 @@
                 echo '
                 <div class="col">
                     <div class="card">
-                        <img style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: 20px;" src="../media_productos/' . $producto['img_P'] . '" class="rounded float-start" alt="Imagen de ' . $producto['Nombre_P'] . '">
+                        <img style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: 20px;" src="../media_productos/' . htmlspecialchars($producto['img_P']) . '" class="rounded float-start" alt="Imagen de ' . htmlspecialchars($producto['Nombre_P']) . '">
                         <div class="card-body">
-                            <h5 class="card-title">' . $producto['Nombre_P'] . '</h5>
-                            <p class="card-text">' . $producto['Descripcion'] . '</p>
+                            <h5 class="card-title">' . htmlspecialchars($producto['Nombre_P']) . '</h5>
+                            <p class="card-text">' . htmlspecialchars($producto['Descripcion']) . '</p>
                         </div>
                         <div class="mb-5 d-flex justify-content-between align-items-center">
-                            <h3>' . $producto['Valor_P'] . '</h3>
+                            <h3>' . htmlspecialchars($producto['Valor_P']) . '</h3>
                             <form method="post" action="controlador_carrito.php?seccion=carrito" class="form-agregar">
-                                <input type="hidden" name="ID_Producto" value="' . $producto['ID_Producto'] . '">
-                                <input type="hidden" name="Nombre_P" value="' . $producto['Nombre_P'] . '">
-                                <input type="hidden" name="Descripcion" value="' . $producto['Descripcion'] . '">
-                                <input type="hidden" name="img_P" value="' . $producto['img_P'] . '">
-                                <input type="hidden" name="Valor_P" value="' . $producto['Valor_P'] . '">
+                                <input type="hidden" name="ID_Producto" value="' . htmlspecialchars($producto['ID_Producto']) . '">
+                                <input type="hidden" name="Nombre_P" value="' . htmlspecialchars($producto['Nombre_P']) . '">
+                                <input type="hidden" name="Descripcion" value="' . htmlspecialchars($producto['Descripcion']) . '">
+                                <input type="hidden" name="img_P" value="' . htmlspecialchars($producto['img_P']) . '">
+                                <input type="hidden" name="Valor_P" value="' . htmlspecialchars($producto['Valor_P']) . '">
+                                <input type="hidden" name="ID_Restaurante" value="' . htmlspecialchars($id_restaurante) . '"> <!-- ID del restaurante -->
+                                <input type="hidden" name="Nombre_Restaurante" value="' . htmlspecialchars($nombre_restaurante) . '"> <!-- Nombre del restaurante -->
                                 <button type="submit" class="btn btn-primary btn-agregar">Agregar</button>
                             </form>
                         </div>
@@ -79,8 +81,7 @@
         }
         ?>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script src="../JS/conteo_carrito.js"></script>
 </body>
 
