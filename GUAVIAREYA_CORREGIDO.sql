@@ -59,9 +59,9 @@ CREATE TABLE Productos (
 CREATE TABLE Direccion_Entregas (
     ID_Dire_Entre INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Correo VARCHAR(50) NOT NULL,
-    Numero_Casa VARCHAR(10) NOT NULL,
-    CL_Cra_AV VARCHAR(50) NOT NULL,
+    Direccion VARCHAR(15) NOT NULL,
     Barrio VARCHAR(50) NOT NULL,
+    Descripcion VARCHAR(50) NOT NULL,
     CONSTRAINT FK_Usuarios_Direccion_Entregas FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
 );
 
