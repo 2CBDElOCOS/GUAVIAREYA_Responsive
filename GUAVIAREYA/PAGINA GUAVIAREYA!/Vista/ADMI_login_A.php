@@ -24,7 +24,7 @@
                     <div class="header-text mb-4">
                         <h2 style="text-align: center;">ADMINISTRADOR</h2>
                     </div>
-                    <form method="POST" action="Controlador_Usuario_admi.php">
+                    <form method="POST" action="controlador_usuario_admi.php">
                         <div class="input-group mb-3">
                             <input type="email" name="correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo" required>
                         </div>
@@ -45,6 +45,7 @@
                                 <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
                             </div>
                         </div>
+
                         <div class="input-group mb-3">
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button>
                         </div>
