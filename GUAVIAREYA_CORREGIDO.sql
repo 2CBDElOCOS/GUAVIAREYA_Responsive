@@ -27,14 +27,21 @@ CREATE TABLE Restaurantes (
 ALTER TABLE Restaurantes 
 ADD COLUMN Estado VARCHAR(15) NOT NULL;
 
+
+
 -- Tabla Administrador
-CREATE TABLE administrador (
-    correo VARCHAR(50) NOT NULL PRIMARY KEY,
+CREATE TABLE administradores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    correo VARCHAR(50) NOT NULL UNIQUE,
     apodo VARCHAR(50) NOT NULL,
-    ID_Restaurante INT NOT NULL,
-    contrasena VARCHAR(50) NOT NULL,
-    CONSTRAINT FK_Restaurantes_Administrador FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
+    ID_Restaurante INT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    rol ENUM('administrador', 'super_administrador') NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    img_A VARCHAR(200) NULL,
+    CONSTRAINT FK_Restaurantes_Administradores FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
 );
+
 
 
 -- Tabla Productos
@@ -118,7 +125,7 @@ CREATE TABLE Pedidos_factura (
 -- Seleccionar todas las tablas
 SELECT * FROM Usuarios;
 SELECT * FROM Restaurantes;
-SELECT * FROM administrador;
+SELECT * FROM administradores;
 SELECT * FROM Productos;
 SELECT * FROM Direccion_Entregas;
 SELECT * FROM Domiciliarios;
