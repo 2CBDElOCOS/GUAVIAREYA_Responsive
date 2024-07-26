@@ -4,13 +4,15 @@ include 'Conexion.php';
 /**
  * Clase para manejar operaciones relacionadas con los usuarios
  */
-Class DataAdmi {
+class DataAdmi
+{
     private $conn; // Propiedad para almacenar la conexión
 
     /**
      * Constructor para inicializar la conexión
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->conn = Conexion(); // Establecer la conexión en el constructor
     }
 
@@ -21,23 +23,24 @@ Class DataAdmi {
      * @return array|null Retorna un array asociativo con los datos del usuario si se encuentra, o null si no se encuentra
      * @throws Exception Si hay un error preparando la consulta SQL
      */
-    public static function getUserByEmail($email) {
+    public static function getUserByEmail($email)
+    {
         $conn = Conexion();
         $user = null;
 
         $stmt = $conn->prepare("
             SELECT 
-                administrador.correo, 
-                administrador.contrasena, 
-                administrador.ID_Restaurante, 
+                administradores.correo, 
+                administradores.contrasena, 
+                administradores.ID_Restaurante, 
                 Restaurantes.Estado, 
-                administrador.img_A, 
+                administradores.img_A, 
                 Restaurantes.Nombre_R, 
                 Restaurantes.Direccion, 
                 Restaurantes.Telefono 
-            FROM administrador 
-            JOIN Restaurantes ON administrador.ID_Restaurante = Restaurantes.ID_Restaurante 
-            WHERE administrador.correo = ?
+            FROM administradores 
+            JOIN Restaurantes ON administradores.ID_Restaurante = Restaurantes.ID_Restaurante 
+            WHERE administradores.correo = ?
         ");
         if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
@@ -66,8 +69,9 @@ Class DataAdmi {
      * @param string $telefono Nuevo teléfono del usuario
      * @return bool Retorna true si la actualización fue exitosa, o false si falló
      * @throws Exception Si hay un error preparando la consulta SQL
-        */
-    public static function updateadmi($email, $nombre, $telefono, $direccion) {
+     */
+    public static function updateadmi($email, $nombre, $telefono, $direccion)
+    {
         // Crear conexión
         $conn = Conexion();
 
@@ -104,7 +108,7 @@ Class DataAdmi {
         return $success;
     }
 
-    
+
     /**
      * Método para subir la foto de perfil del usuario
      *
@@ -112,7 +116,8 @@ Class DataAdmi {
      * @param array $file Array que representa el archivo subido ($_FILES['img_U'])
      * @return bool|string Retorna true si la subida fue exitosa, o un mensaje de error si falla
      */
-    public function subirFotoPerfil($userEmail, $file) {
+    public function subirFotoPerfil($userEmail, $file)
+    {
         // Verificar si hay algún error en el archivo subido
         if ($file['error'] !== UPLOAD_ERR_OK) {
             return 'Error al subir el archivo.';
@@ -158,7 +163,8 @@ Class DataAdmi {
      * @return bool Retorna true si la actualización fue exitosa, o false si falló
      * @throws Exception Si hay un error preparando la consulta SQL
      */
-    public static function updatePassword($email, $newPassword) {
+    public static function updatePassword($email, $newPassword)
+    {
         // Crear conexión
         $conn = Conexion();
 
@@ -181,7 +187,8 @@ Class DataAdmi {
         return $success;
     }
 
-    public static function updateRestaurantStatus($id_restaurante, $estado) {
+    public static function updateRestaurantStatus($id_restaurante, $estado)
+    {
         $conn = Conexion();
 
         $stmt = $conn->prepare("UPDATE Restaurantes SET Estado = ? WHERE ID_Restaurante = ?");
@@ -197,7 +204,4 @@ Class DataAdmi {
 
         return $success;
     }
-
-    
 }
-?>

@@ -10,13 +10,16 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
     $contrasena = $_POST['contrasena'];
 
     if (!empty($correo) && !empty($contrasena)) {
-        $id_restaurante = Login::IniciarSesion($correo, $contrasena);
+        $rol = Login::IniciarSesion($correo, $contrasena);
 
-        if ($id_restaurante) {
+        if ($rol) {
             $_SESSION['correo'] = $correo;
-            $_SESSION['id_restaurante'] = $id_restaurante;
 
-            header("location: ../Controladores/controlador.php?seccion=ADMI_Shop_A");
+            if ($rol == 'super_administrador') {
+                header("location: ../Controladores/controlador.php?seccion=SuperAdmin_Panel");
+            } else {
+                header("location: ../Controladores/controlador.php?seccion=ADMI_Shop_A");
+            }
             exit;
         } else {
             header("location: ../Controladores/controlador.php?seccion=ADMI_login_A&error=Correo o contraseña incorrectos");

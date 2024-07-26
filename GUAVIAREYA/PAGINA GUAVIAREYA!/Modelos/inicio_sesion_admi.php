@@ -22,7 +22,7 @@ class Login {
             die("Conexión fallida: " . $conn->connect_error);
         }
 
-        $sql = "SELECT apodo, ID_Restaurante FROM administrador WHERE correo = ? AND contrasena = ?";
+        $sql = "SELECT apodo, ID_Restaurante, rol FROM administradores WHERE correo = ? AND contrasena = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
             throw new Exception("Error en la preparación de la consulta: " . $conn->error);
@@ -33,7 +33,7 @@ class Login {
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($apodo, $id_restaurante);
+            $stmt->bind_result($apodo, $id_restaurante, $rol);
             $stmt->fetch();
 
             if (session_status() == PHP_SESSION_NONE) {
@@ -42,11 +42,12 @@ class Login {
 
             $_SESSION['apodo'] = $apodo;
             $_SESSION['id_restaurante'] = $id_restaurante;
+            $_SESSION['rol'] = $rol;
 
             $stmt->close();
             $conn->close();
 
-            return $id_restaurante; // Retorna el id_restaurante
+            return $rol; // Retorna el rol
         } else {
             $stmt->close();
             $conn->close();
