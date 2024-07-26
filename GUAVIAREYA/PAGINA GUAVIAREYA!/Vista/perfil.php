@@ -70,7 +70,7 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
                                 <br>
                                 <div class="col 1">
                                 <form method="POST" action="Controlador_Foto.php" enctype="multipart/form-data">
-                                    <input type="file"  style="width: 390px; padding: 5px; font-size 15px;"  id="img_U" name="img_U" accept="image/*">
+                                    <input type="file"  style="width: 390px; padding: 5px; font-size:15px;"  id="img_U" name="img_U" accept="image/*">
                                     <button type="submit">Aceptar</button>
                                 </form>
                                 </div>
