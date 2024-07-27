@@ -15,9 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos del formulario
     $id_restaurante = isset($_POST['ID_Restaurante']) ? intval($_POST['ID_Restaurante']) : null;
     $descripciones = isset($_POST['Descripcion']) ? $_POST['Descripcion'] : [];
+    $correo = $_SESSION['correo']; // Obtener el correo del usuario desde la sesión
 
     // Validar los datos del formulario
-    if ($id_restaurante === null || empty($descripciones)) {
+    if ($id_restaurante === null || empty($descripciones) || empty($correo)) {
         die('Datos de formulario inválidos.');
     }
 
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar si el carrito tiene productos
     if (!empty($_SESSION['carrito'])) {
-        // Verificar si el ID_Restaurante existe en la tabla restaurantes
+        // Verificar si el ID_Restaurante existe en la tabla Restaurantes
         if (!$guardarPedido->verificarRestaurante($id_restaurante)) {
             die('El restaurante no existe.');
         }
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $subtotal = floatval($producto['Valor_P'] * $cantidad);
 
             // Llamar al método para insertar el pedido
-            $guardarPedido->insertarPedido($id_restaurante, $id_producto, $descripcion, $cantidad, $subtotal);
+            $guardarPedido->insertarPedido($correo, $id_restaurante, $id_producto, $descripcion, $cantidad, $subtotal);
         }
 
         // Limpiar el carrito después de realizar el pedido

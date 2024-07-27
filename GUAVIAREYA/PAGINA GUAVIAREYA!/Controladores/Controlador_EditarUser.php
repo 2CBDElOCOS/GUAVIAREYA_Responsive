@@ -1,43 +1,26 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include '../Modelos/DataUser.php';
 
-if (!isset($_SESSION['correo']) || empty($_SESSION['correo'])) {
-    header("location: ../Controladores/controlador.php?seccion=login");
-    exit();
-}
+    // Obtener datos del formulario
+    $correo = $_POST['Correo'];
+    $nombre = isset($_POST['Nombre']) ? $_POST['Nombre'] : null;
+    $apellido = isset($_POST['Apellido']) ? $_POST['Apellido'] : null;
+    $telefono = isset($_POST['Telefono']) ? $_POST['Telefono'] : null;
 
-// Incluir el archivo del modelo
-include '../Modelos/DataUser.php';
+    // Crear instancia de DataUser
+    $dataUser = new DataUser();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Verificar si todas las claves están definidas en $_POST
-    $required_fields = ['Nombre', 'Apellido', 'Telefono'];
-    foreach ($required_fields as $field) {
-        if (!isset($_POST[$field]) || empty($_POST[$field])) {
-            header("location: ../Controladores/controlador.php?seccion=perfil_E");
-            exit();
-        }
+    // Actualizar solo los campos que no son null
+    if ($nombre) {
+        $dataUser->updateUser($correo, $nombre, $apellido, $telefono);
+    } elseif ($apellido) {
+        $dataUser->updateUser($correo, $nombre, $apellido, $telefono);
+    } elseif ($telefono) {
+        $dataUser->updateUser($correo, $nombre, $apellido, $telefono);
     }
 
-    $email = $_SESSION['correo'];
-    // Agregar apodo si es necesario
-    $nombre = $_POST['Nombre']; 
-    $apellido = $_POST['Apellido'];
-    $telefono = $_POST['Telefono'];
-
-    $success = DataUser::updateUser($email, $nombre, $apellido, $telefono);
-
-    if ($success) {
-        header("location: controlador.php?seccion=perfil");
-        exit();
-    } else {
-        echo "Error al actualizar los datos.";
-    }
-} else {
-    // Handle the case if the form is not submitted via POST
-    header("location: controlador.php?seccion=perfil_E");
+    // Redirigir a la página de perfil o a donde desees
+    header("Location: controlador.php?seccion=perfil");
     exit();
 }
-?>
