@@ -30,7 +30,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <?php
-    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A'|| $seccion == 'Cambiar_clave'|| $seccion == 'pedidos_per'|| $seccion == 'ADMI_Editar_A'|| $seccion == 'ADMI_CambiarPass') {
+    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A'|| $seccion == 'Cambiar_clave'|| $seccion == 'pedidos_per'|| $seccion == 'ADMI_Editar_A'|| $seccion == 'ADMI_CambiarPass'|| $seccion == 'Perfil_Direcciones'  ) {
     ?>
         <link rel="stylesheet" href="../css/style3.css" />
         <link rel="stylesheet" href="../css/styles.css" />

@@ -163,45 +163,38 @@ Class DataUser {
         return $success;
     }
 
-
-    public static function verificarCorreo($email) {
-        $conn = Conexion();
-        $existe = false;
-        $stmt = $conn->prepare("SELECT Correo FROM Usuarios WHERE Correo = ?");
-        if ($stmt === false) {
-            throw new Exception("Error preparando la consulta: " . $conn->error);
+    public function obtenerPedidosPorUsuario($correo) {
+        $query = "SELECT p.ID_pedido, p.Descripcion, p.cantidad, p.Sub_total, p.fecha_pedido
+                  FROM Pedidos p
+                  WHERE p.Correo = ?
+                  ORDER BY p.Sub_total DESC"; // O usa otro campo para ordenar si lo prefieres
+    
+        $stmt = $this->conn->prepare($query);
+    
+        // Verificar si prepare falló
+        if (!$stmt) {
+            throw new Exception("Error en la preparación de la consulta: " . $this->conn->error);
         }
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
+    
+        // Vincular el parámetro
+        $stmt->bind_param("s", $correo);
+    
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
+        }
+    
+        // Obtener resultados
         $result = $stmt->get_result();
-        if ($result && $result->num_rows > 0) {
-            $existe = true;
-        }
+        $pedidos = $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Cerrar la declaración
         $stmt->close();
-        $conn->close();
-        return $existe;
+    
+        return $pedidos;
     }
+    
+    
 
-    // Función para generar el archivo de enlace
-    public function generarArchivoEnlace($email, $rutaArchivo) {
-        // Verificar si el usuario existe
-        if (self::verificarCorreo($email)) {
-            // Generar el contenido del archivo
-            $enlace = "http://localhost:3000/Controladores/controlador.php?seccion=Olvidaste2";
-            $contenido = "Para recuperar tu contraseña, haz clic en el siguiente enlace:\n$enlace";
-
-            // Crear y escribir en el archivo
-            file_put_contents($rutaArchivo, $contenido);
-
-            // Verificar si el archivo fue creado y escrito correctamente
-            if (file_exists($rutaArchivo)) {
-                return "El archivo fue creado exitosamente en $rutaArchivo";
-            } else {
-                return "Hubo un problema al crear el archivo.";
-            }
-        } else {
-            return "El correo electrónico no existe en la base de datos.";
-        }
-    }
 }
 ?>

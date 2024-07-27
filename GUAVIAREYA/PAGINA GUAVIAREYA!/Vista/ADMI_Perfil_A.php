@@ -77,7 +77,7 @@ $imgUrl = $user['img_A']; // Suponiendo que 'img_U' es el nombre de la columna q
                                         <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Editar_A">Editar datos</a></li>
                                         <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_CambiarPass">Cambiar Contraseña</a></a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_P">Ordenes</a></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Ordenes">Ordenes</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
                                     </ul>

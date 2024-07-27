@@ -37,10 +37,10 @@ class Modelo_Direccion_Entregas {
      * @return bool Retorna true si la inserción fue exitosa, false en caso contrario.
      * @throws Exception Si hay un error preparando la consulta SQL.
      */
-    public function insertarDireccion($correo, $numeroCasa, $clCraAv, $barrio) {
+    public function insertarDireccion($correo, $Direccion, $Barrio, $Descripcion) {
         self::initConnection();
         // Preparar la consulta SQL para insertar la dirección
-        $sql = "INSERT INTO Direccion_Entregas (Correo, Numero_Casa, CL_Cra_AV, Barrio) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO Direccion_Entregas (Correo, Direccion, Barrio, Descripcion) VALUES (?, ?, ?, ?)";
         $stmt = self::$conn->prepare($sql);
 
         if ($stmt === false) {
@@ -49,7 +49,7 @@ class Modelo_Direccion_Entregas {
         }
 
         // Vincular los parámetros a la consulta preparada
-        $stmt->bind_param("ssss", $correo, $numeroCasa, $clCraAv, $barrio);
+        $stmt->bind_param("ssss", $correo, $Direccion, $Barrio, $Descripcion);
 
         // Ejecutar la consulta
         $success = $stmt->execute();
@@ -71,7 +71,7 @@ class Modelo_Direccion_Entregas {
     public static function obtenerDireccionesPorUsuario($correo) {
         self::initConnection();
         // Preparar la consulta SQL para obtener las direcciones por correo de usuario
-        $sql = "SELECT ID_Dire_Entre, Numero_Casa, CL_Cra_AV, Barrio FROM Direccion_Entregas WHERE Correo = ?";
+        $sql = "SELECT ID_Dire_Entre, Direccion, Barrio, Descripcion FROM Direccion_Entregas WHERE Correo = ?";
         $stmt = self::$conn->prepare($sql);
 
         if ($stmt === false) {
