@@ -1,7 +1,6 @@
 CREATE SCHEMA bd_guaviareya;
 USE bd_guaviareya;
 
-
 -- Tabla Usuarios
 CREATE TABLE Usuarios (
     Correo VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -61,6 +60,7 @@ CREATE TABLE Direccion_Entregas (
     Correo VARCHAR(50) NOT NULL,
     Direccion VARCHAR(15) NOT NULL,
     Barrio VARCHAR(50) NOT NULL,
+    fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Descripcion VARCHAR(50) NOT NULL,
     CONSTRAINT FK_Usuarios_Direccion_Entregas FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
 );
@@ -92,12 +92,15 @@ CREATE TABLE Pedidos (
     ID_pedido INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     ID_Restaurante INT NOT NULL,
     ID_Producto INT NOT NULL,
+    Correo VARCHAR(50) NOT NULL,
     Descripcion VARCHAR(300) NOT NULL,
     cantidad INT NOT NULL,
     Sub_total DOUBLE NOT NULL,
     CONSTRAINT FK_Productos_Pedidos FOREIGN KEY (ID_Producto) REFERENCES Productos (ID_Producto),
-    CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
+    CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante),
+    CONSTRAINT FK_Usuarios_Pedidos FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
 );
+
 
 -- Tabla Pedidos_factura
 CREATE TABLE Pedidos_factura (
