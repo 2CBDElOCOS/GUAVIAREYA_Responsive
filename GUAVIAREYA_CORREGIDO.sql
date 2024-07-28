@@ -1,6 +1,7 @@
 CREATE SCHEMA bd_guaviareya;
 USE bd_guaviareya;
 
+
 -- Tabla Usuarios
 CREATE TABLE Usuarios (
     Correo VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -26,21 +27,14 @@ CREATE TABLE Restaurantes (
 ALTER TABLE Restaurantes 
 ADD COLUMN Estado VARCHAR(15) NOT NULL;
 
-
-
 -- Tabla Administrador
-CREATE TABLE administradores (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    correo VARCHAR(50) NOT NULL UNIQUE,
+CREATE TABLE administrador (
+    correo VARCHAR(50) NOT NULL PRIMARY KEY,
     apodo VARCHAR(50) NOT NULL,
-    ID_Restaurante INT NULL,
-    contrasena VARCHAR(255) NOT NULL,
-    rol ENUM('administrador', 'super_administrador') NOT NULL,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    img_A VARCHAR(200) NULL,
-    CONSTRAINT FK_Restaurantes_Administradores FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
+    ID_Restaurante INT NOT NULL,
+    contrasena VARCHAR(50) NOT NULL,
+    CONSTRAINT FK_Restaurantes_Administrador FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
 );
-
 
 
 -- Tabla Productos
@@ -92,14 +86,15 @@ CREATE TABLE Pedidos (
     ID_pedido INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     ID_Restaurante INT NOT NULL,
     ID_Producto INT NOT NULL,
-    Correo VARCHAR(50) NOT NULL,
-    Descripcion VARCHAR(300) NOT NULL,
     cantidad INT NOT NULL,
     Sub_total DOUBLE NOT NULL,
+    ID_Dire_Entre INT NOT NULL,
+    Correo VARCHAR(50) NOT NULL,
     CONSTRAINT FK_Productos_Pedidos FOREIGN KEY (ID_Producto) REFERENCES Productos (ID_Producto),
-    CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante),
-    CONSTRAINT FK_Usuarios_Pedidos FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
+    CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
 );
+ALTER TABLE Pedidos ADD COLUMN Correo VARCHAR(50) NOT NULL;
+
 
 
 -- Tabla Pedidos_factura
@@ -135,3 +130,7 @@ SELECT * FROM Domiciliarios;
 SELECT * FROM metodos_pago;
 SELECT * FROM Pedidos;
 SELECT * FROM Pedidos_factura;
+
+
+
+
