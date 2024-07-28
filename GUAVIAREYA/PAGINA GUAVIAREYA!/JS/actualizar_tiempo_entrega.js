@@ -1,31 +1,35 @@
 function updateEstimatedTimeAndFees() {
-    const estimatedTimeElement = document.querySelector('.esti-tiempo');
-    const taxFeesElement = document.querySelector('.impuestos-tarifas');
-    const shippingCostElement = document.querySelector('.costo-envio');
-    const totalElement = document.querySelector('.total');
-    const priorityOption = document.getElementById('Prioritaria');
-    const basicOption = document.getElementById('Básica');
+    const elementoTiempoEstimado = document.querySelector('.esti-tiempo');
+    const elementoCostoEnvio = document.querySelector('.costo-envio'); // Actualiza el costo de envío
+    const elementoSubtotal = document.querySelector('.subtotal'); // Actualiza esto si usas una clase diferente para el subtotal
+    const elementoTotal = document.querySelector('.total'); // Elemento para el total
 
-    let estimatedTime, taxFees, shippingCost;
+    const opcionPrioritaria = document.getElementById('Prioritaria');
+    const opcionBasica = document.getElementById('Básica');
 
-    if (priorityOption.checked) {
-        estimatedTime = '20-30 minutos';
-        taxFees = 7000;
-        shippingCost = 5000;
-    } else if (basicOption.checked) {
-        estimatedTime = '35-50 minutos';
-        taxFees = 2000;
-        shippingCost = 3000;
+    let tiempoEstimado, costoEnvio;
+
+    // Costo de envío predeterminado
+    costoEnvio = 3000;
+    tiempoEstimado = '35-50 minutos'; // Tiempo estimado por defecto
+
+    if (opcionPrioritaria.checked) {
+        tiempoEstimado = '20-30 minutos';
+        costoEnvio += 5000; // Agrega 5000 al costo de envío si se selecciona Prioritaria
     }
 
-    estimatedTimeElement.textContent = estimatedTime;
-    taxFeesElement.textContent = `$${taxFees.toLocaleString()}`;
-    shippingCostElement.textContent = `$${shippingCost.toLocaleString()}`;
+    elementoTiempoEstimado.textContent = tiempoEstimado;
+    elementoCostoEnvio.textContent = `+$${costoEnvio.toLocaleString()}`;
 
-    // Update total
-    const subtotal = parseInt(document.querySelector('.subtotal').textContent.replace(/\D/g, ''));
-    const total = subtotal + shippingCost + taxFees;
-    totalElement.textContent = `$${total.toLocaleString()}`;
+    // Actualizar el subtotal y total
+    const subtotal = parseInt(document.querySelector('.subtotal').textContent.replace(/\D/g, '')) || 0;
+    const impuestosTarifas = 2000; // Ajusta según lo necesario
+    const total = subtotal + costoEnvio + impuestosTarifas;
+    elementoTotal.textContent = `$${total.toLocaleString()}`;
+
+    // Actualizar valores ocultos para el formulario
+    document.getElementById('costo_envio').value = costoEnvio;
+    document.getElementById('total').value = total;
 }
 
 // Actualizar tiempos y costos de envío al cargar la página

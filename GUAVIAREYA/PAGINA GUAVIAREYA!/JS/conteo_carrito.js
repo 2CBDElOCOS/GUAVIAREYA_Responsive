@@ -17,10 +17,13 @@ $(document).ready(function() {
                 $('#contador-carrito').text(data.contador);
 
                 // Opcional: Puedes mostrar un mensaje de éxito o una notificación al usuario
+                console.log('Producto agregado al carrito con éxito.');
             } else {
                 // Manejar el caso donde la respuesta no fue exitosa
                 alert('Error al agregar el producto al carrito.');
             }
+        }).fail(function() {
+            alert('Error al procesar la solicitud.');
         });
     });
 });
