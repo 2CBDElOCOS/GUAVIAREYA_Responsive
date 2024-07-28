@@ -20,7 +20,7 @@ $imgUrl = $user['img_U']; // Suponiendo que 'img_U' es el nombre de la columna q
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>MIS PEDIDOS</title>
+    <title>MIS DIRECCIONES</title>
 </head>
 <body>
     <div class="row">

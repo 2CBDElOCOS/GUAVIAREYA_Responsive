@@ -164,35 +164,43 @@ Class DataUser {
     }
 
     public function obtenerPedidosPorUsuario($correo) {
-        $query = "SELECT p.ID_pedido, p.Descripcion, p.cantidad, p.Sub_total, p.fecha_pedido
-                  FROM Pedidos p
-                  WHERE p.Correo = ?
-                  ORDER BY p.Sub_total DESC"; // O usa otro campo para ordenar si lo prefieres
+        $query = "SELECT 
+                    p.ID_pedido, 
+                    p.Fecha_Pedido, 
+                    prod.Nombre_P AS Nombre_Producto, 
+                    r.Nombre_R AS Nombre_Restaurante, 
+                    CONCAT(d.Direccion, ' ', d.Barrio) AS Direccion_Entrega,
+                    p.cantidad, 
+                    p.Sub_total
+                  FROM 
+                    Pedidos p
+                  JOIN 
+                    Productos prod ON p.ID_Producto = prod.ID_Producto
+                  JOIN 
+                    Restaurantes r ON p.ID_Restaurante = r.ID_Restaurante
+                  JOIN 
+                    Direccion_Entregas d ON p.ID_Dire_Entre = d.ID_Dire_Entre
+                  WHERE 
+                    p.Correo = ?
+                  ORDER BY 
+                    p.Fecha_Pedido DESC";
     
         $stmt = $this->conn->prepare($query);
-    
-        // Verificar si prepare falló
         if (!$stmt) {
             throw new Exception("Error en la preparación de la consulta: " . $this->conn->error);
         }
     
-        // Vincular el parámetro
         $stmt->bind_param("s", $correo);
-    
-        // Ejecutar la consulta
         if (!$stmt->execute()) {
             throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
         }
     
-        // Obtener resultados
         $result = $stmt->get_result();
         $pedidos = $result->fetch_all(MYSQLI_ASSOC);
-    
-        // Cerrar la declaración
         $stmt->close();
-    
         return $pedidos;
     }
+    
     
     
 

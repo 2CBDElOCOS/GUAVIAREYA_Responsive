@@ -1,5 +1,5 @@
 <?php
-include_once 'Conexion.php';
+require_once 'Conexion.php';
 
 /**
  * Clase Modelo_Direccion_Entregas
@@ -31,14 +31,15 @@ class Modelo_Direccion_Entregas {
      * Método para insertar una nueva dirección de entrega en la base de datos.
      *
      * @param string $correo Correo del usuario al que pertenece la dirección.
-     * @param string $numeroCasa Número de casa de la dirección.
-     * @param string $clCraAv Calle, Carrera o Avenida de la dirección.
+     * @param string $direccion Dirección de la entrega.
      * @param string $barrio Barrio de la dirección.
+     * @param string $descripcion Descripción adicional de la dirección.
      * @return bool Retorna true si la inserción fue exitosa, false en caso contrario.
      * @throws Exception Si hay un error preparando la consulta SQL.
      */
-    public function insertarDireccion($correo, $Direccion, $Barrio, $Descripcion) {
+    public function insertarDireccion($correo, $direccion, $barrio, $descripcion) {
         self::initConnection();
+
         // Preparar la consulta SQL para insertar la dirección
         $sql = "INSERT INTO Direccion_Entregas (Correo, Direccion, Barrio, Descripcion) VALUES (?, ?, ?, ?)";
         $stmt = self::$conn->prepare($sql);
@@ -49,7 +50,7 @@ class Modelo_Direccion_Entregas {
         }
 
         // Vincular los parámetros a la consulta preparada
-        $stmt->bind_param("ssss", $correo, $Direccion, $Barrio, $Descripcion);
+        $stmt->bind_param("ssss", $correo, $direccion, $barrio, $descripcion);
 
         // Ejecutar la consulta
         $success = $stmt->execute();
@@ -65,11 +66,12 @@ class Modelo_Direccion_Entregas {
      * Método estático para obtener todas las direcciones de entrega de un usuario por su correo.
      *
      * @param string $correo Correo del usuario del que se quieren obtener las direcciones.
-     * @return array Retorna un array de direcciones de entrega obtenidas, o null si no hay resultados.
+     * @return array|null Retorna un array de direcciones de entrega obtenidas, o null si no hay resultados.
      * @throws Exception Si hay un error preparando la consulta SQL.
      */
     public static function obtenerDireccionesPorUsuario($correo) {
         self::initConnection();
+
         // Preparar la consulta SQL para obtener las direcciones por correo de usuario
         $sql = "SELECT ID_Dire_Entre, Direccion, Barrio, Descripcion FROM Direccion_Entregas WHERE Correo = ?";
         $stmt = self::$conn->prepare($sql);
@@ -94,11 +96,15 @@ class Modelo_Direccion_Entregas {
         // Cerrar la consulta
         $stmt->close();
 
-        // Retornar las direcciones obtenidas
-        return $direcciones;
+        // Retornar las direcciones obtenidas o null si no hay resultados
+        return $direcciones ? $direcciones : null;
     }
 
-    // Otros métodos relacionados con las direcciones de entrega pueden ser añadidos según sea necesario
+    // Método para cerrar la conexión si es necesario
+    public function __destruct() {
+        if (self::$conn) {
+            self::$conn->close();
+        }
+    }
 }
 ?>
-

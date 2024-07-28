@@ -1,7 +1,7 @@
 <?php
 
 
-include('conexion.php');
+require_once 'Conexion.php';
 
 class add_metodo_pago
 {

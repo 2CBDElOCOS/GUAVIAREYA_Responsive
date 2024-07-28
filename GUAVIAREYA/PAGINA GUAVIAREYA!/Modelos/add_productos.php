@@ -64,7 +64,7 @@ class add_productos {
                     header("location: controlador.php?seccion=ADMI_Agregar_P&error=Error al mover la imagen");
                     exit;
                 }
-                $conn->close();
+                
             } else {
                 header("location: controlador.php?seccion=ADMI_Agregar_P&error=ID de restaurante no especificado");
                 exit;

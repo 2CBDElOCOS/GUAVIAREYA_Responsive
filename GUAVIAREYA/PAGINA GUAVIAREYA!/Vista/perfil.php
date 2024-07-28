@@ -72,7 +72,7 @@ $primera_direccion = $direcciones ? $direcciones[0] : null;
                                 </div>
 
                                 <div class="mt-3">
-                                    <?php echo htmlspecialchars($user['Apodo']); ?>
+                                    <p class="text-muted font-size-sm"><?php echo htmlspecialchars($user['Apodo']); ?></p>
                                     <p class="text-muted font-size-sm"><?php echo htmlspecialchars($user['Telefono']); ?></p>
                                     
                                     <li class="nav-item dropdown">

@@ -1,6 +1,6 @@
 <?php
 // Modelos/mostrar_productos.php
-include 'Conexion.php';
+require_once 'Conexion.php';
 
 class mostrar_productos {
     /**

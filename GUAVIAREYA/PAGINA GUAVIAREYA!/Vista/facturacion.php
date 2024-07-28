@@ -1,23 +1,72 @@
+
+<?php
+// Asegúrate de que la sesión esté iniciada y que el usuario esté autenticado.
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
+    header("location: ../Controladores/controlador.php?seccion=login");
+    exit();
+}
+
+require_once "../Modelos/Direccion_Entregas.php";
+
+// Obtener las direcciones de entrega del usuario.
+$addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['correo']);
+?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <title>GuaviareYa!</title>
+    <link rel="stylesheet" href="path/to/bootstrap.min.css"> <!-- Asegúrate de incluir el archivo de Bootstrap -->
+    <script src="path/to/jquery.min.js"></script> <!-- Asegúrate de incluir jQuery -->
+    <script src="path/to/bootstrap.bundle.min.js"></script> <!-- Asegúrate de incluir Bootstrap JS -->
+    <script src="../js/guardar_direccion_seleccionada.js"></script>
 </head>
-
 <body>
     <div class="container">
         <div class="subcontainer3">
-            <div class="row">
-                <div class="col-md-12 diren">
-                    <h6>Dirección de entrega</h6>
-                    <a href="controlador.php?seccion=perfil">Cambiar</a>
-                </div>
-
-                <div class="col-md-12 datos">
-                    <h6 class="direccion">Cl. 17 #103A-45</h6>
-                    <p class="instru_entrega">Instrucciones de entrega (opcional)</p>
-                    <input class="detalles" type="text" name="descripcion" placeholder="Detalles adicionales..">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            ¿Dónde quieres que entreguemos tu pedido?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <form id="direccionForm">
+                                <table class="table table-striped w-100">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Seleccionar</th>
+                                            <th scope="col">Dirección</th>
+                                            <th scope="col">Barrio</th>
+                                            <th scope="col">Descripción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        if ($addresses) {
+                                            foreach ($addresses as $address) {
+                                                echo '<tr>';
+                                                echo '<td><input class="form-check-input" type="radio" name="direccion_seleccionada" value="' . htmlspecialchars($address['ID_Dire_Entre']) . '" required></td>';
+                                                echo '<td>' . htmlspecialchars($address['Direccion']) . '</td>';
+                                                echo '<td>' . htmlspecialchars($address['Barrio']) . '</td>';
+                                                echo '<td>' . htmlspecialchars($address['Descripcion']) . '</td>';
+                                                echo '</tr>';
+                                            }
+                                            echo '<tr><td colspan="4"><button type="submit" class="btn btn-primary">Seleccionar Dirección</button></td></tr>';
+                                        } else {
+                                            echo '<tr><td colspan="4"><p>No se encontraron direcciones de entrega.</p></td></tr>';
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
