@@ -22,8 +22,7 @@ $user = DataUser::getUserByEmail($correo);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
     <div class="container">
@@ -84,7 +83,7 @@ $user = DataUser::getUserByEmail($correo);
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
+        
 
 </body>
 </html>

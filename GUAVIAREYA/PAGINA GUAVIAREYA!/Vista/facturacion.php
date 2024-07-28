@@ -1,4 +1,3 @@
-
 <?php
 // Asegúrate de que la sesión esté iniciada y que el usuario esté autenticado.
 if (session_status() == PHP_SESSION_NONE) {
@@ -11,19 +10,21 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
 }
 
 require_once "../Modelos/Direccion_Entregas.php";
+require_once "../Modelos/mostrar_productos.php";
 
 // Obtener las direcciones de entrega del usuario.
 $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['correo']);
+
+// Inicializar el objeto para obtener los nombres de los restaurantes
+$mostrarProductos = new mostrar_productos();
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <title>GuaviareYa!</title>
-    <link rel="stylesheet" href="path/to/bootstrap.min.css"> <!-- Asegúrate de incluir el archivo de Bootstrap -->
-    <script src="path/to/jquery.min.js"></script> <!-- Asegúrate de incluir jQuery -->
-    <script src="path/to/bootstrap.bundle.min.js"></script> <!-- Asegúrate de incluir Bootstrap JS -->
-    <script src="../js/guardar_direccion_seleccionada.js"></script>
 </head>
+
 <body>
     <div class="container">
         <div class="subcontainer3">
@@ -36,7 +37,7 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <form id="direccionForm">
+                            <form id="direccionForm" method="post" action="../Controladores/controlador_direccion.php"> <!-- Asegúrate de que el formulario apunte a la acción correcta -->
                                 <table class="table table-striped w-100">
                                     <thead>
                                         <tr>
@@ -57,9 +58,10 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                                                 echo '<td>' . htmlspecialchars($address['Descripcion']) . '</td>';
                                                 echo '</tr>';
                                             }
-                                            echo '<tr><td colspan="4"><button type="submit" class="btn btn-primary">Seleccionar Dirección</button></td></tr>';
+                                            echo '<tr><td colspan="4"><button type="submit" class="btn-pagar">Seleccionar Dirección</button></td></tr>';
                                         } else {
-                                            echo '<tr><td colspan="4"><p>No se encontraron direcciones de entrega.</p></td></tr>';
+                                            echo '<tr><td colspan="4" style="text-align:center;"><a href="../Controladores/controlador.php?seccion=Perfil_Direcciones" style="text-decoration:none; color:inherit;"><p style="margin:0;">No se encontraron direcciones de entrega.</p></a></td></tr>';
+
                                         }
                                         ?>
                                     </tbody>
@@ -78,47 +80,39 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                         <?php
                         // Verificar si el carrito tiene productos
                         if (!empty($_SESSION['carrito'])) {
-                            // Agrupar productos por restaurante
                             $productosPorRestaurante = [];
-                            foreach ($_SESSION['carrito'] as $producto) {
-                                $id_restaurante = $producto['ID_Restaurante'];
-                                if (!isset($productosPorRestaurante[$id_restaurante])) {
-                                    $productosPorRestaurante[$id_restaurante] = [
-                                        'nombre_restaurante' => obtenerNombreRestaurante($id_restaurante),
-                                        'productos' => []
-                                    ];
-                                }
-                                $productosPorRestaurante[$id_restaurante]['productos'][] = $producto;
+                            foreach ($_SESSION['carrito'] as $ID_Restaurante => $restaurante) {
+                                $nombre_restaurante = $mostrarProductos->obtenerNombreRestaurante($ID_Restaurante);
+                                $productosPorRestaurante[$ID_Restaurante] = [
+                                    'nombre_restaurante' => $nombre_restaurante,
+                                    'productos' => $restaurante['productos']
+                                ];
                             }
 
-                            // Crear una sección en el acordeón por cada restaurante
                             foreach ($productosPorRestaurante as $id_restaurante => $datos) {
                                 echo '<div class="accordion-item">';
                                 echo '<h2 class="accordion-header">';
                                 echo '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRestaurante' . $id_restaurante . '" aria-expanded="true" aria-controls="collapseRestaurante' . $id_restaurante . '">';
-                                echo '<p style="font-weight: bold; text-transform: uppercase;">'. htmlspecialchars($datos['nombre_restaurante']);
+                                echo '<p style="font-weight: bold; text-transform: uppercase;">' . htmlspecialchars($datos['nombre_restaurante']);
                                 echo '</button>';
                                 echo '</h2>';
                                 echo '<div id="collapseRestaurante' . $id_restaurante . '" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">';
                                 echo '<div class="accordion-body">';
+
                                 foreach ($datos['productos'] as $producto) {
                                     echo '<img src="../media_productos/' . htmlspecialchars($producto['img_P']) . '" alt="' . htmlspecialchars($producto['Nombre_P']) . '" width="110px">';
                                     echo '<p>' . htmlspecialchars($producto['cantidad']) . ' ' . htmlspecialchars($producto['Nombre_P']) . '</p>';
                                     echo '<p>$' . number_format($producto['Valor_P'], 0, ',', '.') . ' COP</p>';
                                 }
+
+                                echo '<p>Valor de ID_Restaurante: ' . htmlspecialchars($id_restaurante) . '</p>';
+
                                 echo '</div>';
                                 echo '</div>';
                                 echo '</div>';
                             }
                         } else {
                             echo '<p>No hay productos en el carrito.</p>';
-                        }
-
-                        // Función para obtener el nombre del restaurante
-                        function obtenerNombreRestaurante($id_restaurante) {
-                            include('../Modelos/mostrar_productos.php');
-                            $mostrarProductos = new mostrar_productos();
-                            return $mostrarProductos->obtenerNombreRestaurante($id_restaurante);
                         }
                         ?>
                     </div>
@@ -127,7 +121,7 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                 <div class="col-md-12 estimada">
                     <h6 class="esti">Entrega estimada:</h6>
                     <b>
-                        <p class="esti-tiempo">30-45 minutos</p>
+                        <p class="esti-tiempo">35-50 minutos</p>
                     </b>
                 </div>
 
@@ -138,7 +132,7 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                         <h6>envío directo</h6>
                     </div>
                     <div class="precio">
-                        <h6>+$5000</h6>
+                        <h6>+5000</h6>
                     </div>
                 </div>
 
@@ -149,7 +143,7 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                         <h6>Entrega habitual</h6>
                     </div>
                     <div class="precio">
-                        <h6>+$0</h6>
+                        <h6>+3000</h6>
                     </div>
                 </div>
             </div>
@@ -170,11 +164,14 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                                     <div class="col-md-12 resumen_total">
                                         <?php
                                         // Calcular el total dinámico del carrito
+                                        // Inicializar subtotal y otras variables
                                         $subtotal = 0;
-                                        foreach ($_SESSION['carrito'] as $producto) {
-                                            $subtotal += $producto['Valor_P'] * $producto['cantidad'];
+                                        foreach ($_SESSION['carrito'] as $restaurante) {
+                                            foreach ($restaurante['productos'] as $producto) {
+                                                $subtotal += $producto['Valor_P'] * $producto['cantidad'];
+                                            }
                                         }
-                                        $costoEnvio = 0; // Inicialmente sin costo
+                                        $costoEnvio = 3000; // Inicialmente sin costo adicional
                                         $impuestosTarifas = 2000; // Ejemplo de impuestos y tarifas estáticos
                                         $total = $subtotal + $costoEnvio + $impuestosTarifas;
                                         ?>
@@ -185,15 +182,15 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                                             </i>
                                         </div>
                                         <div class="resumen">
-                                            <h6>Costo de envío</h6>
+                                            <h6>Envío</h6>
                                             <i>
-                                                <p class="costo-envio">$<?php echo number_format($costoEnvio, 0, ',', '.'); ?></p>
+                                                <p class="costo-envio">+$<?php echo number_format($costoEnvio, 0, ',', '.'); ?></p>
                                             </i>
                                         </div>
                                         <div class="resumen">
-                                            <h6>Impuestos y Tarifas</h6>
+                                            <h6>Impuestos y tarifas</h6>
                                             <i>
-                                                <p class="impuestos-tarifas">$<?php echo number_format($impuestosTarifas, 0, ',', '.'); ?></p>
+                                                <p class="impuestos">+$<?php echo number_format($impuestosTarifas, 0, ',', '.'); ?></p>
                                             </i>
                                         </div>
                                         <div class="resumen">
@@ -209,21 +206,21 @@ $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['
                     </div>
                 </div>
             </div>
-            <form method="post" action="../Controladores/controlador_pedidos.php" class="form-agregar">
-                <input type="hidden" name="ID_Restaurante" value="<?php echo $id_restaurante; ?>">
-                <?php foreach ($_SESSION['carrito'] as $index => $producto) : ?>
-                    <input type="hidden" name="Descripcion[]" value="<?php echo htmlspecialchars($producto['Descripcion']); ?>">
-                    <input type="hidden" name="ID_Producto[]" value="<?php echo htmlspecialchars($producto['ID_Producto']); ?>">
-                    <input type="hidden" name="Nombre_P[]" value="<?php echo htmlspecialchars($producto['Nombre_P']); ?>">
-                    <input type="hidden" name="img_P[]" value="<?php echo htmlspecialchars($producto['img_P']); ?>">
-                    <input type="hidden" name="Valor_P[]" value="<?php echo htmlspecialchars($producto['Valor_P']); ?>">
-                <?php endforeach; ?>
-                <button type="submit" class="btn-pagar">Hacer Pedido</button>
-            </form>
+
+            <!-- Botón para confirmar pedido -->
+            <div class="col-md-12">
+                <form method="post" action="../Controladores/controlador_pedidos.php">
+                    <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
+                    <input type="hidden" name="total" id="total" value="<?php echo $total; ?>">
+                    <input type="hidden" name="ID_Restaurante" value="<?php echo $id_restaurante; ?>"> <!-- Asegúrate de definir este valor -->
+                    <button type="submit" class="btn-pagar">Confirmar pedido</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <script src="../JS/actualizar_tiempo_entrega.js"></script>
+    <script src="../JS/guardar_direccion_seleccionada.js"></script>
 </body>
 
 </html>

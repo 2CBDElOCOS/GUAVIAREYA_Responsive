@@ -21,8 +21,10 @@
                     // Contar el número total de artículos en el carrito
                     $contador_carrito = 0;
                     if (isset($_SESSION['carrito'])) {
-                        foreach ($_SESSION['carrito'] as $item) {
-                            $contador_carrito += $item['cantidad'];
+                        foreach ($_SESSION['carrito'] as $restaurante) {
+                            foreach ($restaurante['productos'] as $item) {
+                                $contador_carrito += $item['cantidad'];
+                            }
                         }
                     }
                     echo $contador_carrito;
