@@ -27,6 +27,10 @@ $mostrarProductos = new mostrar_productos();
 
 <body>
     <div class="container">
+
+        <div class="col-md-12 ico-carro">
+            <a href="controlador.php?seccion=carrito"><i class="fa-solid fa-circle-arrow-left"></i></a>
+        </div>
         <div class="subcontainer3">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
@@ -61,7 +65,6 @@ $mostrarProductos = new mostrar_productos();
                                             echo '<tr><td colspan="4"><button type="submit" class="btn-pagar">Seleccionar Dirección</button></td></tr>';
                                         } else {
                                             echo '<tr><td colspan="4" style="text-align:center;"><a href="../Controladores/controlador.php?seccion=Perfil_Direcciones" style="text-decoration:none; color:inherit;"><p style="margin:0;">No se encontraron direcciones de entrega.</p></a></td></tr>';
-
                                         }
                                         ?>
                                     </tbody>
@@ -100,9 +103,13 @@ $mostrarProductos = new mostrar_productos();
                                 echo '<div class="accordion-body">';
 
                                 foreach ($datos['productos'] as $producto) {
-                                    echo '<img src="../media_productos/' . htmlspecialchars($producto['img_P']) . '" alt="' . htmlspecialchars($producto['Nombre_P']) . '" width="110px">';
+                                    echo '<div class="product-row">';
+                                    echo '<div class="product-details">';
+                                    echo '<img src="../media_productos/' . htmlspecialchars($producto['img_P']) . '" alt="' . htmlspecialchars($producto['Nombre_P']) . '" width="100px">';
                                     echo '<p>' . htmlspecialchars($producto['cantidad']) . ' ' . htmlspecialchars($producto['Nombre_P']) . '</p>';
                                     echo '<p>$' . number_format($producto['Valor_P'], 0, ',', '.') . ' COP</p>';
+                                    echo '</div>';
+                                    echo '</div>';
                                 }
 
                                 echo '<p>Valor de ID_Restaurante: ' . htmlspecialchars($id_restaurante) . '</p>';
