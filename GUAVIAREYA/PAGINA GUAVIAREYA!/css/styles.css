@@ -598,8 +598,33 @@ h3,h5{
 }
 
 /* facturaccion */
+
+.accordion-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre productos */
+}
+
+.product-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(180, 202, 202);
+    padding: 10px 0;
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.product-details img {
+    margin-right: 20px;
+}
+
 .subcontainer3 .diren,
-.accordion-body{
+.accordion-body {
     display: flex;
     justify-content: space-between;
     text-align: center;
@@ -608,13 +633,13 @@ h3,h5{
     border-bottom: 1px solid rgb(180, 202, 202);
 }
 
-.resumen{
+.resumen {
     display: flex;
     justify-content: space-between;
     text-align: center;
-    
 }
-.subcontainer4{
+
+.subcontainer4 {
     position: relative;
     margin-top: 60px;
     border: 1px solid rgb(236, 236, 236);
@@ -622,11 +647,11 @@ h3,h5{
     border-radius: 15px;
 }
 
-.direccion{
+.direccion {
     margin-top: 10px;
 }
 
-.detalles{
+.detalles {
     width: 100%;
     height: 48px;
     font-family: Nunito;
@@ -659,7 +684,7 @@ h3,h5{
 }
 
 .accordion-button:hover {
-    background-color: #e68a00; 
+    background-color: #e68a00;
     color: white;
 }
 
@@ -668,11 +693,11 @@ h3,h5{
 }
 
 .accordion-body p {
-    margin: 0; 
-    padding: 20px 0; 
+    margin: 0;
+    padding: 20px 0;
 }
 
-.estimada{
+.estimada {
     display: flex;
     justify-content: space-between;
     text-align: center;
@@ -680,7 +705,7 @@ h3,h5{
 }
 
 .esti,
-.esti-tiempo{
+.esti-tiempo {
     margin-top: 20px;
 }
 
@@ -688,7 +713,6 @@ h3,h5{
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
 .label-container {
@@ -711,18 +735,16 @@ h3,h5{
     margin-left: auto;
 }
 
-
-.metodo{
+.metodo {
     border-bottom: 1px solid rgb(180, 202, 202);
 }
 
 .tarjeta,
-.add_metodo{
+.add_metodo {
     margin-top: 30px;
 }
 
-
-.add_metodos{
+.add_metodos {
     margin-top: 30px;
     border: 1px solid rgb(230, 235, 241);
     background-color: #44b478;
@@ -741,13 +763,34 @@ h3,h5{
     padding: 5px 0;
 }
 
-.resumen h6, .resumen p {
+.resumen h6,
+.resumen p {
     margin: 0;
 }
 
 .resumen p {
     margin-left: 500px;
 }
+
+.product-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(180, 202, 202);
+    padding: 10px 0;
+}
+
+.product-row img {
+    margin-right: 20px;
+}
+
+.product-details {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /**PEDIDOS**/
 table {
     width: 100%;
