@@ -8,17 +8,23 @@
       <!--header-->
       <header class="fixed-top bg-dark">
         <div class="row align-items-center">
+
           <div class="col-md-3">
             <a href="#" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
           </div>
+
           <div class="col-md-9 d-md-flex justify-content-md-end align-items-center">
             <nav class="navlist">
               <a href="controlador.php?seccion=SUPER_add" target="_blank">Agregar Restaurante </a>
-
             </nav>
           </div>
         </div>
 
+        <div class="nav-icons">
+          
+          <a href="controlador.php?seccion=Perfil_SuperAdmi"><i class='bx bx-user-circle ' ></i></i></a>
+          <a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php"><i class='bx bxs-door-open ' ></i></a>
+        </div>
       </header>
     </div>
 

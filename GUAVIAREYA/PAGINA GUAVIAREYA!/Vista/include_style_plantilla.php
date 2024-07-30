@@ -6,7 +6,7 @@
         $seccion == 'home' || $seccion == 'shop' || $seccion == 'comida' || $seccion == 'bebidas' ||
         $seccion == 'productos' || $seccion == 'carrito' || $seccion == 'tarjeta' || $seccion == 'pago' ||
         $seccion == 'facturacion' || $seccion == 'confirmacion' || $seccion == 'ADMI_Shop_A' || $seccion == 'ADMI_Productos_A' ||
-        $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A' || $seccion == 'SuperAdmin_Panel' || $seccion == 'SUPER_add' || $seccion == 'SUPER_add_administrador'
+        $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A' || $seccion == 'SuperAdmin_Panel' || $seccion == 'SUPER_add' || $seccion == 'SUPER_add_administrador'|| $seccion == 'Perfil_Restaurantes'
     ) {
     ?>
         <link rel="stylesheet" href="../css/styles.css" />
@@ -34,14 +34,15 @@
         <script src="path/to/bootstrap.bundle.min.js"></script> <!-- Asegúrate de incluir Bootstrap JS -->
 
     <?php
-    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A' || $seccion == 'Cambiar_clave' || $seccion == 'pedidos_per' || $seccion == 'ADMI_Editar_A' || $seccion == 'ADMI_CambiarPass' || $seccion == 'Perfil_Direcciones') {
+    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A' || $seccion == 'Cambiar_clave' || $seccion == 'pedidos_per' || $seccion == 'ADMI_Editar_A' || $seccion == 'ADMI_CambiarPass' || $seccion == 'Perfil_Direcciones'|| $seccion == 'Perfil_SuperAdmi'|| $seccion == 'CambiarClave_SuperAdmi') {
     ?>
         <link rel="stylesheet" href="../css/style3.css" />
-        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../css/styles.css" />              
 
         <!-- Scripts de Bootstrap -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        
         <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js'></script>
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css'>
         <!-- Bootstrap CSS -->
@@ -51,7 +52,11 @@
     <?php
     } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A') {
     ?>
+        <!-- SCRIPT DEL CAPTCHA-->
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        <!-- CSS -->
         <link rel="stylesheet" href="../css/style3.css" />
+        <!-- BOADSTRAP-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <?php
     } elseif ($seccion == 'ADMI_Agregar_P' || $seccion == 'ADMI_editar_Producto') {
@@ -71,7 +76,7 @@
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <?php
-    } elseif ($seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Shop_A' || $seccion == 'bebidas' || $seccion == 'comida' || $seccion == 'productos')
+    } elseif ($seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Shop_A' || $seccion == 'bebidas' || $seccion == 'comida' || $seccion == 'productos'|| $seccion == 'Perfil_Restaurantes')
     ?>
     <link rel="stylesheet" href="../css/style2.css">
 

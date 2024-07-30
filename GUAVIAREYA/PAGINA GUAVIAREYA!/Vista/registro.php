@@ -2,8 +2,7 @@
 <html lang="es">
 <head>
     <title>Registro</title>
-   
-
+    <!-- Asegúrate de tener el enlace a los estilos de Bootstrap u otros necesarios -->
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -19,6 +18,7 @@
                         <h2 style="text-align: center;">REGÍSTRATE</h2>
                     </div>
                     <form id="registerForm" action="Controlador_Registrar.php" method="POST" enctype="multipart/form-data">
+                        <!-- Otros campos del formulario -->
                         <div class="input-group mb-3">
                             <input type="text" name="Apodo" class="form-control form-control-lg bg-light fs-6" placeholder="Apodo" required>
                         </div>
@@ -45,15 +45,31 @@
                                 <input type="checkbox" required> He leído y acepto <a href="controlador.php?seccion=terminos">los términos de uso y condiciones</a> y las <a href="politicas.php">políticas de privacidad</a>
                             </small>
                         </div>
+                        <?php
+                        if (isset($_GET['error'])) {
+                            $error_message = '';
+                            switch ($_GET['error']) {
+                                case '1':
+                                    $error_message = 'El correo ya existe, intenta con otro.';
+                                    break;
+                                case '2':
+                                    $error_message = 'Error en el captcha';
+                                    break;
+                            }
+                            echo "<div class='alert alert-danger' role='alert'>$error_message</div>";
+                        }
+                        ?>
                         <div class="input-group mb-3">
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button>
                         </div>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAgDs9tR8EZ6iKVr" data-language="es" data-theme="light"></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
- <script src="../JS/mensaje_contraseña.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="../JS/mensaje_contraseña.js"></script>
 </body>
 </html>

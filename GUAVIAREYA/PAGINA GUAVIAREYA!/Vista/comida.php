@@ -8,24 +8,17 @@ $restaurantes = $mostrarProductos->obtenerRestaurantes();
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>GuaviareYa!</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body class="body">
-
     <section id="hero3">
         <div class="subcontainer2">
             <div class="row hero2">
                 <div class="col-md-12 ico-footer">
                     <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
                 </div>
-
                 <h1>RESTAURANTES</h1>
-
                 <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
                     <?php
                     foreach ($restaurantes as $restaurante) {
@@ -34,6 +27,9 @@ $restaurantes = $mostrarProductos->obtenerRestaurantes();
                         $link = $estado === 'Abierto'
                             ? 'controlador.php?seccion=productos&id_restaurante=' . $id_restaurante
                             : '#';
+
+                        // Determina la clase de color basada en el estado
+                        $estadoClase = $estado === 'Abierto' ? 'text-success' : 'text-danger';
 
                         echo '
                         <div class="col">
@@ -44,7 +40,7 @@ $restaurantes = $mostrarProductos->obtenerRestaurantes();
                                         <h5 class="card-title"> NOMBRE: '. $restaurante['Nombre_R'] . '</h5> 
                                         <p class="card-text"> Dirección: ' . $restaurante['Direccion'] . '</p>
                                         <p class="card-text"> Teléfono: '  . $restaurante['Telefono'] . '</p>
-                                        <p class="card-text text-danger"> Estado: '  . $estado . '</p>
+                                        <p class="card-text ' . $estadoClase . '"> Estado: '  . $estado . '</p>
                                     </div>
                                 </div>
                             </a>
@@ -52,15 +48,8 @@ $restaurantes = $mostrarProductos->obtenerRestaurantes();
                     }
                     ?>
                 </div>
-
             </div>
         </div>
     </section>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

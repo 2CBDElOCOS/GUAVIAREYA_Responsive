@@ -61,7 +61,7 @@ $pedidos = $dataUser->obtenerPedidosPorUsuario($correo);
                                         <td><?php echo htmlspecialchars($pedido['cantidad']); ?></td>
                                         <td>$<?php echo htmlspecialchars($pedido['Sub_total']); ?></td>
                                         <td><?php echo htmlspecialchars($pedido['Direccion_Entrega']); ?></td>
-                                        <td><?php echo htmlspecialchars($pedido['Fecha_Pedido']); ?></td>
+                                        <td><?php echo htmlspecialchars($pedido['fecha_creacion']); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
