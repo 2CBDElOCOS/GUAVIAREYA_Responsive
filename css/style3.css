@@ -1,0 +1,11 @@
+/* mensaje de contraseña*/
+.password-strength {
+    display: none;
+    font-size: 0.875em;
+}
+.strong-password {
+    color: green;
+}
+.weak-password {
+    color: red;
+}
