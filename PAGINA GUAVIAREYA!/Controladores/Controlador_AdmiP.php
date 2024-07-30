@@ -13,7 +13,7 @@ include '../Modelos/DataAdmi.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verificar si todas las claves están definidas en $_POST
-    $required_fields = ['Nombre', 'Telefono', 'Direccion'];
+    $required_fields = ['Nombre_R', 'Telefono', 'Direccion'];
     foreach ($required_fields as $field) {
         if (!isset($_POST[$field]) || empty($_POST[$field])) {
             header("location: ../Controladores/controlador.php?seccion=ADMI_Editar_A");
@@ -22,21 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $email = $_SESSION['correo'];
-    $nombre = $_POST['Nombre'];
+    $nombre = $_POST['Nombre_R'];
     $telefono = $_POST['Telefono'];
-    $direccion = $_POST['Direccion']; // Definir la variable $direccion
+    $direccion = $_POST['Direccion'];
 
     $success = DataAdmi::updateadmi($email, $nombre, $telefono, $direccion);
 
     if ($success) {
-        header("location: controlador.php?seccion=ADMI_Editar_A");
+        header("location: controlador.php?seccion=ADMI_Perfil_A");
         exit();
     } else {
         header("location: controlador.php?seccion=ADMI_Editar_A&Error");
     }
-} else {
-    // Manejar el caso si el formulario no se envía a través de POST
-    header("location: controlador.php?seccion=ADMI_Editar_A");
-    exit();
 }
+
 ?>
