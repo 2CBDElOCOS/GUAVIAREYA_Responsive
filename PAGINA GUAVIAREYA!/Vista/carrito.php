@@ -23,11 +23,12 @@
             include('../Modelos/mostrar_productos.php');
             $mostrarProductos = new mostrar_productos();
 
-            if (!isset($_SESSION['carrito']) || empty($_SESSION['carrito'])) {
+            $isEmpty = !isset($_SESSION['carrito']) || empty($_SESSION['carrito']);
+            $subtotal = 0;
+
+            if ($isEmpty) {
                 echo '<div class="row"><div class="col-md-12"><h3 class="name-car">Tu carrito está vacío</h3></div></div>';
             } else {
-                $subtotal = 0;
-
                 foreach ($_SESSION['carrito'] as $ID_Restaurante => $restaurante) {
                     echo '<h6 style="font-weight: bold; text-transform: uppercase; padding-top:10px">' . htmlspecialchars($restaurante['Nombre_Restaurante']) . '</h6>';
                     foreach ($restaurante['productos'] as $producto) {
@@ -63,7 +64,9 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <a href="controlador.php?seccion=facturacion"><button class="btn-pagar">Pagar</button></a>
+                    <a href="controlador.php?seccion=facturacion">
+                        <button class="btn-pagar <?php echo $isEmpty ? 'btn-disabled' : ''; ?>" <?php echo $isEmpty ? 'disabled' : ''; ?>>Pagar</button>
+                    </a>
                 </div>
             </div>
         </div>

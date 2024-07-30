@@ -27,7 +27,8 @@
                 <div class="row">
                     <div class="col-md-12 di-na">
                         <label for="tarjeta">Número de la tarjeta</label>
-                        <input type="text" name="tarjeta" id="tarjeta" placeholder="Número de tarjeta" required>
+                         <input type="text" name="tarjeta" id="tarjeta" placeholder="Número de tarjeta" required
+                               maxlength="19" oninput="formatCardNumber(this)">
                     </div>
 
                     <div class="col-md-6 di-na">
@@ -42,11 +43,14 @@
                     
                     <div class="col-md-6 di-na">
                         <label for="expiracion">Fecha de expiración</label>
-                        <input type="text" name="expiracion" id="expiracion" placeholder="mm/aa" required>
+                        <input type="text" name="expiracion" id="expiracion" placeholder="mm/aa" required
+                               maxlength="7" oninput="formatExpiration(this)">
                     </div>
+                    
                     <div class="col-md-6 di-na">
                         <label for="cvv">CVV</label>
-                        <input type="text" name="cvv" id="cvv" placeholder="CVV" required>
+                        <input type="text" name="cvv" id="cvv" placeholder="CVV" required maxlength="3"
+                               oninput="formatCVV(this)">
                     </div>
                 </div>
 
@@ -58,6 +62,8 @@
             </form>
         </div>
     </div>
+
+    <script src="../JS/formato_tarjeta.js"></script>
 </body>
 
 </html>
