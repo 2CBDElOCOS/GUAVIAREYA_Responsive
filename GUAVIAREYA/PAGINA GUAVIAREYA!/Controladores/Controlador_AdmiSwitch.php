@@ -32,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("location: controlador.php?seccion=ADMI_Perfil_A");
             exit();
         } else {
-            echo 'Error al actualizar el estado del restaurante.';
+            header("location: controlador.php?seccion=ADMI_Perfil_A&Error");
         }
     } else {
-        echo 'Datos incompletos. Asegúrate de que todos los campos están correctamente llenos.';
+        header("location: controlador.php?seccion=ADMI_Perfil_A&Error1");
     }
 } else {
-    echo 'Método de solicitud no válido.';
+    header("location: controlador.php?seccion=ADMI_Perfil_A&Error2");
 }
 ?>
