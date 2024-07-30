@@ -70,43 +70,43 @@ class DataAdmi
      * @return bool Retorna true si la actualización fue exitosa, o false si falló
      * @throws Exception Si hay un error preparando la consulta SQL
      */
-    public static function updateadmi($email, $nombre, $telefono, $direccion)
-    {
-        // Crear conexión
-        $conn = Conexion();
+    public static function updateadmi($email, $nombre, $telefono, $direccion) {
+    // Crear conexión
+    $conn = Conexion();
 
-        // Obtener el ID del restaurante asociado al administrador
-        $stmt = $conn->prepare("SELECT ID_Restaurante FROM administrador WHERE correo = ?");
-        if ($stmt === false) {
-            throw new Exception("Error preparando la consulta: " . $conn->error);
-        }
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->bind_result($id_restaurante);
-        $stmt->fetch();
-        $stmt->close();
-
-        if (!$id_restaurante) {
-            throw new Exception("No se encontró un restaurante asociado al administrador.");
-        }
-
-        // Preparar y ejecutar la consulta SQL para actualizar los datos del restaurante
-        $stmt = $conn->prepare("UPDATE Restaurantes SET Nombre_R = ?, Direccion = ?, Telefono = ? WHERE ID_Restaurante = ?");
-        if ($stmt === false) {
-            throw new Exception("Error preparando la consulta: " . $conn->error);
-        }
-
-        // Vincular los parámetros a la consulta preparada
-        $stmt->bind_param("sssi", $nombre, $direccion, $telefono, $id_restaurante);
-        $success = $stmt->execute();
-
-        // Cerrar la conexión
-        $stmt->close();
-        $conn->close();
-
-        // Retornar si la actualización fue exitosa
-        return $success;
+    // Obtener el ID del restaurante asociado al administrador
+    $stmt = $conn->prepare("SELECT ID_Restaurante FROM administradores WHERE correo = ?");
+    if ($stmt === false) {
+        throw new Exception("Error preparando la consulta: " . $conn->error);
     }
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->bind_result($id_restaurante);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (!$id_restaurante) {
+        throw new Exception("No se encontró un restaurante asociado al administrador.");
+    }
+
+    // Preparar y ejecutar la consulta SQL para actualizar los datos del restaurante
+    $stmt = $conn->prepare("UPDATE Restaurantes SET Nombre_R = ?, Direccion = ?, Telefono = ? WHERE ID_Restaurante = ?");
+    if ($stmt === false) {
+        throw new Exception("Error preparando la consulta: " . $conn->error);
+    }
+
+    // Vincular los parámetros a la consulta preparada
+    $stmt->bind_param("sssi", $nombre, $direccion, $telefono, $id_restaurante);
+    $success = $stmt->execute();
+
+    // Cerrar la conexión
+    $stmt->close();
+    $conn->close();
+
+    // Retornar si la actualización fue exitosa
+    return $success;
+}
+
 
 
     /**
@@ -169,7 +169,7 @@ class DataAdmi
         $conn = Conexion();
 
         // Preparar y ejecutar la consulta SQL para actualizar la contraseña
-        $stmt = $conn->prepare("UPDATE Administrador SET Contrasena = ? WHERE Correo = ?");
+        $stmt = $conn->prepare("UPDATE administradores SET Contrasena = ? WHERE Correo = ?");
         if ($stmt === false) {
             // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
@@ -187,21 +187,68 @@ class DataAdmi
         return $success;
     }
 
-    public static function updateRestaurantStatus($id_restaurante, $estado)
-    {
-        $conn = Conexion();
+public static function obtenerOrdenes($correo) {
+    $conn = Conexion();
 
-        $stmt = $conn->prepare("UPDATE Restaurantes SET Estado = ? WHERE ID_Restaurante = ?");
+    // Obtener el ID del restaurante asociado al administrador
+    $stmt = $conn->prepare("SELECT ID_Restaurante FROM administradores WHERE correo = ?");
+    if ($stmt === false) {
+        throw new Exception("Error preparando la consulta: " . $conn->error);
+    }
+    $stmt->bind_param("s", $correo);
+    $stmt->execute();
+    $stmt->bind_result($id_restaurante);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (!$id_restaurante) {
+        throw new Exception("No se encontró un restaurante asociado al administrador.");
+    }
+
+    // Preparar y ejecutar la consulta para obtener las órdenes del restaurante específico
+    $stmt = $conn->prepare("
+        SELECT p.ID_pedido, u.Nombre AS Nombre_Usuario, u.Correo, pr.Nombre_P AS Nombre_Producto, p.cantidad, d.Direccion, p.fecha_creacion, p.Estado
+        FROM Pedidos p
+        JOIN Usuarios u ON p.Correo = u.Correo
+        JOIN Productos pr ON p.ID_Producto = pr.ID_Producto
+        JOIN Direccion_Entregas d ON p.ID_Dire_Entre = d.ID_Dire_Entre
+        WHERE p.ID_Restaurante = ?
+    ");
+
+    if ($stmt === false) {
+        throw new Exception("Error preparando la consulta: " . $conn->error);
+    }
+
+    $stmt->bind_param("i", $id_restaurante);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $ordenes = $result->fetch_all(MYSQLI_ASSOC);
+
+    $stmt->close();
+    $conn->close();
+
+    return $ordenes;
+}
+
+public static function actualizarEstadoPedido($pedido_id, $estado) {
+        $conn = Conexion();
+        
+        $stmt = $conn->prepare("UPDATE Pedidos SET Estado = ? WHERE ID_pedido = ?");
         if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
-        $stmt->bind_param("si", $estado, $id_restaurante);
-        $success = $stmt->execute();
+        $stmt->bind_param("si", $estado, $pedido_id);
+        $stmt->execute();
+
+        if ($stmt->affected_rows === 0) {
+            throw new Exception("No se actualizó el estado del pedido. Verifique el ID del pedido.");
+        }
 
         $stmt->close();
         $conn->close();
-
-        return $success;
     }
+
+
+
 }
