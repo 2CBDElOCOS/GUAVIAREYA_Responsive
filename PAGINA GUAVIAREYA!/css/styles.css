@@ -597,6 +597,11 @@ h3,h5{
     margin-top: 1%;
 }
 
+.btn-disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
 /* facturaccion */
 
 .accordion-body {
