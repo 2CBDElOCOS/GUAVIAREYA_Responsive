@@ -13,23 +13,37 @@ include_once '../Modelos/Direccion_Entregas.php';
 $modeloDireccion = new Modelo_Direccion_Entregas();
 
 // Acción para agregar una nueva dirección de entrega
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Numero_Casa']) && isset($_POST['CL_Cra_AV']) && isset($_POST['Barrio'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Direccion']) && isset($_POST['Barrio']) && isset($_POST['Descripcion_Ubicacion'])) {
     $correo = $_SESSION['correo'];
-    $numeroCasa = $_POST['Numero_Casa'];
-    $clCraAv = $_POST['CL_Cra_AV'];
+    $direccion = $_POST['Direccion'];
     $barrio = $_POST['Barrio'];
+    $descripcion = $_POST['Descripcion_Ubicacion'];
 
     // Insertar la nueva dirección de entrega
-    $success = $modeloDireccion->insertarDireccion($correo, $numeroCasa, $clCraAv, $barrio);
+    $success = $modeloDireccion->insertarDireccion($correo, $direccion, $barrio, $descripcion);
 
     if ($success) {
-        header("location: controlador.php?seccion=pedidos_per");
+        header("location: controlador.php?seccion=Perfil_Direcciones");
         exit();
     } else {
-        header("location: controlador.php?seccion=pedidos_per&error=1");
+        header("location: controlador.php?seccion=Perfil_Direcciones&error=2");
         exit();
     }
 }
 
-// Otras acciones relacionadas con las direcciones de entrega pueden ser añadidas aquí según sea necesario
+// Acción para eliminar una dirección de entrega
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    // Eliminar la dirección de entrega
+    $success = $modeloDireccion->eliminarDireccion($id);
+
+    if ($success) {
+        header("location: controlador.php?seccion=Perfil_Direcciones");
+        exit();
+    } else {
+        header("location: controlador.php?seccion=Perfil_Direcciones&error=3");
+        exit();
+    }
+}
 ?>
