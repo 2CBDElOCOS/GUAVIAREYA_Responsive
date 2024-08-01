@@ -76,15 +76,6 @@
 
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="../JS/mensaje_contraseña.js"></script>
-    <script>
-        document.getElementById('mostrarContrasena').addEventListener('change', function() {
-            var contrasenaInput = document.getElementById('Contrasena');
-            if (this.checked) {
-                contrasenaInput.type = 'text';
-            } else {
-                contrasenaInput.type = 'password';
-            }
-        });
-    </script>
+    <script src="../JS/mostrar_contraseña.js"></script>
 </body>
 </html>

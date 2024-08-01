@@ -61,16 +61,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../JS/alerta_bloqueo.js"></script>
-    <script>
-        document.getElementById('mostrarContrasena').addEventListener('change', function() {
-            var contrasenaInput = document.getElementById('Contrasena');
-            if (this.checked) {
-                contrasenaInput.type = 'text';
-            } else {
-                contrasenaInput.type = 'password';
-            }
-        });
-    </script>
+   <script src="../JS/mostrar_contraseña.js"></script>
 </body>
 
 </html>
