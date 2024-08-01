@@ -673,6 +673,7 @@ h3,h5{
     border: 1px solid rgb(236, 236, 236);
     padding: 5%;
     border-radius: 15px;
+    
 }
 
 .direccion {
@@ -718,6 +719,12 @@ h3,h5{
     justify-content: space-between;
     text-align: center;
     text-decoration: none;
+    margin-top: 30px;
+    border: 1px solid rgb(236, 236, 236);
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    margin-bottom: 3%;
 }
 
 .esti,
@@ -794,6 +801,25 @@ h3,h5{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.cupones{
+    margin-top: 30px;
+    border: 1px solid rgb(236, 236, 236);
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    margin-bottom: 3%;
+}
+
+
+.esti-tiempo{
+    margin-top: 30px;
+    border: 1px solid rgb(236, 236, 236);
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    margin-bottom: 3%;
 }
 
 /* Media Queries for Mobile Responsiveness */

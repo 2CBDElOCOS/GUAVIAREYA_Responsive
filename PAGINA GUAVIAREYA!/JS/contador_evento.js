@@ -1,4 +1,4 @@
-const eventDate = new Date('2024-08-01T00:00:00'); // Fecha del evento
+const eventDate = new Date('2024-08-10T00:00:00'); // Fecha del evento
 
 const currentDate = new Date();
 

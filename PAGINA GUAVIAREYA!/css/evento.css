@@ -796,6 +796,25 @@ h3,h5{
     align-items: center;
 }
 
+.cupones{
+    margin-top: 30px;
+    border: 1px solid rgb(236, 236, 236);
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    margin-bottom: 3%;
+}
+
+
+.esti-tiempo{
+    margin-top: 30px;
+    border: 1px solid rgb(236, 236, 236);
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    margin-bottom: 3%;
+}
+
 /**PEDIDOS**/
 table {
     width: 100%;
