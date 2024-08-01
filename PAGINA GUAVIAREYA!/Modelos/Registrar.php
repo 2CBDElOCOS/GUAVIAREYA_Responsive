@@ -16,6 +16,9 @@ class Registrar {
             $contrasena = $_POST['Contrasena'];
             $telefono = $_POST['Telefono'];
 
+            // Encriptar la contraseña
+            $hashed_password = md5($contrasena);
+
             // Crear conexión usando la función Conexion
             $conn = Conexion();
 
@@ -25,28 +28,30 @@ class Registrar {
             }
 
             // Preparar la consulta SQL para insertar los datos en la tabla Usuarios
-            $sql = "INSERT INTO Usuarios (Apodo, Nombre, Apellido, Correo, Contrasena, Telefono) VALUES ('$apodo', '$nombre', '$apellido', '$correo', '$contrasena', '$telefono')";
+            $sql = "INSERT INTO Usuarios (Apodo, Nombre, Apellido, Correo, Contrasena, Telefono) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssssss", $apodo, $nombre, $apellido, $correo, $hashed_password, $telefono);
 
             // Ejecutar la consulta y verificar si fue exitosa
-            if ($conn->query($sql) === TRUE) {
+            if ($stmt->execute()) {
                 // Guardar el apodo y correo en la sesión después de registrar los datos
                 $_SESSION['Apodo'] = $apodo;
                 $_SESSION['correo'] = $correo;
 
                 // Redirigir a la página de inicio de sesión después de registrar los datos
+                $stmt->close();
                 $conn->close();
-                header("location: ../Controladores/controlador.php?seccion=login");
-                exit(); // Salir del script después de redirigir
+                return true;
             } else {
                 // Mostrar un mensaje de error si no se pudo registrar el usuario
-                echo "Error al registrar los datos: " . $conn->error;
+                $error = "Error al registrar los datos: " . $stmt->error;
+                $stmt->close();
+                $conn->close();
+                return $error;
             }
-
-            // Cerrar la conexión
-            $conn->close();
         } else {
             // Mostrar un mensaje si no se recibieron los datos del formulario
-            echo "No se recibieron los datos del formulario";
+            return "No se recibieron los datos del formulario";
         }
     }
 }

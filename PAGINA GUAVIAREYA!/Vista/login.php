@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
-   
 </head>
 
 <body>
@@ -27,7 +26,10 @@
                             <input type="email" name="Correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo" required>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" name="Contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña" required>
+                            <input type="password" id="Contrasena" name="Contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="checkbox" id="mostrarContrasena"> Mostrar contraseña
                         </div>
 
                         <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
@@ -59,6 +61,16 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../JS/alerta_bloqueo.js"></script>
+    <script>
+        document.getElementById('mostrarContrasena').addEventListener('change', function() {
+            var contrasenaInput = document.getElementById('Contrasena');
+            if (this.checked) {
+                contrasenaInput.type = 'text';
+            } else {
+                contrasenaInput.type = 'password';
+            }
+        });
+    </script>
 </body>
 
 </html>

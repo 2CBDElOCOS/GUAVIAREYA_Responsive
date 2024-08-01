@@ -58,6 +58,9 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+        <!-- Scripts de fontawesome -->
+        <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
+
     <?php
     } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A') {
     ?>
@@ -65,6 +68,8 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
         <!-- CSS -->
         <link rel="stylesheet" href="../css/style3.css" />
+            <!-- Scripts de fontawesome -->
+            <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
         <!-- BOADSTRAP-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -73,6 +78,8 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
     ?>
         <link rel="stylesheet" href="<?php echo $cssFile; ?>" />
         <!-- BOADSTRAP-->
+            <!-- Scripts de fontawesome -->
+            <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <?php
@@ -90,13 +97,16 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
     <?php
     } elseif ($seccion == 'ADMI_Editar_A') {
     ?>
-        <link rel="stylesheet" href="../css/styles.css">
+        <!-- Scripts de fontawesome -->
+        <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="<?php echo $cssFile; ?>" />
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <?php
     } elseif ($seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Shop_A' || $seccion == 'bebidas' || $seccion == 'comida' || $seccion == 'productos' || $seccion == 'Perfil_Restaurantes')
     ?>
     <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="<?php echo $cssFile; ?>" />
 
 
 </head>

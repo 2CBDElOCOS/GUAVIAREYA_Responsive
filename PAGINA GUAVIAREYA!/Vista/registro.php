@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -35,11 +34,15 @@
                         <div class="input-group mb-3">
                             <input type="password" id="Contrasena" name="Contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña" required>
                         </div>
+
                         <div class="input-group mb-3">
                             <small id="password-strength" class="password-strength"></small>
                         </div>
                         <div class="input-group mb-3">
                             <input type="text" name="Telefono" class="form-control form-control-lg bg-light fs-6" placeholder="Número telefónico" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="checkbox" id="mostrarContrasena"> Mostrar contraseña
                         </div>
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" required id="termsCheck">
@@ -73,5 +76,15 @@
 
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="../JS/mensaje_contraseña.js"></script>
+    <script>
+        document.getElementById('mostrarContrasena').addEventListener('change', function() {
+            var contrasenaInput = document.getElementById('Contrasena');
+            if (this.checked) {
+                contrasenaInput.type = 'text';
+            } else {
+                contrasenaInput.type = 'password';
+            }
+        });
+    </script>
 </body>
 </html>
