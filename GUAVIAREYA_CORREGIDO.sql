@@ -95,7 +95,6 @@ CREATE TABLE Pedidos (
 	ID_Dire_Entre INT NOT NULL,
     Correo VARCHAR(50) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	Estado ENUM('Pendiente', 'Enviado', 'Entregado', 'Cancelado') NOT NULL DEFAULT 'Pendiente',
     CONSTRAINT FK_Productos_Pedidos FOREIGN KEY (ID_Producto) REFERENCES Productos (ID_Producto),
 	CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante)
 );
@@ -122,6 +121,45 @@ CREATE TABLE Pedidos_factura (
     CONSTRAINT FK_Restaurantes_Pedidos_factura FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante),
     CONSTRAINT FK_Pagos_Pedidos_factura FOREIGN KEY (id_pago) REFERENCES metodos_pago (id_pago)
 );
+-- Tabla de cupones
+CREATE TABLE Cupones (
+    ID_Cupon INT AUTO_INCREMENT PRIMARY KEY,
+    Correo VARCHAR(50) NOT NULL,
+    Codigo_Cupon VARCHAR(20) NOT NULL UNIQUE,
+    Descuento INT NOT NULL,
+    Fecha_Expiracion DATE NOT NULL,
+    Fecha_Usado TIMESTAMP NULL DEFAULT NULL,
+    Fecha_Creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT FK_Usuarios_Cupones FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
+);
+
+
+
+
+DELIMITER //
+
+CREATE TRIGGER after_usuario_insert
+AFTER INSERT ON Usuarios
+FOR EACH ROW
+BEGIN
+    DECLARE cupon_codigo VARCHAR(20);
+    DECLARE cupon_descuento INT;
+    DECLARE cupon_expiracion DATE;
+
+    -- Generar un código de cupón único
+    SET cupon_codigo = CONCAT('CUPON', NEW.Correo, UNIX_TIMESTAMP());
+    -- Establecer el descuento y la fecha de expiración
+    SET cupon_descuento = 10; -- Descuento del 10%, por ejemplo
+    SET cupon_expiracion = DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY); -- 30 días de validez
+
+    -- Insertar el nuevo cupón en la tabla Cupones
+    INSERT INTO Cupones (Correo, Codigo_Cupon, Descuento, Fecha_Expiracion)
+    VALUES (NEW.Correo, cupon_codigo, cupon_descuento, cupon_expiracion);
+END;
+//
+
+DELIMITER ;
+
 -- Seleccionar todas las tablas
 SELECT * FROM Usuarios;
 SELECT * FROM Restaurantes;
@@ -132,6 +170,7 @@ SELECT * FROM Domiciliarios;
 SELECT * FROM metodos_pago;
 SELECT * FROM Pedidos;
 SELECT * FROM Pedidos_factura;
+SELECT * FROM Cupones;
 
 
 
