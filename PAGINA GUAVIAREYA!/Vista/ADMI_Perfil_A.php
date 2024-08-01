@@ -13,77 +13,62 @@ include '../Modelos/DataAdmi.php';
 
 // Obtener la información del usuario desde la base de datos
 $user = DataAdmi::getUserByEmail($_SESSION['correo']);
-$imgUrl = $user['img_A']; // Suponiendo que 'img_U' es el nombre de la columna que contiene la URL de la imagen
-
-
+$imgUrl = $user['img_R']; // Esta ahora es la URL de la imagen del restaurante
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <title>TU PERFIl</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TU PERFIL</title>
 </head>
 
 <body>
     <div class="container">
-        <div class="col-md-12 ico-carro">
+        <div class="col-md-12 ico-footer">
             <a href="controlador.php?seccion=ADMI_Shop_A"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
         </div>
         <div class="main-body">
-            <br>
-            <div class=""><h4>TU RESTAURANTE</h4></div>
-
+            <h4 class="text-center mb-4">TU RESTAURANTE</h4>
 
             <!-- /Migajas de pan -->
 
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
                     <div class="card">
-                        <div class="card-body">
-                            <!-- Rounded switch -->
+                        <div class="card-body text-center">
                             <form action="Controlador_AdmiSwitch.php" method="POST">
-                                <!-- Campo oculto para manejar el estado desmarcado -->
                                 <input type="hidden" name="estado" value="Cerrado">
-                                <!-- Checkbox para cambiar el estado -->
                                 <label class="switch">
                                     <input type="checkbox" name="estado" value="Abierto" <?php echo $user['Estado'] === 'Abierto' ? 'checked' : ''; ?>>
                                     <span class="slider round"></span>
                                 </label>
                                 <input type="hidden" name="id_restaurante" value="<?php echo htmlspecialchars($user['ID_Restaurante']); ?>">
-                               <button type="submit" class="btn btn-primary"
-                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip"
-                                        data-bs-title="">
-                                Aceptar
-                                </button>
+                                <button type="submit" class="btn btn-primary mt-3">Aceptar</button>
                             </form>
 
+                            <!-- Mostrar la imagen del restaurante -->
+                            <img src="<?php echo htmlspecialchars($imgUrl); ?>" alt="Imagen del Restaurante" style="width: 150px; height: 150px; object-fit: cover;" class="rounded-circle mt-3">
 
-                            <div class="d-flex flex-column align-items-center text-center">
-                                <br>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-                                    class="rounded-circle" width="150">
-                                <div class="mt-3">
-            
-                                    <p class="text-secondary mb-1"><?php echo htmlspecialchars($user['Nombre_R']); ?></p>
-                                    <p class="text-secondary mb-1"><?php echo htmlspecialchars($user['Direccion']); ?></p>
-                                    <p class="text-muted font-size-sm"><?php echo htmlspecialchars($user['Telefono']); ?></p>
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="mt-3">
+                                <p class="text-secondary mb-1"><?php echo htmlspecialchars($user['Nombre_R']); ?></p>
+                                <p class="text-secondary mb-1"><?php echo htmlspecialchars($user['Direccion']); ?></p>
+                                <p class="text-muted"><?php echo htmlspecialchars($user['Telefono']); ?></p>
+
+                                <div class="dropdown">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Acciones
                                     </a>
-                                    
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Editar_A">Editar datos</a></li>
-                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_CambiarPass">Cambiar Contraseña</a></a></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_CambiarPass">Cambiar Contraseña</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Ordenes">Ordenes</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
+                                        <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a></li>
                                     </ul>
-                                    <br>
-                                
-                                    
                                 </div>
                             </div>
                         </div>
@@ -94,7 +79,7 @@ $imgUrl = $user['img_A']; // Suponiendo que 'img_U' es el nombre de la columna q
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="">Nombre</h6>
+                                    <h6>Nombre</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <?php echo htmlspecialchars($user['Nombre_R']); ?>
@@ -103,7 +88,7 @@ $imgUrl = $user['img_A']; // Suponiendo que 'img_U' es el nombre de la columna q
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Teléfono</h6>
+                                    <h6>Teléfono</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <?php echo htmlspecialchars($user['Telefono']); ?>
@@ -112,7 +97,7 @@ $imgUrl = $user['img_A']; // Suponiendo que 'img_U' es el nombre de la columna q
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Dirección </h6>
+                                    <h6>Dirección</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <?php echo htmlspecialchars($user['Direccion']); ?>
@@ -123,10 +108,8 @@ $imgUrl = $user['img_A']; // Suponiendo que 'img_U' es el nombre de la columna q
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
 </body>
-
 </html>

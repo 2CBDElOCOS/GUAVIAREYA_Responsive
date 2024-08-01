@@ -1,33 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <title>Agregar Restaurante-Administrador</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Restaurante - Administrador</title>
 </head>
-<body style="max-width: 400px; justify-content: center; margin: 0 auto;">
-    <form id="productForm" enctype="multipart/form-data" method="POST" action="controlador_Super.php" class="card" style="margin-top: 100px;">
+<body>
+    <form id="productForm" enctype="multipart/form-data" method="POST" action="controlador_Super.php" class="card">
         <h1>Agregar Restaurante</h1>
 
-        <label for="Nombre_R" class="label">
-            <h4>Nombre del Restaurante:</h4>
-        </label>
-        <input type="text" id="Nombre_R" name="Nombre_R" required>
+        <div class="mb-3">
+            <label for="Nombre_R" class="form-label">
+                <h4>Nombre del Restaurante:</h4>
+            </label>
+            <input type="text" id="Nombre_R" name="Nombre_R" class="form-control" required>
+        </div>
 
-        <label for="Direccion" class="label">
-            <h4>Direccion:</h4>
-        </label>
-        <input  type="text" id="Direccion" name="Direccion"  required>
+        <div class="mb-3">
+            <label for="Direccion" class="form-label">
+                <h4>Dirección:</h4>
+            </label>
+            <input type="text" id="Direccion" name="Direccion" class="form-control" required>
+        </div>
 
-        <label for="Telefono" class="label">
-            <h4>Telefono:</h4>
-        </label>
-        <input type="text" id="Telefono" name="Telefono" inputmode="numeric" required>
+        <div class="mb-3">
+            <label for="Telefono" class="form-label">
+                <h4>Teléfono:</h4>
+            </label>
+            <input type="text" id="Telefono" name="Telefono" class="form-control" inputmode="numeric" required>
+        </div>
 
-        <label for="img_R" class="label">
-            <h4>Imagen del Restaurante:</h4>
-        </label>
-        <input type="file" id="img_R" name="img_R" accept="image/*" required>
+        <div class="mb-3">
+            <label for="img_R" class="form-label">
+                <h4>Imagen del Restaurante:</h4>
+            </label>
+            <input type="file" id="img_R" name="img_R" class="form-control-file" accept="image/*" required>
+        </div>
 
-        <button type="submit">Agregar</button>
+        <button type="submit" class="btn btn-primary">Agregar</button>
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-rbsA0UkP0NQUp+nOtEPO6r/Y4X9kJ8i1PQ/3CIMxtmZR3eK/jHcFCE3P9AXMyjb" crossorigin="anonymous"></script>
 </body>
 </html>

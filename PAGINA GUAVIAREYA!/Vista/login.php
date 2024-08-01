@@ -3,18 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
+   
 </head>
 
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="row border rounded-5 p-3 bg-white shadow box-area">
-            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
+        <div class="row border rounded-5 p-3 bg-white shadow box-area w-100" style="max-width: 900px;">
+            <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center flex-column left-box">
                 <div class="featured-image mb-3">
-                    <img src="../media/login.png" class="img-fluid" style="width: 500px">
+                    <img src="../media/login.png" class="img-fluid" style="max-width: 100%; height: auto;">
                 </div>
             </div>
-            <div class="col-md-6 right-box">
+            <div class="col-lg-6 col-md-12 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
                         <h2 style="text-align: center;">INICIA SESIÓN</h2>
@@ -24,7 +26,7 @@
                         <div class="input-group mb-3">
                             <input type="email" name="Correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo" required>
                         </div>
-                        <div class="input-group mb-1">
+                        <div class="input-group mb-3">
                             <input type="password" name="Contrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña" required>
                         </div>
 
@@ -36,10 +38,8 @@
                         </div>
                         <?php endif; ?>
                         
-                        <div class="input-group mb-5 d-flex justify-content-between">
-                            <div class="forgot">
-                                <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
-                            </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
                         </div>
                         <div class="input-group mb-3">
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button>
@@ -48,7 +48,7 @@
                     <div class="input-group mb-3">
                         <button class="btn btn-lg btn-light w-100 fs-6"><img src="../media/google.png" style="width:20px" class="me-2"><small>Inicia sesión con Google</small></button>
                     </div>
-                    <div class="row">
+                    <div class="text-center">
                         <small>¿No tienes una cuenta? <a href="controlador.php?seccion=registro">Regístrate</a></small>
                         <br>
                         <small>¿Eres Administrador? <a href="controlador.php?seccion=ADMI_login_A">Ingresa aquí</a></small>
@@ -57,7 +57,6 @@
             </div>
         </div>
     </div>
-    <!-- Script para mostrar SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../JS/alerta_bloqueo.js"></script>
 </body>

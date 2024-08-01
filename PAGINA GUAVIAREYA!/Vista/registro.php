@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <!-- Asegúrate de tener el enlace a los estilos de Bootstrap u otros necesarios -->
+    
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="row border rounded-5 p-3 bg-white shadow box-area">
-            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
+        <div class="row border rounded-5 p-3 bg-white shadow box-area w-100" style="max-width: 900px;">
+            <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center flex-column left-box">
                 <div class="featured-image mb-3">
-                    <img src="../media/login.png" class="img-fluid" style="width: 500px">
+                    <img src="../media/login.png" class="img-fluid" style="max-width: 100%; height: auto;">
                 </div>
             </div>
-            <div class="col-md-6 right-box">
+            <div class="col-lg-6 col-md-12 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
-                        <h2 style="text-align: center;">REGÍSTRATE</h2>
+                        <h2 class="text-center">REGÍSTRATE</h2>
                     </div>
                     <form id="registerForm" action="Controlador_Registrar.php" method="POST" enctype="multipart/form-data">
-                        <!-- Otros campos del formulario -->
                         <div class="input-group mb-3">
                             <input type="text" name="Apodo" class="form-control form-control-lg bg-light fs-6" placeholder="Apodo" required>
                         </div>
@@ -40,10 +41,11 @@
                         <div class="input-group mb-3">
                             <input type="text" name="Telefono" class="form-control form-control-lg bg-light fs-6" placeholder="Número telefónico" required>
                         </div>
-                        <div class="row mb-3">
-                            <small>
-                                <input type="checkbox" required> He leído y acepto <a href="controlador.php?seccion=terminos">los términos de uso y condiciones</a> y las <a href="politicas.php">políticas de privacidad</a>
-                            </small>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" required id="termsCheck">
+                            <label class="form-check-label" for="termsCheck">
+                                He leído y acepto <a href="controlador.php?seccion=terminos">los términos de uso y condiciones</a> y las <a href="politicas.php">políticas de privacidad</a>
+                            </label>
                         </div>
                         <?php
                         if (isset($_GET['error'])) {
@@ -60,7 +62,7 @@
                         }
                         ?>
                         <div class="input-group mb-3">
-                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button>
+                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Registrarse</button>
                         </div>
                         <div class="cf-turnstile" data-sitekey="0x4AAAAAAAgDs9tR8EZ6iKVr" data-language="es" data-theme="light"></div>
                     </form>

@@ -48,6 +48,7 @@ $pedidos = $dataUser->obtenerPedidosPorUsuario($correo);
                                     <th>Restaurante</th>
                                     <th>Cantidad</th>
                                     <th>Subtotal</th>
+                                    <th>Estado</th>
                                     <th>Dirección de Entrega</th>
                                     <th>Fecha</th>
                                 </tr>
@@ -60,8 +61,10 @@ $pedidos = $dataUser->obtenerPedidosPorUsuario($correo);
                                         <td><?php echo htmlspecialchars($pedido['Nombre_Restaurante']); ?></td>
                                         <td><?php echo htmlspecialchars($pedido['cantidad']); ?></td>
                                         <td>$<?php echo htmlspecialchars($pedido['Sub_total']); ?></td>
+                                        <td><?php echo htmlspecialchars($pedido['Estado']); ?></td>
                                         <td><?php echo htmlspecialchars($pedido['Direccion_Entrega']); ?></td>
                                         <td><?php echo htmlspecialchars($pedido['fecha_creacion']); ?></td>
+                                        
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

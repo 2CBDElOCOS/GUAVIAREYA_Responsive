@@ -18,33 +18,35 @@ if ($_SESSION['correo'] == "") {
 
 <head>
   <title>GuaviareYa!</title>
+  
 </head>
 
 <body>
 
-  <div class="container">
-    <!--header-->
-    <header class="fixed-top bg-dark">
-      <div class="row align-items-center">
-        <div class="col-md-3">
-          <a href="controlador.php?seccion=home" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
-        </div>
-        <div class="col-md-9 d-md-flex justify-content-md-end align-items-center">
-          <nav class="navlist">
-            <a href="controlador.php?seccion=home">Inicio</a>
-            <a href="controlador.php?seccion=home">Sobre nosotros</a>
-            <a href="#" target="_blank" class="active">Nuestra tienda</a>
-            <a href="#contactanos">Contactanos</a>
-          </nav>
-          <div class="nav-icons1">
-            <a href="#"><i class="bx bx-search"></i></a>
-            <a href="controlador.php?seccion=carrito"><i class="bx bx-cart"></i></a>
-            <a href="controlador.php?seccion=perfil"><i class="bx bx-user-circle"></i></a>
-          </div>
-        </div>
-      </div>
-    </header>
-  </div>
+<div class="container">
+        <!-- Header -->
+        <header class="fixed-top bg-dark">
+            <div class="row align-items-center">
+                <div class="col-6 col-md-3">
+                    <a href="controlador.php?seccion=home" class="logo"><i class="bx bxs-home"></i> GuaviareYa</a>
+                </div>
+                <div class="col-6 col-md-9 d-md-flex justify-content-md-end align-items-center">
+                    <nav class="navlist d-none d-md-flex">
+                        <a href="controlador.php?seccion=home">Inicio</a>
+                        <a href="controlador.php?seccion=home">Sobre nosotros</a>
+                        <a href="#" target="_blank" class="active">Nuestra tienda</a>
+                        <a href="#contactanos">Contactanos</a>
+                    </nav>
+                    <div class="nav-icons1 d-flex">
+                        <a href="#"><i class="bx bx-search"></i></a>
+                        <a href="controlador.php?seccion=carrito"><i class="bx bx-cart"></i></a>
+                        <a href="controlador.php?seccion=perfil"><i class="bx bx-user-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
 
   <section id="hero">
     <div class="subcontainer">

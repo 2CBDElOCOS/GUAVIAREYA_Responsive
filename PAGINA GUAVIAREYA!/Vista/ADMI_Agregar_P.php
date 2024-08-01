@@ -2,37 +2,42 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body style="max-width: 400px; justify-content: center; margin: 0 auto;">
-    <form id="productForm" enctype="multipart/form-data" method="POST" action="controlador_productos.php" class="card" style="margin-top: 100px;">
-        <h1>Agregar Producto</h1>
+<body class="bg-light d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card" style="width: 350px; max-width: 500px; padding: 20px;">
+        <h1 class="card-title mb-4">Agregar Producto</h1>
 
-        <label for="Nombre_P" class="label">
-            <h4>Nombre del Producto:</h4>
-        </label>
-        <input type="text" id="Nombre_P" name="Nombre_P">
+        <form id="productForm" enctype="multipart/form-data" method="POST" action="controlador_productos.php">
+            <div class="mb-3">
+                <label for="Nombre_P" class="form-label">Nombre del Producto:</label>
+                <input type="text" id="Nombre_P" name="Nombre_P" class="form-control" required>
+            </div>
 
-        <label for="descripcion" class="label">
-            <h4>Descripción:</h4>
-        </label>
-        <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" rows="4" class="form-control" required></textarea>
+            </div>
 
-        <label for="Valor_P" class="label">
-            <h4>Valor:</h4>
-        </label>
-        <input type="text" id="Valor_P" name="Valor_P" inputmode="numeric">
+            <div class="mb-3">
+                <label for="Valor_P" class="form-label">Valor:</label>
+                <input type="text" id="Valor_P" name="Valor_P" class="form-control" inputmode="numeric" required>
+            </div>
 
-        <label for="img_P" class="label">
-            <h4>Imagen del Producto:</h4>
-        </label>
-        <input type="file" id="img_P" name="img_P" accept="image/*">
+            <div class="mb-3">
+                <label for="img_P" class="form-label">Imagen del Producto:</label>
+                <input type="file" id="img_P" name="img_P" class="form-control" accept="image/*" required>
+            </div>
 
-        <button type="submit">Agregar</a></button>
-    </form>
+            <button type="submit" class="btn btn-primary w-100">Agregar</button>
+        </form>
+    </div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
