@@ -28,6 +28,26 @@ body{
     font-size: 20px;
 }
 
+.file-upload {
+    position: relative;
+    display: inline-block;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.file-upload-icon {
+    font-size: 50px;
+    color: #007bff;
+    cursor: pointer;
+}
+
 
 
 
@@ -602,8 +622,9 @@ h3,h5{
     cursor: not-allowed;
 }
 
-/* facturaccion */
+/* FACTURACION INICIO */
 
+/* General Adjustments */
 .accordion-body {
     display: flex;
     flex-direction: column;
@@ -628,6 +649,7 @@ h3,h5{
     margin-right: 20px;
 }
 
+/* Accordion */
 .subcontainer3 .diren,
 .accordion-body {
     display: flex;
@@ -638,6 +660,7 @@ h3,h5{
     border-bottom: 1px solid rgb(180, 202, 202);
 }
 
+/* Summary and Shipping Options */
 .resumen {
     display: flex;
     justify-content: space-between;
@@ -659,25 +682,17 @@ h3,h5{
 .detalles {
     width: 100%;
     height: 48px;
-    font-family: Nunito;
+    font-family: Nunito, sans-serif;
     font-weight: 400;
-    font-size: 14px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.71;
-    letter-spacing: normal;
-    text-align: left;
-    box-sizing: border-box;
+    font-size: 0.875rem; /* 14px */
     color: rgb(46, 44, 54);
     background-color: rgb(247, 248, 249);
-    border-top: none;
-    border-left: none;
-    border-right: none;
+    border: none;
     border-bottom: 1px solid rgb(230, 235, 241);
     padding: 12px 20px 12px 12px;
-    caret-color: rgb(255, 165, 0);
 }
 
+/* Accordion Button */
 .accordion-button {
     background-color: #ff9f0d;
     color: white;
@@ -697,11 +712,7 @@ h3,h5{
     box-shadow: 0 0 0 0.25rem rgba(255, 159, 13, 0.5);
 }
 
-.accordion-body p {
-    margin: 0;
-    padding: 20px 0;
-}
-
+/* Flex Containers */
 .estimada {
     display: flex;
     justify-content: space-between;
@@ -740,6 +751,7 @@ h3,h5{
     margin-left: auto;
 }
 
+/* Methods and Summary Total */
 .metodo {
     border-bottom: 1px solid rgb(180, 202, 202);
 }
@@ -773,18 +785,6 @@ h3,h5{
     margin: 0;
 }
 
-.resumen p {
-    margin-left: 500px;
-}
-
-.product-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgb(180, 202, 202);
-    padding: 10px 0;
-}
-
 .product-row img {
     margin-right: 20px;
 }
@@ -795,6 +795,27 @@ h3,h5{
     justify-content: space-between;
     align-items: center;
 }
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .product-details img {
+        max-width: 80px;
+    }
+
+    .resumen p {
+        font-size: 0.75rem; /* Smaller font size for mobile */
+    }
+
+    .subcontainer4 {
+        margin-top: 30px;
+        padding: 3%;
+    }
+
+    .detalles {
+        font-size: 0.75rem; /* Smaller font size for mobile */
+    }
+}
+/* FACTURACION FIN */
 
 /**PEDIDOS**/
 table {
@@ -910,4 +931,86 @@ h1 {
     color: red;
 }
 
+        /* TARJETA */
+        .ico-footer1 {
+            margin: 10px 0;
+        }
 
+        .subcontainer4 {
+            margin-top: 30px;
+            border: 1px solid rgb(236, 236, 236);
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #f8f9fa;
+        }
+
+        .di-na {
+            margin-bottom: 15px;
+        }
+
+        .di-na label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .di-na input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+
+        .hacer-pedido {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hacer-pedido:hover {
+            background-color: #0056b3;
+        }
+
+/*SWITCH*/
+ 
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 34px;
+            height: 20px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(14px);
+        }
