@@ -167,6 +167,7 @@ Class DataUser {
         $query = "SELECT 
                     p.ID_pedido, 
                     p.fecha_creacion, 
+                    p.Estado,  -- Incluimos el estado aquí
                     prod.Nombre_P AS Nombre_Producto, 
                     r.Nombre_R AS Nombre_Restaurante, 
                     CONCAT(d.Direccion, ' ', d.Barrio) AS Direccion_Entrega,
@@ -200,6 +201,7 @@ Class DataUser {
         $stmt->close();
         return $pedidos;
     }
+    
     
     
     

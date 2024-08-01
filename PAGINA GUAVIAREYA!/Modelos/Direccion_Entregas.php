@@ -106,5 +106,38 @@ class Modelo_Direccion_Entregas {
             self::$conn->close();
         }
     }
+
+    /**
+ * Método para eliminar una dirección de entrega de la base de datos.
+ *
+ * @param int $id Identificador de la dirección a eliminar.
+ * @return bool Retorna true si la eliminación fue exitosa, false en caso contrario.
+ * @throws Exception Si hay un error preparando la consulta SQL.
+ */
+public function eliminarDireccion($id) {
+    self::initConnection();
+
+    // Preparar la consulta SQL para eliminar la dirección
+    $sql = "DELETE FROM Direccion_Entregas WHERE ID_Dire_Entre = ?";
+    $stmt = self::$conn->prepare($sql);
+
+    if ($stmt === false) {
+        // Lanzar una excepción si hay un error preparando la consulta
+        throw new Exception("Error preparando la consulta: " . self::$conn->error);
+    }
+
+    // Vincular el parámetro $id a la consulta preparada
+    $stmt->bind_param("i", $id);
+
+    // Ejecutar la consulta
+    $success = $stmt->execute();
+
+    // Cerrar la consulta
+    $stmt->close();
+
+    // Retornar si la eliminación fue exitosa
+    return $success;
+}
+
 }
 ?>

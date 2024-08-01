@@ -24,41 +24,42 @@ class DataAdmi
      * @throws Exception Si hay un error preparando la consulta SQL
      */
     public static function getUserByEmail($email)
-    {
-        $conn = Conexion();
-        $user = null;
+{
+    $conn = Conexion();
+    $user = null;
 
-        $stmt = $conn->prepare("
-            SELECT 
-                administradores.correo, 
-                administradores.contrasena, 
-                administradores.ID_Restaurante, 
-                Restaurantes.Estado, 
-                administradores.img_A, 
-                Restaurantes.Nombre_R, 
-                Restaurantes.Direccion, 
-                Restaurantes.Telefono 
-            FROM administradores 
-            JOIN Restaurantes ON administradores.ID_Restaurante = Restaurantes.ID_Restaurante 
-            WHERE administradores.correo = ?
-        ");
-        if ($stmt === false) {
-            throw new Exception("Error preparando la consulta: " . $conn->error);
-        }
-
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result && $result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-        }
-
-        $stmt->close();
-        $conn->close();
-
-        return $user;
+    $stmt = $conn->prepare("
+        SELECT 
+            administradores.correo, 
+            administradores.contrasena, 
+            administradores.ID_Restaurante, 
+            Restaurantes.Estado, 
+            Restaurantes.img_R,  
+            Restaurantes.Nombre_R, 
+            Restaurantes.Direccion, 
+            Restaurantes.Telefono 
+        FROM administradores 
+        JOIN Restaurantes ON administradores.ID_Restaurante = Restaurantes.ID_Restaurante 
+        WHERE administradores.correo = ?
+    ");
+    if ($stmt === false) {
+        throw new Exception("Error preparando la consulta: " . $conn->error);
     }
+
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    return $user;
+}
+
 
     /**
      * Método estático para actualizar un usuario por su correo electrónico
@@ -249,6 +250,23 @@ public static function actualizarEstadoPedido($pedido_id, $estado) {
         $conn->close();
     }
 
+    public static function updateRestaurantStatus($id_restaurante, $estado)
+    {
+        $conn = Conexion();
+
+        $stmt = $conn->prepare("UPDATE Restaurantes SET Estado = ? WHERE ID_Restaurante = ?");
+        if ($stmt === false) {
+            throw new Exception("Error preparando la consulta: " . $conn->error);
+        }
+
+        $stmt->bind_param("si", $estado, $id_restaurante);
+        $success = $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+        return $success;
+    }
 
 
 }
