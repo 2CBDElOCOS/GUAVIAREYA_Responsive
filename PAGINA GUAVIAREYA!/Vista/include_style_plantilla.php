@@ -1,7 +1,7 @@
 <?php
 // Define las fechas del evento
-$eventoInicio = new DateTime('2024-08-01');
-$eventoFin = new DateTime('2024-08-03'); // Ajusta según la duración del evento
+$eventoInicio = new DateTime('2024-07-01');
+$eventoFin = new DateTime('2024-07-31'); // Ajusta según la duración del evento
 $fechaActual = new DateTime();
 
 $eventoEnCurso = ($fechaActual >= $eventoInicio && $fechaActual <= $eventoFin);

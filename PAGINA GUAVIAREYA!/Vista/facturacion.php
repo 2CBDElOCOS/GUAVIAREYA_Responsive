@@ -132,7 +132,8 @@ $mostrarProductos = new mostrar_productos();
                 </b>
             </div>
 
-            <div class="col-12">
+
+            <div class="col-12 esti-tiempo">
                 <div class="flex-container">
                     <input type="radio" name="envio" id="Prioritaria" onclick="updateEstimatedTimeAndFees()">
                     <div class="label-container">
@@ -156,6 +157,20 @@ $mostrarProductos = new mostrar_productos();
                 </div>
             </div>
 
+
+
+
+            <div class="cupones">
+                <h6>🎫 Cupónes</h6>
+                <input type="text" id="codigo_cupon" placeholder="xxxx-xxxx-xxxx" class="form-control form-control-lg bg-light fs-6">
+                <button class="btn-pagar" onclick="validarCupon()">Validar</button>
+                <p id="mensaje_cupon"></p>
+            </div>
+
+        </div>
+
+
+        <div class="row">
             <div class="col-12 mb-4">
                 <div class="accordion" id="accordionSummary">
                     <div class="accordion-item">
@@ -208,17 +223,53 @@ $mostrarProductos = new mostrar_productos();
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-12">
-                <form method="post" action="../Controladores/controlador_pedidos.php">
-                    <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
-                    <input type="hidden" name="total" id="total" value="<?php echo $total; ?>">
-                    <input type="hidden" name="ID_Restaurante" value="<?php echo $id_restaurante; ?>">
-                    <button type="submit" class="btn-pagar">Confirmar pedido</button>
-                </form>
-            </div>
+
+        <div class="col-12">
+            <form method="post" action="../Controladores/controlador_pedidos.php">
+                <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
+                <input type="hidden" name="total" id="total" value="<?php echo $total; ?>">
+                <input type="hidden" name="ID_Restaurante" value="<?php echo $id_restaurante; ?>">
+                <button type="submit" class="btn-pagar">Confirmar pedido</button>
+            </form>
         </div>
     </div>
+    </div>
+
+    <script>
+        function validarCupon() {
+            const codigoCupon = document.getElementById('codigo_cupon').value;  
+
+            fetch('../Controladores/Controlador_cupon.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        'codigo_cupon': codigoCupon
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la red.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.valido) {
+                        document.getElementById('mensaje_cupon').innerText = `¡Cupón válido! Descuento: $${data.descuento} COP`;
+                        // Actualizar el total con el descuento aplicado.
+                    } else {
+                        document.getElementById('mensaje_cupon').innerText = data.mensaje;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al validar el cupón:', error);
+                    document.getElementById('mensaje_cupon').innerText = 'Hubo un error al validar el cupón. Por favor, intenta nuevamente.';
+                });
+        }
+    </script>
 
 
     <script src="../JS/actualizar_tiempo_entrega.js"></script>
