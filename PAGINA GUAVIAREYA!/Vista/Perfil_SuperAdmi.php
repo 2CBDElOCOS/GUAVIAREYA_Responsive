@@ -49,6 +49,7 @@ if ($user === null) {
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="controlador.php?seccion=CambiarClave_SuperAdmi">Cambiar Contraseña</a></li>
                                             <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_Restaurantes">Restaurantes</a></li>
+                                            <li><a class="dropdown-item" href="controlador.php?seccion=Estadisticas">Ver Estadisticas</a></li>
                                         </ul>
                                     </div>
                                 </div>

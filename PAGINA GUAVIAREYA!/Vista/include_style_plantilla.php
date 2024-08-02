@@ -49,7 +49,7 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <script src="path/to/bootstrap.bundle.min.js"></script> <!-- Asegúrate de incluir Bootstrap JS -->
 
     <?php
-    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A' || $seccion == 'Cambiar_clave' || $seccion == 'pedidos_per' || $seccion == 'ADMI_Editar_A' || $seccion == 'ADMI_CambiarPass' || $seccion == 'Perfil_Direcciones' || $seccion == 'Perfil_SuperAdmi' || $seccion == 'CambiarClave_SuperAdmi') {
+    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A' || $seccion == 'Cambiar_clave' || $seccion == 'pedidos_per' || $seccion == 'ADMI_Editar_A' || $seccion == 'ADMI_CambiarPass' || $seccion == 'Perfil_Direcciones' || $seccion == 'Perfil_SuperAdmi' || $seccion == 'CambiarClave_SuperAdmi'|| $seccion == 'Estadisticas') {
     ?>
         <link rel="stylesheet" href="../css/style3.css" />
         <link rel="stylesheet" href="<?php echo $cssFile; ?>" />
@@ -57,11 +57,14 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <!-- link bootstrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- ICONOS BOADSTRAP-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
         <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
-
+        <!-- Estadisticas-->
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
     <?php
-    } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A') {
+    } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A'|| $seccion == 'terminos') {
     ?>
         <!-- SCRIPT DEL CAPTCHA-->
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -70,9 +73,7 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <!-- BOADSTRAP-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        
     <?php
     } elseif ($seccion == 'ADMI_Agregar_P' || $seccion == 'ADMI_editar_Producto') {
     ?>
