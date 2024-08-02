@@ -5,54 +5,36 @@ include 'Conexion.php';
  * Clase para manejar operaciones relacionadas con los usuarios
  */
 Class DataUser {
-    private $conn; // Propiedad para almacenar la conexión
+    private $conn;
 
-    /**
-     * Constructor para inicializar la conexión
-     */
     public function __construct() {
-        $this->conn = Conexion(); // Establecer la conexión en el constructor
+        $this->conn = Conexion();
     }
 
-    /**
-     * Método estático para obtener un usuario por su correo electrónico
-     *
-     * @param string $email Correo electrónico del usuario a buscar
-     * @return array|null Retorna un array asociativo con los datos del usuario si se encuentra, o null si no se encuentra
-     * @throws Exception Si hay un error preparando la consulta SQL
-     */
     public static function getUserByEmail($email) {
-        // Crear conexión
         $conn = Conexion();
 
-        // Inicializar la variable $user
         $user = null;
 
-        // Preparar y ejecutar la consulta SQL para obtener el usuario por correo electrónico
         $stmt = $conn->prepare("SELECT Correo, Apodo, Nombre, Apellido, Telefono, img_U, Contrasena FROM Usuarios WHERE Correo = ?");
         if ($stmt === false) {
-            // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
-        // Vincular el parámetro $email a la consulta preparada
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // Verificar si se obtuvo un resultado
         if ($result && $result->num_rows > 0) {
-            // Obtener el resultado como un array asociativo
             $user = $result->fetch_assoc();
         }
 
-        // Cerrar la conexión
         $stmt->close();
         $conn->close();
 
-        // Retornar el usuario obtenido
         return $user;
     }
+
 
     /**
      * Método estático para actualizar un usuario por su correo electrónico
@@ -141,25 +123,19 @@ Class DataUser {
      * @throws Exception Si hay un error preparando la consulta SQL
      */
     public static function updatePassword($email, $newPassword) {
-        // Crear conexión
         $conn = Conexion();
 
-        // Preparar y ejecutar la consulta SQL para actualizar la contraseña
         $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
         if ($stmt === false) {
-            // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
-        // Vincular los parámetros a la consulta preparada
         $stmt->bind_param("ss", $newPassword, $email);
         $success = $stmt->execute();
 
-        // Cerrar la conexión
         $stmt->close();
         $conn->close();
 
-        // Retornar si la actualización fue exitosa
         return $success;
     }
 

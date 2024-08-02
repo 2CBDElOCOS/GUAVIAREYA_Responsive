@@ -60,6 +60,11 @@
                                     </div>
                                 </div>
                                 <hr>
+
+                                <div class="input-group mb-3">
+                                    <input type="checkbox" id="mostrarContrasena"> Mostrar contraseña
+                                </div>
+
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-info">Guardar</button>
@@ -100,6 +105,7 @@
 
         </div>
     </div>
-    <script src="../JS/mensaje_pass2.js"></script>
+    <script src="../JS/mensaje_pass2.js"></script>  c
+    <script src="../JS/mostrar_contraseña.js"></script>
 </body>
 </html>
