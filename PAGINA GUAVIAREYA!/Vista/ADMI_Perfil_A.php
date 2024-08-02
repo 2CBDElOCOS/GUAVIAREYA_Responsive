@@ -28,7 +28,7 @@ $imgUrl = $user['img_R']; // Esta ahora es la URL de la imagen del restaurante
 <body>
     <div class="container">
         <div class="col-md-12 ico-footer">
-            <a href="controlador.php?seccion=ADMI_Shop_A"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+            <a href="controlador.php?seccion=ADMI_Shop_A"><i class="fa-solid fa-circle-arrow-left" style="color: #000000;"></i></a>
         </div>
         <div class="main-body">
             <h4 class="text-center mb-4">TU RESTAURANTE</h4>

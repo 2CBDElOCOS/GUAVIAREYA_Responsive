@@ -20,7 +20,7 @@ class add_administrador {
             // Obtener los datos del formulario
             $correo = $_POST['Correo'];
             $apodo = $_POST['Apodo'];
-            $contrasena =$_POST['Contrasena']; // Encriptar contraseña
+            $contrasena = md5($_POST['Contrasena']); // Encriptar contraseña con md5
             $rol = 'administrador'; // Asignar rol automáticamente
             $restaurante_id = $_POST['ID_Restaurante'];
 
