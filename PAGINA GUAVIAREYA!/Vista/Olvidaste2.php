@@ -2,56 +2,54 @@
 <html lang="en">
 
 <head>
-
-    <title>¿Olvidaste?</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperación de Contraseña</title>
 </head>
 
 <body>
-
-    <!----------------------- Contenedor general-------------------------->
-
+    <!-- Contenedor general -->
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-
-        <!----------------------- Contenedor login -------------------------->
-
+        <!-- Contenedor principal -->
         <div class="row border rounded-5 p-3 bg-white shadow box-area">
-
-            <!--------------------------- Contenedor izquierdo ----------------------------->
-
+            <!-- Contenedor izquierdo -->
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
                 <div class="featured-image mb-3">
-                    <img src="../media/politica.png" class="img-fluid" style="width: 500px">
+                    <img src="../media/politica.png" class="img-fluid" style="width: 500px" alt="Imagen de recuperación">
                 </div>
             </div>
-
-            <!-------------------- ------ Contenedor derecho ---------------------------->
-
+            <!-- Contenedor derecho -->
             <div class="col-md-6 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
                         <h2 style="text-align: center;">RECUPERA TU CONTRASEÑA</h2>
-
                     </div>
-                    <br><br><br><br><br><br><br><br>
                     <p style="text-align: center;">Ingresa la nueva contraseña</p>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña">
-                    </div>
+                    <form action="../Controladores/Controlador_recuperar_contra.php" method="POST">
+                        <div class="input-group mb-3">
+                            <input type="password"  id="NuevaContrasena" name="NuevaContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Nueva Contraseña" required>
+                        </div>
+                        <p style="text-align: center;">Confirma la contraseña</p>
+                        <div class="input-group mb-3">
+                            <input type="password"  id="ConfirmarContrasena" name="ConfirmarContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Confirmar Contraseña" required>
+                        </div>
 
-                    <p style="text-align: center;">Confirma la contraseña</p>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Confirma Contraseña">
-                    </div>
+                        <div class="input-group mb-3">
+                            <input type="checkbox" id="mostrarContrasena"> Mostrar contraseña
+                        </div>
 
-                    <div class="input-group mb-3 input-group mb-3 d-flex justify-content-center">
-                        <a href="controlador.php?seccion=login"><button class="btn btn-lg btn-primary w-100 fs-6">Confirmar</button></a>
-                    </div>
+                        <div class="input-group mb-3 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Confirmar</button>
+                        </div>
+                    </form>
+                    <p style="text-align: center;">¿Ya tienes cuenta? <a href="controlador.php?seccion=login">Inicia sesión aquí</a></p>
                 </div>
             </div>
-
         </div>
     </div>
-
 </body>
+
+<script src="../JS/mensaje_pass2.js"></script>
+<script src="../JS/mostrar_contraseña.js"></script>
 
 </html>

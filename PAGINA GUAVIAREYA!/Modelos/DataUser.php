@@ -124,18 +124,18 @@ Class DataUser {
      */
     public static function updatePassword($email, $newPassword) {
         $conn = Conexion();
-
+    
         $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
         if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
-
+    
         $stmt->bind_param("ss", $newPassword, $email);
         $success = $stmt->execute();
-
+    
         $stmt->close();
         $conn->close();
-
+    
         return $success;
     }
 

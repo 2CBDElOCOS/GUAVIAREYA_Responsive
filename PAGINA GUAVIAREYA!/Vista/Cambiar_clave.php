@@ -105,7 +105,7 @@
 
         </div>
     </div>
-    <script src="../JS/mensaje_pass2.js"></script>  c
+    <script src="../JS/mensaje_pass2.js"></script>  
     <script src="../JS/mostrar_contraseña.js"></script>
 </body>
 </html>

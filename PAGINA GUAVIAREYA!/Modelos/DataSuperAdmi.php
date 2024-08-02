@@ -53,73 +53,68 @@ class DataSuperAdmi {
         return $success;
     }
 
-    static function borrar_restaurante() {
-        // Verificar si se ha enviado el ID del restaurante a borrar
-        if (isset($_POST['ID_Restaurante'])) {
-            // Obtener el ID del restaurante a borrar
-            $id_restaurante = $_POST['ID_Restaurante'];
+        static function borrar_restaurante() {
+        // Verificar si se ha enviado el ID del producto a borrar
+        if (isset($_POST['ID_Producto'])) {
+            // Obtener el ID del producto a borrar
+            $id_producto = $_POST['ID_Producto'];
 
             // Crear conexión
             $conn = Conexion();
 
             // Verificar conexión
             if ($conn->connect_error) {
+                // Terminar la ejecución y mostrar un mensaje de error si la conexión falló
                 die("Conexión fallida: " . $conn->connect_error);
             }
 
-            // Obtener el nombre del archivo de imagen del restaurante
-            $sql = $conn->prepare("SELECT img_R FROM Restaurantes WHERE ID_Restaurante = ?");
+            // Obtener el nombre del archivo de imagen del producto
+            $sql = $conn->prepare("SELECT img_P FROM Productos WHERE ID_Producto = ?");
             if ($sql === false) {
+                // Terminar la ejecución y mostrar un mensaje de error si hay un error preparando la consulta
                 die("Error preparando la consulta: " . $conn->error);
             }
 
-            $sql->bind_param("i", $id_restaurante);
+            // Vincular el parámetro $id_producto a la consulta preparada
+            $sql->bind_param("i", $id_producto);
             $sql->execute();
             $result = $sql->get_result();
             $row = $result->fetch_assoc();
-            $img_R = $row['img_R'];
+            $img_P = $row['img_P'];
 
             // Borrar el archivo de imagen
-            $image_path = "../media_restaurantes/" . $img_R;
+            $image_path = "../media_productos/" . $img_P;
             if (file_exists($image_path)) {
+                // Eliminar el archivo de imagen si existe
                 unlink($image_path);
             }
 
-            // Borrar relaciones y luego el restaurante
-            $conn->begin_transaction();
+            // Preparar la consulta SQL para borrar el producto de la tabla Productos
+            $sql = $conn->prepare("DELETE FROM Productos WHERE ID_Producto = ?");
+            if ($sql === false) {
+                // Terminar la ejecución y mostrar un mensaje de error si hay un error preparando la consulta
+                die("Error preparando la consulta: " . $conn->error);
+            }
 
-            try {
-                // Borrar productos del restaurante
-                $sql = $conn->prepare("DELETE FROM Productos WHERE ID_Restaurante = ?");
-                $sql->bind_param("i", $id_restaurante);
-                $sql->execute();
+            // Vincular el parámetro $id_producto a la consulta preparada
+            $sql->bind_param("i", $id_producto);
 
-                // Borrar administradores del restaurante
-                $sql = $conn->prepare("DELETE FROM administradores WHERE ID_Restaurante = ?");
-                $sql->bind_param("i", $id_restaurante);
-                $sql->execute();
-
-                // Borrar el restaurante
-                $sql = $conn->prepare("DELETE FROM Restaurantes WHERE ID_Restaurante = ?");
-                $sql->bind_param("i", $id_restaurante);
-                $sql->execute();
-
-                // Confirmar transacción
-                $conn->commit();
-
-                header("location: controlador.php?seccion=SuperAdmin_Panel");
+            // Ejecutar la consulta
+            if ($sql->execute()) {
+                // Redirigir a otra página después de borrar el producto
+                $conn->close();
+                header("location: controlador.php?seccion=ADMI_Productos_A");
                 exit(); // Salir del script después de redirigir
-
-            } catch (Exception $e) {
-                // Revertir transacción en caso de error
-                $conn->rollback();
-                echo "Error al borrar el restaurante: " . $e->getMessage();
+            } else {
+                // Mostrar un mensaje de error si no se pudo borrar el producto
+                echo "Error al borrar el producto: " . $conn->error;
             }
 
             // Cerrar la conexión
             $conn->close();
         } else {
-            echo "No se recibió el ID del restaurante a borrar";
+            // Mostrar un mensaje si no se recibió el ID del producto a borrar
+            echo "No se recibió el ID del producto a borrar";
         }
     }
 }
