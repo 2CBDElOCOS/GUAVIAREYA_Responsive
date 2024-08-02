@@ -1,8 +1,13 @@
 document.getElementById('mostrarContrasena').addEventListener('change', function() {
-    var contrasenaInput = document.getElementById('Contrasena');
-    if (this.checked) {
-        contrasenaInput.type = 'text';
-    } else {
-        contrasenaInput.type = 'password';
-    }
+    var passFields = [
+        document.getElementById('ContrasenaAnterior'),
+        document.getElementById('NuevaContrasena'),
+        document.getElementById('ConfirmarContrasena'),
+        document.getElementById('Contrasena')
+    ];
+    passFields.forEach(function(field) {
+        if (field) {
+            field.type = document.getElementById('mostrarContrasena').checked ? 'text' : 'password';
+        }
+    });
 });

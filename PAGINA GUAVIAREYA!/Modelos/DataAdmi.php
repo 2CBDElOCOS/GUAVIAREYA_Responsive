@@ -166,28 +166,24 @@ class DataAdmi
      */
     public static function updatePassword($email, $newPassword)
     {
-        // Crear conexión
         $conn = Conexion();
-
-        // Preparar y ejecutar la consulta SQL para actualizar la contraseña
-        $stmt = $conn->prepare("UPDATE administradores SET Contrasena = ? WHERE Correo = ?");
+    
+        // Cifrar la nueva contraseña con md5
+        $hashedPassword = md5($newPassword);
+    
+        $stmt = $conn->prepare("UPDATE administradores SET contrasena = ? WHERE correo = ?");
         if ($stmt === false) {
-            // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
-
-        // Vincular los parámetros a la consulta preparada
-        $stmt->bind_param("ss", $newPassword, $email);
+    
+        $stmt->bind_param("ss", $hashedPassword, $email);
         $success = $stmt->execute();
-
-        // Cerrar la conexión
+    
         $stmt->close();
         $conn->close();
-
-        // Retornar si la actualización fue exitosa
+    
         return $success;
     }
-
 public static function obtenerOrdenes($correo) {
     $conn = Conexion();
 

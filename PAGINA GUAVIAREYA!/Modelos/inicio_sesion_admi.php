@@ -22,32 +22,40 @@ class Login {
             die("Conexión fallida: " . $conn->connect_error);
         }
 
-        $sql = "SELECT apodo, ID_Restaurante, rol FROM administradores WHERE correo = ? AND contrasena = ?";
+        // La consulta solo selecciona la contraseña almacenada
+        $sql = "SELECT apodo, ID_Restaurante, rol, contrasena FROM administradores WHERE correo = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
             throw new Exception("Error en la preparación de la consulta: " . $conn->error);
         }
 
-        $stmt->bind_param("ss", $correo, $contrasena);
+        $stmt->bind_param("s", $correo);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($apodo, $id_restaurante, $rol);
+            $stmt->bind_result($apodo, $id_restaurante, $rol, $hashed_password);
             $stmt->fetch();
 
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
+            // Comparar la contraseña ingresada con la almacenada en la base de datos
+            if (md5($contrasena) === $hashed_password) {
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+
+                $_SESSION['apodo'] = $apodo;
+                $_SESSION['id_restaurante'] = $id_restaurante;
+                $_SESSION['rol'] = $rol;
+
+                $stmt->close();
+                $conn->close();
+
+                return $rol; // Retorna el rol
+            } else {
+                $stmt->close();
+                $conn->close();
+                return false;
             }
-
-            $_SESSION['apodo'] = $apodo;
-            $_SESSION['id_restaurante'] = $id_restaurante;
-            $_SESSION['rol'] = $rol;
-
-            $stmt->close();
-            $conn->close();
-
-            return $rol; // Retorna el rol
         } else {
             $stmt->close();
             $conn->close();

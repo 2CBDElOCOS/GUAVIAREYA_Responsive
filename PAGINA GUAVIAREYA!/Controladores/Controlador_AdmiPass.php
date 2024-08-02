@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener el usuario por su correo electrónico
     $usuario = DataAdmi::getUserByEmail($email);
 
-    if (!$usuario || $contrasenaAnterior !== $usuario['contrasena']) {
+    if (!$usuario || md5($contrasenaAnterior) !== $usuario['contrasena']) {
         header("location: ../Controladores/controlador.php?seccion=ADMI_CambiarPass&error=3");
         exit();
     }
