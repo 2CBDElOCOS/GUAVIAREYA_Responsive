@@ -175,6 +175,7 @@ END;
 DELIMITER ;
 
 -- Procedimiento almacenado para insertar un administrador
+
 DELIMITER //
 
 CREATE PROCEDURE insertar_administrador(
@@ -187,7 +188,7 @@ CREATE PROCEDURE insertar_administrador(
 )
 BEGIN
     INSERT INTO Administradores (correo, apodo, contrasena, rol, ID_Restaurante, img_A)
-    VALUES (p_correo, p_apodo, p_contrasena, p_rol, p_ID_Restaurante, p_img_A);
+    VALUES (p_correo, p_apodo, MD5(p_contrasena), p_rol, p_ID_Restaurante, p_img_A);
 END;
 //
 
