@@ -6,13 +6,11 @@ require 'PHPMailer/Exception.php';
 require 'PHPMailer/SMTP.php';
 
 // Incluir el archivo de configuración
-include('config/config_dire_correo.php');
+include('../config/config_dire_correo.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener el correo electrónico del POST
     $correo = filter_var($_POST['correo'], FILTER_SANITIZE_EMAIL);
 
-    // Verificar si el correo es válido
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         header("Location: ../Vista/olvidaste.php?error=1");
         exit;
@@ -70,6 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../Controladores/controlador.php?seccion=olvidaste&error=2");
     }
 } else {
-    header("Location: .../Controladores/controlador.php?seccion=olvidaste&error=3");
+    header("Location: ../Controladores/controlador.php?seccion=olvidaste&error=3");
 }
 ?>
