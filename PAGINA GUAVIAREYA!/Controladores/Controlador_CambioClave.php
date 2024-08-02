@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $email = $_SESSION['correo'];
-    $contrasenaAnterior = $_POST['ContrasenaAnterior'];
-    $nuevaContrasena = $_POST['NuevaContrasena'];
-    $confirmarContrasena = $_POST['ConfirmarContrasena'];
+    $contrasenaAnterior = md5($_POST['ContrasenaAnterior']);
+    $nuevaContrasena = md5($_POST['NuevaContrasena']);
+    $confirmarContrasena = md5($_POST['ConfirmarContrasena']);
 
     if ($nuevaContrasena !== $confirmarContrasena) {
         header("location: ../Controladores/controlador.php?seccion=Cambiar_clave&error=2");
