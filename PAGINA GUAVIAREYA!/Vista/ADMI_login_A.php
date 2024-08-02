@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingresa Admi</title>
 </head>
+
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="row border rounded-4 p-4 bg-white shadow-sm box-area">
@@ -24,19 +26,23 @@
                         <input type="email" name="correo" class="form-control form-control-lg bg-light" placeholder="Correo" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="contrasena" class="form-control form-control-lg bg-light" placeholder="Contraseña" required>
+                        <input  id="Contrasena" type="password" name="contrasena" class="form-control form-control-lg bg-light" placeholder="Contraseña" required>
                     </div>
-                    
-                    <?php if (isset($_GET['error'])): ?>
-                    <div class="alert alert-danger mt-2" role="alert">
-                        <?php echo htmlspecialchars($_GET['error']); ?>
-                    </div>
+
+                    <?php if (isset($_GET['error'])) : ?>
+                        <div class="alert alert-danger mt-2" role="alert">
+                            <?php echo htmlspecialchars($_GET['error']); ?>
+                        </div>
                     <?php endif; ?>
-                    
+
+                    <div class="input-group mb-3">
+                        <input type="checkbox" id="mostrarContrasena"> Mostrar contraseña
+                    </div>
+
                     <div class="mb-3 d-flex justify-content-between">
                         <small class="forgot"><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
                     </div>
-                    
+
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary w-100">Ingresar</button>
                     </div>
@@ -47,7 +53,8 @@
             </div>
         </div>
     </div>
+    <script src="../JS/mostrar_contraseña.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-rbsA0UkP0NQUp+nOtEPO6r/Y4X9kJ8i1PQ/3CIMxtmZR3eK/jHcFCE3P9AXMyjb" crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -47,9 +47,6 @@
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Ingresar</button>
                         </div>
                     </form>
-                    <div class="input-group mb-3">
-                        <button class="btn btn-lg btn-light w-100 fs-6"><img src="../media/google.png" style="width:20px" class="me-2"><small>Inicia sesión con Google</small></button>
-                    </div>
                     <div class="text-center">
                         <small>¿No tienes una cuenta? <a href="controlador.php?seccion=registro">Regístrate</a></small>
                         <br>
@@ -61,7 +58,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../JS/alerta_bloqueo.js"></script>
-   <script src="../JS/mostrar_contraseña.js"></script>
+    <script src="../JS/mostrar_contraseña.js"></script>
 </body>
 
 </html>

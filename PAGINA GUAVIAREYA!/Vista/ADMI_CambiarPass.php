@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambiar contraseña</title>
 </head>
+
 <body>
     <div class="container">
         <div class="col-md-12 ico-footer1">
@@ -58,6 +60,9 @@
                                     </div>
                                 </div>
                                 <hr>
+                                <div class="input-group mb-3">
+                                    <input type="checkbox" id="mostrarContrasena"> Mostrar contraseña
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-info">Guardar</button>
@@ -66,38 +71,37 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
-                            <div class="row">
-                <div class="col-md-8">
-                    <!-- Mensaje de error -->
-                    <?php
-                    if (isset($_GET['error'])) {
-                        $error_message = '';
-                        switch ($_GET['error']) {
-                            case '1':
-                                $error_message = 'Todos los campos son obligatorios.';
-                                break;
-                            case '2':
-                                $error_message = 'Las contraseñas no coinciden.';
-                                break;
-                            case '3':
-                                $error_message = 'Contraseña anterior incorrecta.';
-                                break;
-                            default:
-                                $error_message = 'Error desconocido.';
-                                break;
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Mensaje de error -->
+                        <?php
+                        if (isset($_GET['error'])) {
+                            $error_message = '';
+                            switch ($_GET['error']) {
+                                case '1':
+                                    $error_message = 'Todos los campos son obligatorios.';
+                                    break;
+                                case '2':
+                                    $error_message = 'Las contraseñas no coinciden.';
+                                    break;
+                                case '3':
+                                    $error_message = 'Contraseña anterior incorrecta.';
+                                    break;
+                                default:
+                                    $error_message = 'Error desconocido.';
+                                    break;
+                            }
+                            echo "<div class='alert alert-danger' role='alert'>$error_message</div>";
                         }
-                        echo "<div class='alert alert-danger' role='alert'>$error_message</div>";
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
-            </div>
             </form>
-
-
         </div>
     </div>
-    <script src="../JS/mensaje_pass2.js"></script>
+<script src="../JS/mostrar_contraseña.js"></script>
 </body>
+
 </html>
