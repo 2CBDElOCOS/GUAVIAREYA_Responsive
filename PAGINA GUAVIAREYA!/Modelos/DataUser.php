@@ -139,6 +139,14 @@ Class DataUser {
         return $success;
     }
 
+    public function actualizarContrasena($correo, $hashedPassword) {
+        $query = "UPDATE Usuarios SET Contrasena = ? WHERE correo = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('ss', $hashedPassword, $correo);
+        return $stmt->execute();
+    }
+
+
     public function obtenerPedidosPorUsuario($correo) {
         $query = "SELECT 
                     p.ID_pedido, 
