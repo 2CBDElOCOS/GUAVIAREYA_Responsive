@@ -5,51 +5,37 @@ if (session_status() == PHP_SESSION_NONE) {
 
 include '../Modelos/DataUser.php';
 
-// Verificar que se haya enviado el formulario por POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Definir los campos obligatorios
-    $required_fields = ['NuevaContrasena', 'ConfirmarContrasena'];
-    foreach ($required_fields as $field) {
-        if (!isset($_POST[$field]) || empty($_POST[$field])) {
-            header("location: ../Controladores/controlador.php?seccion=Olvidaste2&error=1");
-            exit();
-        }
-    }
-
-    // Obtener los datos del formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $correo = filter_var($_POST['correo'], FILTER_SANITIZE_EMAIL);
     $nuevaContrasena = $_POST['NuevaContrasena'];
     $confirmarContrasena = $_POST['ConfirmarContrasena'];
 
-    // Verificar que las contraseñas coincidan
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['error'] = 'Correo no válido';
+        header("Location: ../Vista/olvidaste2.php?correo=" . urlencode($correo));
+        exit;
+    }
+
     if ($nuevaContrasena !== $confirmarContrasena) {
-        header("location: ../Controladores/controlador.php?seccion=Olvidaste2&error=2");
-        exit();
+        $_SESSION['error'] = 'Las contraseñas no coinciden';
+        header("Location: ../Vista/olvidaste2.php?correo=" . urlencode($correo));
+        exit;
     }
 
-    // Obtener el correo electrónico del usuario desde la sesión (o desde un parámetro GET si se desea)
-    $email = isset($_GET['correo']) ? $_GET['correo'] : ''; // Asegúrate de pasar el correo a través de GET
-
-    if (empty($email)) {
-        header("location: ../Controladores/controlador.php?seccion=Olvidaste2&error=3");
-        exit();
-    }
-
-    // Hash de la nueva contraseña
+    // Aquí iría el código para actualizar la contraseña en la base de datos
     $hashedPassword = md5($nuevaContrasena);
+    $userData = new DataUser();
+    $result = $userData->actualizarContrasena($correo, $hashedPassword);
 
-    // Actualizar la contraseña del usuario
-    $success = DataUser::updatePassword($email, $hashedPassword);
-
-    if ($success) {
-        // Redirigir a una página de éxito o inicio de sesión
-        header("location: ../Controladores/controlador.php?seccion=Olvidaste2&success=1");
-        exit();
+    if ($result) {
+        $_SESSION['success'] = 'Contraseña actualizada con éxito';
+        header("Location: ../Controladores/controlador.php?seccion=login");
     } else {
-        echo "Error al actualizar la contraseña.";
+        $_SESSION['error'] = 'Error al actualizar la contraseña';
+        header("Location: ../Vista/olvidaste2.php?correo=" . urlencode($correo));
     }
 } else {
-    // Redirigir si no se hace una solicitud POST
-    header("location: ../Controladores/controlador.php?seccion=Olvidaste2&error=3");
-    exit();
+    $_SESSION['error'] = 'Método de solicitud no válido';
+    header("Location: ../Vista/olvidaste2.php?correo=" . urlencode($correo));
 }
 ?>
