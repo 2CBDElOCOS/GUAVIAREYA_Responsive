@@ -290,32 +290,41 @@ public static function actualizarEstadoPedido($pedido_id, $estado) {
         }
     }
 
-    // Función para eliminar un restaurante
     public static function eliminarRestaurante($idRestaurante) {
         // Obtener la conexión a la base de datos
         $conexion = Conexion();
-        
-        // Consulta para eliminar el restaurante
-        $query = "DELETE FROM Restaurantes WHERE ID_Restaurante = ?";
-        
-        // Preparar y ejecutar la consulta
-        if ($stmt = $conexion->prepare($query)) {
-            $stmt->bind_param("i", $idRestaurante);
-            
-            if ($stmt->execute()) {
-                $stmt->close();
-                $conexion->close();
-                return true;
-            } else {
-                $stmt->close();
-                $conexion->close();
-                return false;
-            }
-        } else {
+    
+        // Iniciar una transacción para asegurar la consistencia de los datos
+        $conexion->begin_transaction();
+    
+        try {
+            // Consulta para eliminar los pedidos asociados al restaurante
+            $queryPedidos = "DELETE FROM Pedidos WHERE ID_Restaurante = ?";
+            $stmtPedidos = $conexion->prepare($queryPedidos);
+            $stmtPedidos->bind_param("i", $idRestaurante);
+            $stmtPedidos->execute();
+            $stmtPedidos->close();
+    
+            // Consulta para eliminar el restaurante
+            $queryRestaurante = "DELETE FROM Restaurantes WHERE ID_Restaurante = ?";
+            $stmtRestaurante = $conexion->prepare($queryRestaurante);
+            $stmtRestaurante->bind_param("i", $idRestaurante);
+            $stmtRestaurante->execute();
+            $stmtRestaurante->close();
+    
+            // Si todo va bien, confirmar la transacción
+            $conexion->commit();
+            $conexion->close();
+            return true;
+        } catch (Exception $e) {
+            // Si hay un error, revertir la transacción
+            $conexion->rollback();
             $conexion->close();
             return false;
         }
     }
+    
+    
 
 
 }

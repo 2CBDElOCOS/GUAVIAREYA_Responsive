@@ -125,6 +125,31 @@ class mostrar_productos {
         // Retornar el producto obtenido
         return $producto;
     }
+
+    public function buscarProductos($searchTerm) {
+        // Asegúrate de que tu consulta esté bien construida y proteja contra SQL Injection
+        $conexion = Conexion();
+        $searchTerm = mysqli_real_escape_string($conexion, $searchTerm);
+        
+        // Construir la consulta SQL para buscar en múltiples campos
+        $query = "
+            SELECT * 
+            FROM productos 
+            WHERE 
+                Nombre_P LIKE '%$searchTerm%' OR 
+                Descripcion LIKE '%$searchTerm%' OR 
+                Valor_P LIKE '%$searchTerm%'
+        ";
+        
+        $result = mysqli_query($conexion, $query);
+    
+        $productos = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $productos[] = $row;
+        }
+    
+        return $productos;
+    }
 }
 
 ?>
