@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         // Redirigir a facturacion.php
-        header("Location: ../Controladores/controlador.php?seccion=confirmacion");
+        header("Location: ../Controladores/controlador.php?seccion=verificacion");
         exit;
     } else {
         echo "Error al agregar el método de pago.";
