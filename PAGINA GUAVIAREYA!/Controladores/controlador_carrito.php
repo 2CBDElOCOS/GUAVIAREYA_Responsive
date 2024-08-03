@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Valor_P = $_POST['Valor_P'];
     $ID_Restaurante = $_POST['ID_Restaurante'];
     $Nombre_Restaurante = $_POST['Nombre_Restaurante'];
+    $fromSearch = isset($_POST['from_search']) && $_POST['from_search'] == '1';
 
     if (!isset($_SESSION['carrito'])) {
         $_SESSION['carrito'] = [];
@@ -56,8 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $response['success'] = true;
     $response['contador'] = $contador_carrito;
-}
 
-// Devolver la respuesta como JSON
-echo json_encode($response);
+    if (!$fromSearch) {
+        // Devolver la respuesta como JSON
+        echo json_encode($response);
+    }
+}
 ?>
