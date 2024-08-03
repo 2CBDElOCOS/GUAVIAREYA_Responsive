@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $email = $_SESSION['correo'];
-    $contrasenaAnterior = $_POST['ContrasenaAnterior'];
-    $nuevaContrasena = $_POST['NuevaContrasena'];
-    $confirmarContrasena = $_POST['ConfirmarContrasena'];
+    $contrasenaAnterior = md5($_POST['ContrasenaAnterior']);  // Encriptar contraseña anterior
+    $nuevaContrasena = md5($_POST['NuevaContrasena']);  // Encriptar nueva contraseña
+    $confirmarContrasena = md5($_POST['ConfirmarContrasena']);  // Encriptar confirmación de contraseña
 
     if ($nuevaContrasena !== $confirmarContrasena) {
         header("location: ../Controladores/controlador.php?seccion=Cambiar_clave&error=2");
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario = DataUser::getUserByEmail($email);
 
     if (!$usuario) {
-        header("location: ../Controladores/controlador.php?seccion=Cambiar_clave&error=2");
+        header("location: ../Controladores/controlador.php?seccion=Cambiar_clave&error=3");
         exit();
     }
 

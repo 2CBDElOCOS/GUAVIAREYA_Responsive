@@ -5,7 +5,6 @@ if (session_status() == PHP_SESSION_NONE) {
 
 include('../Modelos/DataUser.php');
 
-
 // Verificar que el usuario esté logueado
 if (isset($_SESSION['correo'])) {
     $userEmail = $_SESSION['correo'];
@@ -21,7 +20,7 @@ if (isset($_SESSION['correo'])) {
         exit();
     } else {
         $_SESSION['error'] = $resultado;
-        header("Location: ../Controladores/controlador.php?seccion=Perfil");
+        header("Location: ../Controladores/controlador.php?seccion=perfil");
         exit();
     }
 } else {
@@ -30,3 +29,4 @@ if (isset($_SESSION['correo'])) {
     exit();
 }
 ?>
+    
