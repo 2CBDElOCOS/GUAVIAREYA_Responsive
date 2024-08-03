@@ -47,7 +47,7 @@
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" required id="termsCheck">
                             <label class="form-check-label" for="termsCheck">
-                                He leído y acepto <a href="controlador.php?seccion=terminos">los términos de uso y condiciones</a> y las <a href="politicas.php">políticas de privacidad</a>
+                                He leído y acepto <a href="../Controladores/controlador.php?seccion=terminos">los términos de uso y condiciones</a> y las <a href="../Controladores/controlador.php?seccion=politicas">políticas de privacidad</a>
                             </label>
                         </div>
                         <?php

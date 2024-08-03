@@ -6,7 +6,7 @@ require 'PHPMailer/Exception.php';
 require 'PHPMailer/SMTP.php';
 
 // Incluir el archivo de configuración
-include('../config/config_dire_correo.php');
+include('config/config_dire_correo.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = filter_var($_POST['correo'], FILTER_SANITIZE_EMAIL);
@@ -22,12 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->isSMTP();
         $mail->Host       = 'smtp.mailersend.net';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'MS_nb05PB@trial-351ndgw8w3rgzqx8.mlsender.net';
-        $mail->Password   = 'TcB1lD9bJwDdCVHo';
+        $mail->Username   = 'MS_zEVACu@trial-z3m5jgr0pzxgdpyo.mlsender.net';
+        $mail->Password   = 'GKtO09hzzwdq8MUZ';
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
-        $mail->setFrom('MS_nb05PB@trial-351ndgw8w3rgzqx8.mlsender.net', 'GUAVIAREYA');
+        $mail->setFrom('MS_zEVACu@trial-z3m5jgr0pzxgdpyo.mlsender.net', 'GUAVIAREYA');
         $mail->addAddress($correo);
 
         $mail->isHTML(true);
@@ -63,11 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </html>";
 
         $mail->send();
-        header("Location: ../Controladores/controlador.php?seccion=olvidaste&success=1");
+        header("Location: ../Controladores/controlador.php?seccion=Olvidaste");
     } catch (Exception $e) {
-        header("Location: ../Controladores/controlador.php?seccion=olvidaste&error=2");
+        header("Location: ../Controladores/controlador.php?seccion=Olvidaste&error=2");
     }
 } else {
-    header("Location: ../Controladores/controlador.php?seccion=olvidaste&error=3");
+    header("Location: ../Controladores/controlador.php?seccion=Olvidaste&error=3");
 }
 ?>

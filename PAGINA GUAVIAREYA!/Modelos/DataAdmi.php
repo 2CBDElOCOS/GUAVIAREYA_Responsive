@@ -264,5 +264,58 @@ public static function actualizarEstadoPedido($pedido_id, $estado) {
         return $success;
     }
 
+    public static function eliminarAdministrador($idRestaurante) {
+        // Obtener la conexión a la base de datos
+        $conexion = Conexion();
+        
+        // Consulta para eliminar el administrador
+        $query = "DELETE FROM Administradores WHERE ID_Restaurante = ?";
+        
+        // Preparar y ejecutar la consulta
+        if ($stmt = $conexion->prepare($query)) {
+            $stmt->bind_param("i", $idRestaurante);
+            
+            if ($stmt->execute()) {
+                $stmt->close();
+                $conexion->close();
+                return true;
+            } else {
+                $stmt->close();
+                $conexion->close();
+                return false;
+            }
+        } else {
+            $conexion->close();
+            return false;
+        }
+    }
+
+    // Función para eliminar un restaurante
+    public static function eliminarRestaurante($idRestaurante) {
+        // Obtener la conexión a la base de datos
+        $conexion = Conexion();
+        
+        // Consulta para eliminar el restaurante
+        $query = "DELETE FROM Restaurantes WHERE ID_Restaurante = ?";
+        
+        // Preparar y ejecutar la consulta
+        if ($stmt = $conexion->prepare($query)) {
+            $stmt->bind_param("i", $idRestaurante);
+            
+            if ($stmt->execute()) {
+                $stmt->close();
+                $conexion->close();
+                return true;
+            } else {
+                $stmt->close();
+                $conexion->close();
+                return false;
+            }
+        } else {
+            $conexion->close();
+            return false;
+        }
+    }
+
 
 }

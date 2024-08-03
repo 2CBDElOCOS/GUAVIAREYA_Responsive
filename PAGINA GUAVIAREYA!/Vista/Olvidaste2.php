@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperación de Contraseña</title>
 </head>
+
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="row border rounded-5 p-3 bg-white shadow box-area">
@@ -29,6 +31,10 @@
                             <input type="password" id="ConfirmarContrasena" name="ConfirmarContrasena" class="form-control form-control-lg bg-light fs-6" placeholder="Confirmar Contraseña" required>
                         </div>
                         <div class="input-group mb-3">
+                            <br>
+                            <small id="password-strength" class="password-strength"></small>
+                        </div>
+                        <div class="input-group mb-3">
                             <input type="checkbox" id="mostrarContrasena"> Mostrar contraseña
                         </div>
                         <div class="input-group mb-3 d-flex justify-content-center">
@@ -43,4 +49,5 @@
 </body>
 <script src="../JS/mensaje_pass2.js"></script>
 <script src="../JS/mostrar_contraseña.js"></script>
+
 </html>

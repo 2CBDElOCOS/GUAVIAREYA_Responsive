@@ -14,8 +14,10 @@ include '../Modelos/DataAdmi.php';
 // Obtener la información del usuario desde la base de datos
 $user = DataAdmi::getUserByEmail($_SESSION['correo']);
 $imgUrl = $user['img_R']; // Esta ahora es la URL de la imagen del restaurante
-?>
 
+// Asignar ID_Restaurante a la sesión
+$_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -68,6 +70,8 @@ $imgUrl = $user['img_R']; // Esta ahora es la URL de la imagen del restaurante
                                         <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Ordenes">Ordenes</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="../Controladores/Controlador_EliminarCuenta_A.php" onclick="return confirmarEliminacion();">Eliminar Cuenta</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -111,5 +115,6 @@ $imgUrl = $user['img_R']; // Esta ahora es la URL de la imagen del restaurante
         </div>
     </div>
 
+    <script src="../JS/mensaje_confirmacion_cuenta.js"></script>
 </body>
 </html>

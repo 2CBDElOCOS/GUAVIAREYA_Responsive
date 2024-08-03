@@ -23,6 +23,7 @@ $primera_direccion = $direcciones ? $direcciones[0] : null;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MI PERFIL</title>
+
 </head>
 
 <body>
@@ -87,6 +88,8 @@ $primera_direccion = $direcciones ? $direcciones[0] : null;
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_P">Tus pedidos</a></li>
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_Direcciones">Dirección de entregas</a></li>
                                         <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="../Controladores/Controlador_EliminarCuenta.php" onclick="return confirmarEliminacion();">Eliminar Cuenta</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -152,6 +155,10 @@ $primera_direccion = $direcciones ? $direcciones[0] : null;
 
         </section>
     </div>
+
+    <script src="../JS/mensaje_confirmacion_cuenta.js"></script>
+
 </body>
+
 
 </html>

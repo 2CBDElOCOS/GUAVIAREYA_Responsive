@@ -24,7 +24,7 @@
                 <!-- Mensaje de éxito o error -->
                 <div id="message" class="message" style="display: none;"></div>
 
-                <form id="recoveryForm" action="../Controladores/enviar_correo.php" method="POST">
+                <form id="recoveryForm" action="../enviar_correo.php" method="POST">
                     <div class="input-group mb-3">
                         <input type="email" name="correo" id="correo" class="form-control form-control-lg bg-light fs-6" placeholder="Correo" required>
                         <button type="submit" class="btn btn-lg btn-primary fs-6 ms-2">Enviar</button>
@@ -37,6 +37,7 @@
         </div>
     </div>
 
+<script src="../JS/mensaje_recuperar_contra.js"></script>
 <script src="../JS/mensaje_recuperar_contra.js"></script>
 </body>
 </html>

@@ -64,7 +64,7 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <!-- Estadisticas-->
         <script src="https://www.gstatic.com/charts/loader.js"></script>
     <?php
-    } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A'|| $seccion == 'terminos') {
+    } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A'|| $seccion == 'terminos' || $seccion=='politicas') {
     ?>
         <!-- SCRIPT DEL CAPTCHA-->
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
