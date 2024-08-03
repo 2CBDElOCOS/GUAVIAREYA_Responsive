@@ -117,5 +117,133 @@ class DataSuperAdmi {
             echo "No se recibió el ID del producto a borrar";
         }
     }
-}
-?>
+
+    public static function obtenerEstadisticasPedidosPorRestaurante($fecha_inicio = null, $fecha_fin = null) {
+        $conn = Conexion();
+        $sql = "SELECT r.Nombre_R AS Restaurante, COUNT(p.ID_pedido) AS Numero_Pedidos
+                FROM Restaurantes r
+                LEFT JOIN Pedidos p ON r.ID_Restaurante = p.ID_Restaurante";
+        
+        if ($fecha_inicio && $fecha_fin) {
+            $sql .= " WHERE DATE(p.fecha_creacion) BETWEEN ? AND ?";
+        }
+        
+        $sql .= " GROUP BY r.ID_Restaurante
+                  ORDER BY Numero_Pedidos DESC";
+        
+        $stmt = $conn->prepare($sql);
+        
+        if ($stmt === false) {
+            echo "Error preparando la consulta: " . $conn->error;
+            $conn->close();
+            return [];
+        }
+        
+        if ($fecha_inicio && $fecha_fin) {
+            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+        }
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result === false) {
+            echo "Error en la consulta SQL: " . $conn->error;
+            $conn->close();
+            return [];
+        }
+        
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = [$row['Restaurante'], (int)$row['Numero_Pedidos']];
+        }
+        
+        $conn->close();
+        return $data;
+    }
+    public static function obtenerProductoMasPopular($fecha_inicio = null, $fecha_fin = null) {
+        $conn = Conexion();
+        $sql = "SELECT p.Nombre_P AS Producto, COUNT(d.ID_Producto) AS Numero_Ventas
+                FROM Productos p
+                JOIN Pedidos d ON p.ID_Producto = d.ID_Producto";
+        
+        if ($fecha_inicio && $fecha_fin) {
+            $sql .= " WHERE DATE(d.fecha_creacion) BETWEEN ? AND ?";
+        }
+        
+        $sql .= " GROUP BY p.ID_Producto
+                  ORDER BY Numero_Ventas DESC";
+        
+        $stmt = $conn->prepare($sql);
+        
+        if ($stmt === false) {
+            echo "Error preparando la consulta: " . $conn->error;
+            $conn->close();
+            return [];
+        }
+        
+        if ($fecha_inicio && $fecha_fin) {
+            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+        }
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result === false) {
+            echo "Error en la consulta SQL: " . $conn->error;
+            $conn->close();
+            return [];
+        }
+        
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = [$row['Producto'], (int)$row['Numero_Ventas']];
+        }
+        
+        $conn->close();
+        return $data;
+    }
+    
+    public static function obtenerUsuarioMasPedidos($fecha_inicio = null, $fecha_fin = null) {
+        $conn = Conexion();
+        $sql = "SELECT u.Nombre AS Usuario, COUNT(p.ID_pedido) AS Numero_Pedidos
+                FROM Usuarios u
+                JOIN Pedidos p ON u.Correo = p.Correo";
+        
+        if ($fecha_inicio && $fecha_fin) {
+            $sql .= " WHERE DATE(p.fecha_creacion) BETWEEN ? AND ?";
+        }
+        
+        $sql .= " GROUP BY u.Correo
+                  ORDER BY Numero_Pedidos DESC
+                  LIMIT 1";
+        
+        $stmt = $conn->prepare($sql);
+        
+        if ($stmt === false) {
+            echo "Error preparando la consulta: " . $conn->error;
+            $conn->close();
+            return [];
+        }
+        
+        if ($fecha_inicio && $fecha_fin) {
+            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+        }
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result === false) {
+            echo "Error en la consulta SQL: " . $conn->error;
+            $conn->close();
+            return [];
+        }
+        
+        $data = $result->fetch_assoc();
+        
+        $conn->close();
+        return $data;
+    }
+    
+    
+    
+}    
