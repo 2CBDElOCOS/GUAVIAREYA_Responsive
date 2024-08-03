@@ -16,53 +16,7 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
 <head>
   <title>GuaviareYa!</title>
   <style>
-    /* Estilos del recuadro de búsqueda */
-    #search-box {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 20px;
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    #search-box input {
-      width: 100%;
-      max-width: 600px;
-      padding: 10px;
-      font-size: 16px;
-    }
-
-    #search-box button {
-      background: #f44336;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
-
-    #search-box button:hover {
-      background: #d32f2f;
-    }
-
-    header {
-      z-index: 1000;
-      position: relative;
-    }
-
-    #resultados_busqueda {
-      padding: 20px;
-      background: #f9f9f9;
-      margin-top: 20px;
-    }
+    
   </style>
 </head>
 
@@ -214,59 +168,9 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
     </div>
   </section>
 
-  <!-- Scripts -->
-  <script>
-    document.getElementById('search-icon').addEventListener('click', function() {
-      document.getElementById('search-box').style.display = 'flex';
-    });
-
-    document.getElementById('search-close').addEventListener('click', function() {
-      document.getElementById('search-box').style.display = 'none';
-    });
 
 
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const forms = document.querySelectorAll('.form-agregar');
-
-      forms.forEach(form => {
-        form.addEventListener('submit', function(event) {
-          const useAjax = !form.classList.contains('no-ajax'); // Clase para distinguir el método
-
-          if (useAjax) {
-            event.preventDefault();
-
-            const formData = new FormData(form);
-
-            fetch('controlador_carrito.php', {
-                method: 'POST',
-                body: formData
-              })
-              .then(response => response.json())
-              .then(data => {
-                if (data.success) {
-                  // Actualiza el contador del carrito
-                  const cartCounter = document.querySelector('.bx-cart span');
-                  if (cartCounter) {
-                    cartCounter.textContent = data.contador;
-                  } else {
-                    // Si no existe el span, lo crea y lo añade
-                    const newCounter = document.createElement('span');
-                    newCounter.textContent = data.contador;
-                    document.querySelector('.bx-cart').appendChild(newCounter);
-                  }
-                }
-              })
-              .catch(error => console.error('Error:', error));
-          }
-        });
-      });
-    });
-  </script>
-
-
-  </script>
+  <script src="../JS/barra_busqueda.js"></script>
 
 
 </body>
