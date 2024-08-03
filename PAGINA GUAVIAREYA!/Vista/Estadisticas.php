@@ -1,12 +1,12 @@
 <?php
-require_once '../Modelos/DataSuperAdmi.php'; // Ajusta la ruta según tu estructura de carpetas
+require_once '../Modelos/DataSuperAdmi.php';
 
-$data = DataSuperAdmi::obtenerEstadisticasPedidosPorRestaurante();
-$productosPop = DataSuperAdmi::obtenerProductoMasPopular();
+$fecha_inicio = isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : null;
+$fecha_fin = isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : null;
 
-// Prepara los datos en formato JSON para el JavaScript
-$dataRestaurantes = json_encode($data);
-$dataProductos = json_encode($productosPop);
+$dataRestaurantes = DataSuperAdmi::obtenerEstadisticasPedidosPorRestaurante($fecha_inicio, $fecha_fin);
+$dataProductos = DataSuperAdmi::obtenerProductoMasPopular($fecha_inicio, $fecha_fin);
+$dataUsuarioMasPedidos = DataSuperAdmi::obtenerUsuarioMasPedidos($fecha_inicio, $fecha_fin);
 ?>
 
 <!DOCTYPE html>
@@ -15,41 +15,131 @@ $dataProductos = json_encode($productosPop);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estadísticas de Restaurantes y Productos Populares</title>
-    <script src="../JS/Estadisticas.js"></script>
 
-    
 </head>
 <body>
-    <div class="container">
-        <div class="back-link mb-3">
-            <div class="col-md-12 ico-footer1">
-                <a href="controlador.php?seccion=SuperAdmin_Panel"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+    <div class="container mt-5">
+                <div class="col-md-12 ico-footer 1">
+                    <a href="controlador.php?seccion=Perfil_SuperAdmi"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+                </div>
+
+        <!-- Formulario de Filtro -->
+        <form method="POST" action="" class="row g-3 mb-5">
+            <div class="col-md-6">
+                <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
+                <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" value="<?php echo htmlspecialchars($fecha_inicio); ?>">
             </div>
-        </div>
-        <div class="container  mt-5">
-            <i class="bi bi-calendar-event icon-style"><input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" /></i>
+            <div class="col-md-6">
+                <label for="fecha_fin" class="form-label">Fecha de Fin:</label>
+                <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" value="<?php echo htmlspecialchars($fecha_fin); ?>">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+        </form>
+
+        <!-- Card de Carga -->
+        <div class="card" id="loading-card" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title placeholder-glow">
+                    <span class="placeholder col-6"></span>
+                </h5>
+                <p class="card-text placeholder-glow">
+                    <span class="placeholder col-7"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-6"></span>
+                    <span class="placeholder col-8"></span>
+                </p>
+                <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+            </div>
         </div>
 
-        <div class="row chart-container">
-            <div class="col-lg-6 mb-4">
-                <div class="chart-card">
-                    <h4 class="text-center">Restaurante con mas ventas</h4>
-                    <div id="chart_div_restaurantes" style="width: 100%; height: 500px;"></div>
+        <!-- Card de Contenido -->
+        <div class="card" id="content-card">
+            <div class="card-body">
+                <!-- Tabla de Estadísticas de Restaurantes -->
+                <div class="mt-5">
+                    <h4 class="text-center">Estadísticas de Restaurantes</h4>
+                    <?php if (!empty($dataRestaurantes)): ?>
+                        <table class="table table-bordered table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Restaurante</th>
+                                    <th>Número de Pedidos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($dataRestaurantes as $row): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($row[0]); ?></td>
+                                        <td><?php echo htmlspecialchars($row[1]); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <div class="alert alert-warning" role="alert">
+                            No hay datos disponibles.
+                        </div>
+                    <?php endif; ?>
                 </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="chart-card">
+
+                <!-- Tabla de Productos Más Populares -->
+                <div class="mt-5">
                     <h4 class="text-center">Productos Más Populares</h4>
-                    <div id="chart_div_productos" style="width: 100%; height: 500px;"></div>
+                    <?php if (!empty($dataProductos)): ?>
+                        <table class="table table-bordered table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Número de Ventas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($dataProductos as $row): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($row[0]); ?></td>
+                                        <td><?php echo htmlspecialchars($row[1]); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <div class="alert alert-warning" role="alert">
+                            No hay datos disponibles.
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Tabla de Usuario que Más Hace Pedidos -->
+                <div class="mt-5">
+                    <h4 class="text-center">Usuario que Más Hace Pedidos</h4>
+                    <?php if (!empty($dataUsuarioMasPedidos)): ?>
+                        <table class="table table-bordered table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Número de Pedidos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($dataUsuarioMasPedidos['Usuario']); ?></td>
+                                    <td><?php echo htmlspecialchars($dataUsuarioMasPedidos['Numero_Pedidos']); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <div class="alert alert-warning" role="alert">
+                            No hay datos disponibles.
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Pasa los datos a JavaScript
-        var dataRestaurantes = <?php echo $dataRestaurantes; ?>;
-        var dataProductos = <?php echo $dataProductos; ?>;
-    </script>
+    <script src="  ../JS/charging_card.js"></script>
 </body>
 </html>
