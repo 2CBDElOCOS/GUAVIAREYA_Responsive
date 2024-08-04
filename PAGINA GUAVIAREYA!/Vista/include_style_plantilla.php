@@ -49,6 +49,8 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <script src="path/to/bootstrap.bundle.min.js"></script> <!-- Asegúrate de incluir Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+        <link rel="stylesheet" href="../css/styles.css" />
+
     <?php
     } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A' || $seccion == 'Cambiar_clave' || $seccion == 'pedidos_per' || $seccion == 'ADMI_Editar_A' || $seccion == 'ADMI_CambiarPass' || $seccion == 'Perfil_Direcciones' || $seccion == 'Perfil_SuperAdmi' || $seccion == 'CambiarClave_SuperAdmi'|| $seccion == 'Estadisticas') {
     ?>

@@ -14,6 +14,8 @@ require_once "../Modelos/mostrar_productos.php";
 
 // Obtener las direcciones de entrega del usuario.
 $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['correo']);
+echo 'Dirección Seleccionada en la Sesión: ' . (isset($_SESSION['direccion_seleccionada']) ? $_SESSION['direccion_seleccionada'] : 'No definida') . '<br>';
+echo 'Correo en la Sesión: ' . (isset($_SESSION['correo']) ? $_SESSION['correo'] : 'No definido') . '<br>';
 
 // Inicializar el objeto para obtener los nombres de los restaurantes
 $mostrarProductos = new mostrar_productos();
@@ -46,35 +48,43 @@ $mostrarProductos = new mostrar_productos();
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <form id="direccionForm" method="post" action="../Controladores/controlador_guardar_direccion.php">
-                                    <table class="table table-striped w-100">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Seleccionar</th>
-                                                <th scope="col">Dirección</th>
-                                                <th scope="col">Barrio</th>
-                                                <th scope="col">Descripción</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            if ($addresses) {
-                                                foreach ($addresses as $address) {
-                                                    echo '<tr>';
-                                                    echo '<td><input class="form-check-input" type="radio" name="direccion_seleccionada" value="' . htmlspecialchars($address['ID_Dire_Entre']) . '" required></td>';
-                                                    echo '<td>' . htmlspecialchars($address['Direccion']) . '</td>';
-                                                    echo '<td>' . htmlspecialchars($address['Barrio']) . '</td>';
-                                                    echo '<td>' . htmlspecialchars($address['Descripcion']) . '</td>';
-                                                    echo '</tr>';
-                                                }
-                                                echo '<tr><td colspan="4"><button type="submit" class="btn-pagar">Seleccionar Dirección</button></td></tr>';
-                                            } else {
-                                                echo '<tr><td colspan="4" style="text-align:center;"><a href="../Controladores/controlador.php?seccion=Perfil_Direcciones" class="btn btn-link">No se encontraron direcciones de entrega.</a></td></tr>';
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </form>
+                            <form id="direccionForm" method="post" action="../Controladores/controlador_guardar_direccion.php">
+    <table class="table table-striped w-100">
+        <thead>
+            <tr>
+                <th scope="col">Seleccionar</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Barrio</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Check</th> <!-- Nueva columna para el checkbox -->
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($addresses) {
+                foreach ($addresses as $address) {
+                    echo '<tr>';
+                    echo '<td><input class="form-check-input" type="radio" name="direccion_seleccionada" value="' . htmlspecialchars($address['ID_Dire_Entre']) . '" required></td>';
+                    echo '<td>' . htmlspecialchars($address['Direccion']) . '</td>';
+                    echo '<td>' . htmlspecialchars($address['Barrio']) . '</td>';
+                    echo '<td>' . htmlspecialchars($address['Descripcion']) . '</td>';
+                    echo '<td>
+                            <label class="checkbox-container">
+                                <input class="custom-checkbox" checked="" type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                          </td>'; // Añadir el checkbox aquí
+                    echo '</tr>';
+                }
+                echo '<tr><td colspan="5"><button type="submit" class="btn-pagar">Seleccionar Dirección</button></td></tr>'; // Ajustar colspan
+            } else {
+                echo '<tr><td colspan="5" style="text-align:center;"><a href="../Controladores/controlador.php?seccion=Perfil_Direcciones" class="btn btn-link">No se encontraron direcciones de entrega.</a></td></tr>'; // Ajustar colspan
+            }
+            ?>
+        </tbody>
+    </table>
+</form>
+
                             </div>
                         </div>
                     </div>
