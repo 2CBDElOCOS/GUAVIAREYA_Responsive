@@ -22,28 +22,30 @@ $ordenes = DataAdmi::obtenerOrdenes($_SESSION['correo']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ordenes | Sistema de Administración</title>
 </head>
-
+    
 <body>
     <main class="table" id="customers_table">
+        <div class="col-md-12 ico-footer">
+            <a href="controlador.php?seccion=ADMI_Perfil_A"><i class="fa-solid fa-circle-arrow-left" style="color: #000000;"></i></a>
+        </div>
         <section class="table__header">
-            <h1>ORDENES</h1>
+            <h1>Ordenes</h1>
             <div class="input-group">
-                <input type="search" placeholder="Search Data...">
+                <input type="search" placeholder="Desplázate para ver los resultados...">
                 <img src="images/search.png" alt="">
             </div>
-            <div class="export__file">
-                <label for="export-file" class="export__file-btn" title="Export File"></label>
+            <div class="export__file" >
+                <label for="export-file" class="export__file-btn" title="Export File">🟣</label>
                 <input type="checkbox" id="export-file">
                 <div class="export__file-options">
                     <label>Export As &nbsp; &#10140;</label>
                     <label for="export-file" id="toPDF">PDF <img src="images/pdf.png" alt=""></label>
                     <label for="export-file" id="toJSON">JSON <img src="images/json.png" alt=""></label>
                     <label for="export-file" id="toCSV">CSV <img src="images/csv.png" alt=""></label>
-                    <label for="export-file" id="toEXCEL">EXCEL <img src="images/excel.png" alt=""></label>
                 </div>
             </div>
+
         </section>
         <section class="table__body">
             <table>
@@ -55,41 +57,41 @@ $ordenes = DataAdmi::obtenerOrdenes($_SESSION['correo']);
                         <th> Producto <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Cantidad <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Estado <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Prioridad <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Fecha <span class="icon-arrow">&UpArrow;</span></th>
                     </tr>
                 </thead>
-<tbody>
-    <?php foreach ($ordenes as $orden): ?>
-    <tr>
-        <td><?php echo htmlspecialchars($orden['Nombre_Usuario']); ?></td>
-        <td><?php echo htmlspecialchars($orden['Correo']); ?></td>
-        <td><?php echo htmlspecialchars($orden['Direccion']); ?></td>
-        <td><?php echo htmlspecialchars($orden['Nombre_Producto']); ?></td>
-        <td><?php echo htmlspecialchars($orden['cantidad']); ?></td>
-        <td>
-            <div class="status-container">
-                <p class="status <?php echo strtolower($orden['Estado']); ?>">
-                    <?php echo htmlspecialchars($orden['Estado']); ?>
-                </p>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-status"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        data-pedido-id="<?php echo $orden['ID_pedido']; ?>"
-                        data-estado-actual="<?php echo htmlspecialchars($orden['Estado']); ?>">
-                    <i class='bx bx-history bx-flip-horizontal' ></i>
-                </button>
-            </div>
-        </td>
-        <td><?php echo date('d M, Y', strtotime($orden['fecha_creacion'])); ?></td>
-    </tr>
-    <?php endforeach; ?>
-</tbody>
-
+                <tbody>
+                    <?php foreach ($ordenes as $orden): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($orden['Nombre_Usuario']); ?></td>
+                        <td><?php echo htmlspecialchars($orden['Correo']); ?></td>
+                        <td><?php echo htmlspecialchars($orden['Direccion']); ?></td>
+                        <td><?php echo htmlspecialchars($orden['Nombre_Producto']); ?></td>
+                        <td><?php echo htmlspecialchars($orden['cantidad']); ?></td>
+                        <td>
+                            <div class="status-container">
+                                <p class="status <?php echo strtolower($orden['Estado']); ?>">
+                                    <?php echo htmlspecialchars($orden['Estado']); ?>
+                                </p>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary btn-status"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        data-pedido-id="<?php echo $orden['ID_pedido']; ?>"
+                                        data-estado-actual="<?php echo htmlspecialchars($orden['Estado']); ?>">
+                                    <i class='bx bx-history bx-flip-horizontal' ></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td><?php echo htmlspecialchars($orden['tipo_envio']); ?></td> <!-- Nueva columna -->
+                        <td><?php echo date('d M, Y', strtotime($orden['fecha_creacion'])); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
         </section>
     </main>
 
-    <!-- Modal -->
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -126,10 +128,8 @@ $ordenes = DataAdmi::obtenerOrdenes($_SESSION['correo']);
         </div>
     </div>
 
-
-
-    <script src="../JS/script.js"></script>
-    <script src="../JS/actualizar_pedido.js"></script>
+    <script src="../JS/Script_ordenes.js"></script>
+    <script src="../JS/actualizar_estadop.js"></script>
 </body>
 
 </html>

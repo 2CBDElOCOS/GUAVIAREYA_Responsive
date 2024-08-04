@@ -14,6 +14,8 @@ require_once "../Modelos/mostrar_productos.php";
 
 // Obtener las direcciones de entrega del usuario.
 $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['correo']);
+echo 'Dirección Seleccionada en la Sesión: ' . (isset($_SESSION['direccion_seleccionada']) ? $_SESSION['direccion_seleccionada'] : 'No definida') . '<br>';
+echo 'Correo en la Sesión: ' . (isset($_SESSION['correo']) ? $_SESSION['correo'] : 'No definido') . '<br>';
 
 // Inicializar el objeto para obtener los nombres de los restaurantes
 $mostrarProductos = new mostrar_productos();
@@ -46,7 +48,7 @@ $mostrarProductos = new mostrar_productos();
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <form id="direccionForm" method="post" action="../Controladores/controlador_direccion.php">
+                                <form id="direccionForm" method="post" action="../Controladores/controlador_guardar_direccion.php">
                                     <table class="table table-striped w-100">
                                         <thead>
                                             <tr>
@@ -80,6 +82,7 @@ $mostrarProductos = new mostrar_productos();
                     </div>
                 </div>
             </div>
+
 
             <div class="col-12 mb-4">
                 <div class="accordion" id="accordionExample">
@@ -134,28 +137,28 @@ $mostrarProductos = new mostrar_productos();
 
 
             <div class="col-12 esti-tiempo">
-                <div class="flex-container">
-                    <input type="radio" name="envio" id="Prioritaria" onclick="updateEstimatedTimeAndFees()">
-                    <div class="label-container">
-                        <b><label for="Prioritaria">Prioritaria 🚀</label></b>
-                        <h6>envío directo</h6>
-                    </div>
-                    <div class="precio">
-                        <h6>+5000</h6>
-                    </div>
-                </div>
+    <div class="flex-container">
+        <input type="radio" name="envio" id="Prioritaria" value="Prioritaria" onclick="updateEstimatedTimeAndFees()">
+        <div class="label-container">
+            <b><label for="Prioritaria">Prioritaria 🚀</label></b>
+            <h6>envío directo</h6>
+        </div>
+        <div class="precio">
+            <h6>+5000</h6>
+        </div>
+    </div>
 
-                <div class="flex-container">
-                    <input type="radio" name="envio" id="Básica" checked onclick="updateEstimatedTimeAndFees()">
-                    <div class="label-container">
-                        <b><label for="Básica">Básica 🍔</label></b>
-                        <h6>Entrega habitual</h6>
-                    </div>
-                    <div class="precio">
-                        <h6>+3000</h6>
-                    </div>
-                </div>
-            </div>
+    <div class="flex-container">
+        <input type="radio" name="envio" id="Básica" value="Básica" checked onclick="updateEstimatedTimeAndFees()">
+        <div class="label-container">
+            <b><label for="Básica">Básica 🍔</label></b>
+            <h6>Entrega habitual</h6>
+        </div>
+        <div class="precio">
+            <h6>+3000</h6>
+        </div>
+    </div>
+</div>
 
 
 
@@ -227,12 +230,15 @@ $mostrarProductos = new mostrar_productos();
 
 
         <div class="col-12">
-            <form method="post" action="../Controladores/controlador_pedidos.php">
-                <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
-                <input type="hidden" name="total" id="total" value="<?php echo $total; ?>">
-                <input type="hidden" name="ID_Restaurante" value="<?php echo $id_restaurante; ?>">
-                <button type="submit" class="btn-pagar">Confirmar pedido</button>
-            </form>
+        <form method="post" action="../Controladores/controlador_pedidos.php" onsubmit="return verificarDireccion()">
+    <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
+    <input type="hidden" name="total" id="total" value="<?php echo $total; ?>">
+    <input type="hidden" name="ID_Restaurante" value="<?php echo $id_restaurante; ?>">
+    <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
+    <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
+</form>
+
+
         </div>
     </div>
     </div>
@@ -274,6 +280,9 @@ $mostrarProductos = new mostrar_productos();
 
     <script src="../JS/actualizar_tiempo_entrega.js"></script>
     <script src="../JS/guardar_direccion_seleccionada.js"></script>
+    <script src="../JS/confirmar_pedido.js"></script>
+
+ 
 </body>
 
 </html>
