@@ -1,6 +1,6 @@
 <?php
 // Incluir el archivo de conexión a la base de datos
-include 'Conexion.php';
+include '../config/Conexion.php';
 
 // Clase para manejar el registro de usuarios
 class Registrar {

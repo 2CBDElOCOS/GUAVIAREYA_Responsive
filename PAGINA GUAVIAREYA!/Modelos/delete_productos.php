@@ -1,5 +1,5 @@
 <?php
-include 'Conexion.php';
+include '../config/Conexion.php';
 
 /**
  * Clase para manejar la eliminación de productos

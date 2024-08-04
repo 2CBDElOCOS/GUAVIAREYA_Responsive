@@ -1,5 +1,5 @@
 <?php
-include 'Conexion.php';
+include '../config/Conexion.php';
 
 class add_foto {
     static function add_foto() {

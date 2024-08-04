@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Conexion.php';
+require_once '../config/Conexion.php';
 
 class add_metodo_pago
 {

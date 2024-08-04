@@ -1,6 +1,6 @@
 <?php
 // Modelos/like_dislike.php
-require_once 'Conexion.php';
+require_once '../config/Conexion.php';
 
 class LikeDislike {
     private $conn;

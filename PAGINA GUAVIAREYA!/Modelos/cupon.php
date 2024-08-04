@@ -1,5 +1,5 @@
 <?php
-require_once 'conexion.php';
+require_once '../config/Conexion.php';
 
 class Cupones {
     public static function validarCupon($codigoCupon) {

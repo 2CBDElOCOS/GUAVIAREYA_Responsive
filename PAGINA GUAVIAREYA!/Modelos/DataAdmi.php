@@ -1,5 +1,5 @@
 <?php
-include 'Conexion.php';
+include '../config/Conexion.php';
 
 /**
  * Clase para manejar operaciones relacionadas con los usuarios

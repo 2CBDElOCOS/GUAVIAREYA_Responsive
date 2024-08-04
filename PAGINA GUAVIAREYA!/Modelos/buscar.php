@@ -1,6 +1,6 @@
 <?php
 
-include 'conexion.php';
+include '../config/Conexion.php';
 
 class Busqueda {
     private $conn;

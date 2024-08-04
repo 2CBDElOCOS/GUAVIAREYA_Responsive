@@ -3,7 +3,7 @@ class GuardarPedido {
     private $conexion;
 
     public function __construct() {
-        require_once 'Conexion.php';
+        require_once '../config/Conexion.php';
         $this->conexion = Conexion();
     }
 
