@@ -1,8 +1,5 @@
 <?php
 class GuardarPedido {
-
-
-    
     private $conexion;
 
     public function __construct() {
@@ -38,11 +35,11 @@ class GuardarPedido {
     
         return $row['count'] > 0;
     }
-    // Insertar pedido con dirección de entrega
-    public function insertarPedido($correo, $id_restaurante, $id_producto, $cantidad, $subtotal, $id_direccion_entrega) {
-        $query = "INSERT INTO Pedidos (ID_Restaurante, ID_Producto, Correo, cantidad, Sub_total, ID_Dire_Entre) VALUES (?, ?, ?, ?, ?, ?)";
+
+    public function insertarPedido($correo, $id_restaurante, $id_producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio) {
+        $query = "INSERT INTO Pedidos (ID_Restaurante, ID_Producto, Correo, cantidad, Sub_total, ID_Dire_Entre, tipo_envio) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("iisidi", $id_restaurante, $id_producto, $correo, $cantidad, $subtotal, $id_direccion_entrega);
+        $stmt->bind_param("iisidss", $id_restaurante, $id_producto, $correo, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio);
         $stmt->execute();
         if ($stmt->error) {
             throw new Exception("Error al insertar pedido: " . $stmt->error);
@@ -50,4 +47,3 @@ class GuardarPedido {
         $stmt->close();
     }
 }
-?>

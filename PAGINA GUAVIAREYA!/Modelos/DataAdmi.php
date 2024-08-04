@@ -118,43 +118,44 @@ class DataAdmi
      * @return bool|string Retorna true si la subida fue exitosa, o un mensaje de error si falla
      */
     public function subirFotoPerfil($userEmail, $file)
-    {
-        // Verificar si hay algún error en el archivo subido
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            return 'Error al subir el archivo.';
-        }
-
-        // Verificar el tamaño del archivo (máximo 5MB)
-        if ($file['size'] > 5242880) {
-            return 'El archivo es demasiado grande. El tamaño máximo permitido es de 5MB.';
-        }
-
-        // Verificar el tipo de archivo
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        if (!in_array($file['type'], $allowedTypes)) {
-            return 'Tipo de archivo no permitido. Solo se permiten archivos JPG, PNG y GIF.';
-        }
-
-        // Mover el archivo subido a la carpeta de destino
-        $uploadDir = '../media_profiles/';
-        $fileName = basename($file['name']);
-        $uploadFilePath = $uploadDir . $fileName;
-
-        if (!move_uploaded_file($file['tmp_name'], $uploadFilePath)) {
-            return 'Error al mover el archivo subido.';
-        }
-
-        // Actualizar la base de datos con la nueva ruta de la foto de perfil
-        $sql = "UPDATE Usuarios SET img_U = ? WHERE Correo = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ss', $uploadFilePath, $userEmail);
-
-        if ($stmt->execute()) {
-            return true; // Subida exitosa
-        } else {
-            return 'Error al actualizar la base de datos.';
-        }
+{
+    // Verificar si hay algún error en el archivo subido
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        return 'Error al subir el archivo.';
     }
+
+    // Verificar el tamaño del archivo (máximo 5MB)
+    if ($file['size'] > 5242880) {
+        return 'El archivo es demasiado grande. El tamaño máximo permitido es de 5MB.';
+    }
+
+    // Verificar el tipo de archivo
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    if (!in_array($file['type'], $allowedTypes)) {
+        return 'Tipo de archivo no permitido. Solo se permiten archivos JPG, PNG y GIF.';
+    }
+
+    // Mover el archivo subido a la carpeta de destino
+    $uploadDir = '../media_profiles/';
+    $fileName = basename($file['name']);
+    $uploadFilePath = $uploadDir . $fileName;
+
+    if (!move_uploaded_file($file['tmp_name'], $uploadFilePath)) {
+        return 'Error al mover el archivo subido.';
+    }
+
+    // Actualizar la base de datos con la nueva ruta de la foto de perfil
+    $sql = "UPDATE Restaurantes SET img_R = ? WHERE ID_Restaurante = (SELECT ID_Restaurante FROM administradores WHERE correo = ?)";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param('ss', $uploadFilePath, $userEmail);
+
+    if ($stmt->execute()) {
+        return true; // Subida exitosa
+    } else {
+        return 'Error al actualizar la base de datos.';
+    }
+}
+
 
     /**
      * Método estático para actualizar la contraseña de un usuario por su correo electrónico
@@ -184,48 +185,52 @@ class DataAdmi
     
         return $success;
     }
-public static function obtenerOrdenes($correo) {
-    $conn = Conexion();
-
-    // Obtener el ID del restaurante asociado al administrador
-    $stmt = $conn->prepare("SELECT ID_Restaurante FROM administradores WHERE correo = ?");
-    if ($stmt === false) {
-        throw new Exception("Error preparando la consulta: " . $conn->error);
+    public static function obtenerOrdenes($correo) {
+        $conn = Conexion();
+    
+        // Obtener el ID del restaurante asociado al administrador
+        $stmt = $conn->prepare("SELECT ID_Restaurante FROM administradores WHERE correo = ?");
+        if ($stmt === false) {
+            throw new Exception("Error preparando la consulta: " . $conn->error);
+        }
+        $stmt->bind_param("s", $correo);
+        $stmt->execute();
+        $stmt->bind_result($id_restaurante);
+        $stmt->fetch();
+        $stmt->close();
+    
+        if (!$id_restaurante) {
+            throw new Exception("No se encontró un restaurante asociado al administrador.");
+        }
+    
+        // Preparar y ejecutar la consulta para obtener las órdenes del restaurante específico
+        $stmt = $conn->prepare("
+            SELECT p.ID_pedido, u.Nombre AS Nombre_Usuario, u.Correo, pr.Nombre_P AS Nombre_Producto, p.cantidad, d.Direccion, p.fecha_creacion, p.Estado, p.tipo_envio
+            FROM Pedidos p
+            JOIN Usuarios u ON p.Correo = u.Correo
+            JOIN Productos pr ON p.ID_Producto = pr.ID_Producto
+            JOIN Direccion_Entregas d ON p.ID_Dire_Entre = d.ID_Dire_Entre
+            WHERE p.ID_Restaurante = ?
+            ORDER BY p.tipo_envio DESC, p.fecha_creacion DESC
+        ");
+    
+        if ($stmt === false) {
+            throw new Exception("Error preparando la consulta: " . $conn->error);
+        }
+    
+        $stmt->bind_param("i", $id_restaurante);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $ordenes = $result->fetch_all(MYSQLI_ASSOC);
+    
+        $stmt->close();
+        $conn->close();
+    
+        return $ordenes;
     }
-    $stmt->bind_param("s", $correo);
-    $stmt->execute();
-    $stmt->bind_result($id_restaurante);
-    $stmt->fetch();
-    $stmt->close();
-
-    if (!$id_restaurante) {
-        throw new Exception("No se encontró un restaurante asociado al administrador.");
-    }
-
-    // Preparar y ejecutar la consulta para obtener las órdenes del restaurante específico
-    $stmt = $conn->prepare("
-        SELECT p.ID_pedido, u.Nombre AS Nombre_Usuario, u.Correo, pr.Nombre_P AS Nombre_Producto, p.cantidad, d.Direccion, p.fecha_creacion, p.Estado
-        FROM Pedidos p
-        JOIN Usuarios u ON p.Correo = u.Correo
-        JOIN Productos pr ON p.ID_Producto = pr.ID_Producto
-        JOIN Direccion_Entregas d ON p.ID_Dire_Entre = d.ID_Dire_Entre
-        WHERE p.ID_Restaurante = ?
-    ");
-
-    if ($stmt === false) {
-        throw new Exception("Error preparando la consulta: " . $conn->error);
-    }
-
-    $stmt->bind_param("i", $id_restaurante);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $ordenes = $result->fetch_all(MYSQLI_ASSOC);
-
-    $stmt->close();
-    $conn->close();
-
-    return $ordenes;
-}
+    
+    
+    
 
 public static function actualizarEstadoPedido($pedido_id, $estado) {
         $conn = Conexion();
