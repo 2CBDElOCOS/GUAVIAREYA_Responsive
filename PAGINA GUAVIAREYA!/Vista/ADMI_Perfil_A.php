@@ -29,8 +29,27 @@ $_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
 
 <body>
     <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <?php
+                if (isset($_GET['error'])) {
+                    $error_message = '';
+                    switch ($_GET['error']) {
+                        case '1':
+                            $error_message = 'Error al subir la foto, o no se encontró foto de perfil.';
+                            break;
+                        default:
+                            $error_message = 'Error desconocido.';
+                            break;
+                    }
+                    echo "<div class='alert alert-danger' role='alert'>$error_message</div>";
+                }
+                ?>
+            </div>
+        </div>
         <div class="col-md-12 ico-footer">
-            <a href="controlador.php?seccion=ADMI_Shop_A"><i class="fa-solid fa-circle-arrow-left" style="color: #000000;"></i></a>
+            <a href="controlador.php?seccion=ADMI_Shop_A"><i class="fa-solid fa-circle-arrow-left"
+                    style="color: #000000;"></i></a>
         </div>
         <div class="main-body">
             <h4 class="text-center mb-4">TU RESTAURANTE</h4>
@@ -47,12 +66,29 @@ $_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
                                     <input type="checkbox" name="estado" value="Abierto" <?php echo $user['Estado'] === 'Abierto' ? 'checked' : ''; ?>>
                                     <span class="slider round"></span>
                                 </label>
-                                <input type="hidden" name="id_restaurante" value="<?php echo htmlspecialchars($user['ID_Restaurante']); ?>">
+                                <input type="hidden" name="id_restaurante"
+                                    value="<?php echo htmlspecialchars($user['ID_Restaurante']); ?>">
                                 <button type="submit" class="btn btn-primary mt-3">Aceptar</button>
                             </form>
-
                             <!-- Mostrar la imagen del restaurante -->
-                            <img src="<?php echo htmlspecialchars($imgUrl); ?>" alt="Imagen del Restaurante" style="width: 150px; height: 150px; object-fit: cover;" class="rounded-circle mt-3">
+                            <div style="height: 140px; width: 140px; margin: 0 auto;">
+                                <?php if ($user['img_R']): ?>
+                                    <img src="<?php echo htmlspecialchars($user['img_R']); ?>" alt="Foto de perfil"
+                                        class="img-fluid rounded-circle" style="height: 140px; width: 140px;">
+                                <?php else: ?>
+                                    <p>No se ha encontrado ninguna foto de perfil.</p>
+                                <?php endif; ?>
+                            </div>
+                            <div class="mt-3 file-upload">
+                                <form method="POST" action="Controlador_FotoAdmi.php" enctype="multipart/form-data">
+                                    <label for="img_U" class="file-upload-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </label>
+                                    <br>
+                                    <input type="file" id="img_U" name="img_U" accept="image/*">
+                                    <button type="submit" class="btn btn-primary mt-2">Aceptar</button>
+                                </form>
+                            </div>
 
                             <div class="mt-3">
                                 <p class="text-secondary mb-1"><?php echo htmlspecialchars($user['Nombre_R']); ?></p>
@@ -60,18 +96,33 @@ $_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
                                 <p class="text-muted"><?php echo htmlspecialchars($user['Telefono']); ?></p>
 
                                 <div class="dropdown">
-                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         Acciones
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Editar_A">Editar datos</a></li>
-                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_CambiarPass">Cambiar Contraseña</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Ordenes">Ordenes</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="../Controladores/Controlador_EliminarCuenta_A.php" onclick="return confirmarEliminacion();">Eliminar Cuenta</a></li>
+                                        <li><a class="dropdown-item" href="controlador.php?seccion=ADMI_Editar_A">Editar
+                                                datos</a></li>
+                                        <li><a class="dropdown-item"
+                                                href="controlador.php?seccion=ADMI_CambiarPass">Cambiar Contraseña</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="controlador.php?seccion=ADMI_Ordenes">Ordenes</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="../Controladores/Controlador_EliminarCuenta_A.php"
+                                                onclick="return confirmarEliminacion();">Eliminar Cuenta</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -117,4 +168,5 @@ $_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
 
     <script src="../JS/mensaje_confirmacion_cuenta.js"></script>
 </body>
+
 </html>
