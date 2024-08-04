@@ -19,8 +19,8 @@ if (isset($_SESSION['correo'])) {
         header("Location: ../Controladores/controlador.php?seccion=login&mensaje=cuenta_eliminada");
         exit();
     } else {
-        $_SESSION['error'] = $resultado;
-        header("Location: ../Controladores/controlador.php?seccion=perfil");
+        $_SESSION['error'] = "Error al eliminar la cuenta: " . $resultado;
+        header("Location: ../Controladores/controlador.php?seccion=perfil&error=eliminacion_fallida");
         exit();
     }
 } else {
@@ -29,4 +29,3 @@ if (isset($_SESSION['correo'])) {
     exit();
 }
 ?>
-    
