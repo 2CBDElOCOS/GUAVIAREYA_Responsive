@@ -14,8 +14,6 @@ require_once "../Modelos/mostrar_productos.php";
 
 // Obtener las direcciones de entrega del usuario.
 $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['correo']);
-echo 'Dirección Seleccionada en la Sesión: ' . (isset($_SESSION['direccion_seleccionada']) ? $_SESSION['direccion_seleccionada'] : 'No definida') . '<br>';
-echo 'Correo en la Sesión: ' . (isset($_SESSION['correo']) ? $_SESSION['correo'] : 'No definido') . '<br>';
 
 // Inicializar el objeto para obtener los nombres de los restaurantes
 $mostrarProductos = new mostrar_productos();
@@ -233,10 +231,20 @@ $mostrarProductos = new mostrar_productos();
         <form method="post" action="../Controladores/controlador_pedidos.php" onsubmit="return verificarDireccion()">
     <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
     <input type="hidden" name="total" id="total" value="<?php echo $total; ?>">
-    <input type="hidden" name="ID_Restaurante" value="<?php echo $id_restaurante; ?>">
+    <?php
+    foreach ($productosPorRestaurante as $id_restaurante => $datos) {
+        echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][nombre]" value="' . htmlspecialchars($datos['nombre_restaurante']) . '">';
+        foreach ($datos['productos'] as $producto) {
+            echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][productos][]" value="' . htmlspecialchars($producto['ID_Producto']) . '">';
+            echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][cantidad][]" value="' . htmlspecialchars($producto['cantidad']) . '">';
+            echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][precio][]" value="' . htmlspecialchars($producto['Valor_P']) . '">';
+        }
+    }
+    ?>
     <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
     <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
 </form>
+
 
 
         </div>
