@@ -186,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         )
         BEGIN
             INSERT INTO Administradores (correo, apodo, ID_Restaurante, contrasena, rol, img_A)
-            VALUES (p_correo, p_apodo, p_ID_Restaurante, MD5    (p_contrasena), p_rol, p_img_A);
+            VALUES (p_correo, p_apodo, p_ID_Restaurante, MD5(p_contrasena), p_rol, p_img_A);
         END;",
 
         "CREATE FUNCTION calcular_total_pedido(p_id_pedido INT) RETURNS DOUBLE
@@ -199,7 +199,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             WHERE p.ID_pedido = p_id_pedido;
 
             RETURN total;
-        END;"
+        END;",
+        "CREATE TABLE Documentos_Identificacion (
+            ID_Documento INT AUTO_INCREMENT PRIMARY KEY,
+            Correo VARCHAR(50) NOT NULL,
+            Tipo_Documento ENUM('DNI', 'Pasaporte', 'Licencia', 'Otro') NOT NULL,
+            Foto_Documento VARCHAR(255) NOT NULL,
+            Fecha_Subida TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            CONSTRAINT FK_Usuarios_Documentos_Identificacion FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
+        );",
+
+        
+        "CREATE TABLE Likes_Dislikes (
+            ID INT AUTO_INCREMENT PRIMARY KEY,
+            Correo VARCHAR(50) NOT NULL,
+            ID_Restaurante INT NOT NULL,
+            Tipo ENUM('like', 'dislike') NOT NULL,
+            Fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            CONSTRAINT FK_Usuarios_Likes_Dislikes FOREIGN KEY (Correo) REFERENCES Usuarios (Correo),
+            CONSTRAINT FK_Restaurantes_Likes_Dislikes FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante),
+            UNIQUE (Correo, ID_Restaurante, Tipo)  -- Asegura que un usuario no pueda hacer multiple likes/dislikes en el mismo restaurante
+        );",
+        
+        
+        "CREATE INDEX idx_Correo_Documentos_Identificacion ON Documentos_Identificacion (Correo);",
     ];
 
     foreach ($queries as $query) {
