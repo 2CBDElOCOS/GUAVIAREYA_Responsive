@@ -16,6 +16,21 @@ class Login {
      * @throws Exception Si hay un error en la preparación de la consulta SQL.
      */
     static function IniciarSesion($correo, $contrasena) {
+        // Incrementar el contador de intentos
+        if (isset($_SESSION['intentos_admi'])) {
+            $_SESSION['intentos_admi']++;
+        } else {
+            $_SESSION['intentos_admi'] = 1;
+        }
+
+        // Verificar si se superó el número máximo de intentos fallidos
+        if ($_SESSION['intentos_admi'] >= 3) {
+            // Bloquear temporalmente si hay 3 intentos fallidos
+            $_SESSION['bloqueado_hasta_admi'] = time() + 30; // Bloquear por 30 segundos (ajustable)
+            unset($_SESSION['intentos_admi']);
+            return false; // Indicar que está bloqueado
+        }
+
         $conn = Conexion();
 
         if ($conn->connect_error) {
@@ -39,9 +54,8 @@ class Login {
 
             // Comparar la contraseña ingresada con la almacenada en la base de datos
             if (md5($contrasena) === $hashed_password) {
-                if (session_status() == PHP_SESSION_NONE) {
-                    session_start();
-                }
+                // Reiniciar el contador de intentos
+                unset($_SESSION['intentos_admi']);
 
                 $_SESSION['apodo'] = $apodo;
                 $_SESSION['id_restaurante'] = $id_restaurante;
