@@ -1,5 +1,5 @@
 <?php
-include 'Conexion.php';
+require_once 'Conexion.php';
 
 // Clase para mostrar restaurantes
 class mostrar_restaurantes {
