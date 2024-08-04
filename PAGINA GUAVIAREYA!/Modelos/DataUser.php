@@ -188,62 +188,44 @@ Class DataUser {
 
     public static function eliminarCuenta($email) {
         $conn = Conexion();
-        
+    
         // Iniciar una transacción
         $conn->begin_transaction();
     
         try {
             // Identificar y eliminar registros en tablas dependientes
-            $tablasDependientes = ['Direccion_Entregas', 'metodos_pago', 'Pedidos', 'Pedidos_factura', 'Cupones']; // Añadir aquí todas las tablas que dependen de Usuarios
+            $tablasDependientes = [
+                'Documentos_Identificacion',
+                'Cupones',
+                'Pedidos_factura',
+                'metodos_pago',
+                'Pedidos',
+                'Direccion_Entregas',
+                'Usuarios' // La tabla principal debe ser la última
+            ];
     
             foreach ($tablasDependientes as $tabla) {
-                $stmt = $conn->prepare("DELETE FROM $tabla WHERE Correo = ?");
-                if ($stmt === false) {
-                    throw new Exception("Error preparando la consulta para la tabla $tabla: " . $conn->error);
-                }
-    
+                $sql = "DELETE FROM $tabla WHERE Correo = ?";
+                $stmt = $conn->prepare($sql);
                 $stmt->bind_param("s", $email);
-                $stmt->execute();
     
-                $stmt->close();
+                if (!$stmt->execute()) {
+                    throw new Exception("Error al eliminar registros de la tabla $tabla: " . $stmt->error);
+                }
             }
     
-            // Eliminar el usuario de la tabla Usuarios
-            $stmt = $conn->prepare("DELETE FROM Usuarios WHERE Correo = ?");
-            if ($stmt === false) {
-                throw new Exception("Error preparando la consulta: " . $conn->error);
-            }
-    
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-    
-            if ($stmt->affected_rows === 0) {
-                throw new Exception("No se encontró el usuario con el correo especificado.");
-            }
-    
-            // Confirmar la transacción
+            // Si todo fue bien, confirmar la transacción
             $conn->commit();
-    
-            // Cerrar la conexión
-            $stmt->close();
-            $conn->close();
-    
             return true;
         } catch (Exception $e) {
-            // Revertir la transacción en caso de error
+            // Si hubo un error, revertir la transacción
             $conn->rollback();
-    
-            // Cerrar la conexión
-            if (isset($stmt) && $stmt !== false) {
-                $stmt->close();
-            }
+            return $e->getMessage();
+        } finally {
+            $stmt->close();
             $conn->close();
-    
-            return "Error al eliminar la cuenta: " . $e->getMessage();
         }
     }
-
-    
     
     
     
