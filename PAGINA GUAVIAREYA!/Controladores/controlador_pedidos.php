@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unset($_SESSION['direccion_seleccionada']);
 
         // Redirigir al usuario a la página de confirmación
-        header("Location: controlador.php?seccion=pago");
+        header("Location: controlador.php?seccion=tarjeta");
         exit();
     } else {
         header("Location: controlador.php?seccion=facturacion&error=1");
