@@ -195,6 +195,7 @@ Class DataUser {
         try {
             // Identificar y eliminar registros en tablas dependientes
             $tablasDependientes = [
+                'Likes_Dislikes',
                 'Documentos_Identificacion',
                 'Cupones',
                 'Pedidos_factura',

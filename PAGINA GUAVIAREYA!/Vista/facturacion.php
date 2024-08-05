@@ -53,16 +53,13 @@ if ($cupon) {
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 ¿Dónde quieres que entreguemos tu pedido?
                             </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show"
-                            data-bs-parent="#accordionExample">
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <form id="direccionForm" method="post"
-                                    action="../Controladores/controlador_guardar_direccion.php">
+                                <form id="direccionForm" method="post" action="../Controladores/controlador_guardar_direccion.php">
                                     <table class="table table-striped w-100">
                                         <thead>
                                             <tr>
@@ -160,8 +157,7 @@ if ($cupon) {
 
             <div class="col-12 esti-tiempo">
                 <div class="flex-container">
-                    <input type="radio" name="envio" id="Prioritaria" value="Prioritaria"
-                        onclick="updateEstimatedTimeAndFees()">
+                    <input type="radio" name="envio" id="Prioritaria" value="Prioritaria" onclick="updateEstimatedTimeAndFees()">
                     <div class="label-container">
                         <b><label for="Prioritaria">Prioritaria 🚀</label></b>
                         <h6>envío directo</h6>
@@ -172,8 +168,7 @@ if ($cupon) {
                 </div>
 
                 <div class="flex-container">
-                    <input type="radio" name="envio" id="Básica" value="Básica" checked
-                        onclick="updateEstimatedTimeAndFees()">
+                    <input type="radio" name="envio" id="Básica" value="Básica" checked onclick="updateEstimatedTimeAndFees()">
                     <div class="label-container">
                         <b><label for="Básica">Básica 🍔</label></b>
                         <h6>Entrega habitual</h6>
@@ -185,18 +180,18 @@ if ($cupon) {
             </div>
 
             <form method="post" action="../Controladores/controlador_validar_cupon.php">
-    <input type="text" name="codigo_cupon" placeholder="Código del cupón"> <!-- Asegúrate de que el nombre del campo sea 'codigo_cupon' -->
-    <button type="submit" class="btn-pagar">Validar</button>
-    <p id="mensaje_cupon">
-        <?php
-        // Muestra el mensaje del cupón si está disponible
-        if (isset($_SESSION['mensaje_cupon'])) {
-            echo htmlspecialchars($_SESSION['mensaje_cupon']);
-            unset($_SESSION['mensaje_cupon']);
-        }
-        ?>
-    </p>
-</form>
+                <input type="text" name="codigo_cupon" placeholder="Código del cupón"> <!-- Asegúrate de que el nombre del campo sea 'codigo_cupon' -->
+                <button type="submit" class="btn-pagar">Validar</button>
+                <p id="mensaje_cupon">
+                    <?php
+                    // Muestra el mensaje del cupón si está disponible
+                    if (isset($_SESSION['mensaje_cupon'])) {
+                        echo htmlspecialchars($_SESSION['mensaje_cupon']);
+                        unset($_SESSION['mensaje_cupon']);
+                    }
+                    ?>
+                </p>
+            </form>
 
 
 
@@ -208,13 +203,11 @@ if ($cupon) {
                 <div class="accordion" id="accordionSummary">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseSummary" aria-expanded="true" aria-controls="collapseSummary">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSummary" aria-expanded="true" aria-controls="collapseSummary">
                                 Resumen
                             </button>
                         </h2>
-                        <div id="collapseSummary" class="accordion-collapse collapse show"
-                            data-bs-parent="#accordionSummary">
+                        <div id="collapseSummary" class="accordion-collapse collapse show" data-bs-parent="#accordionSummary">
                             <div class="accordion-body">
                                 <div class="resumen_total">
                                     <?php
@@ -279,25 +272,25 @@ if ($cupon) {
 
 
         <div class="col-12">
-        <form method="post" action="../Controladores/controlador_pedidos.php">
-            <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
-            <input type="hidden" name="total" id="total" value="<?php echo $totalConDescuento; ?>">
-            <input type="hidden" name="descuento_cupon" id="descuento_cupon" value="<?php echo $descuentoCupon; ?>">
-            <input type="hidden" name="cupon" id="cupon" value="<?php echo htmlspecialchars($_SESSION['cupon']['codigo'] ?? ''); ?>">
+            <form method="post" action="../Controladores/controlador_pedidos.php">
+                <input type="hidden" name="costo_envio" id="costo_envio" value="<?php echo $costoEnvio;?>">
+                <input type="hidden" name="total" id="total" value="<?php echo $totalConDescuento; ?>">
+                <input type="hidden" name="descuento_cupon" id="descuento_cupon" value="<?php echo $descuentoCupon; ?>">
+                <input type="hidden" name="cupon" id="cupon" value="<?php echo htmlspecialchars($_SESSION['cupon']['codigo'] ?? ''); ?>">
 
-            <?php
-            foreach ($productosPorRestaurante as $id_restaurante => $datos) {
-                echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][nombre]" value="' . htmlspecialchars($datos['nombre_restaurante']) . '">';
-                foreach ($datos['productos'] as $producto) {
-                    echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][productos][]" value="' . htmlspecialchars($producto['ID_Producto']) . '">';
-                    echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][cantidad][]" value="' . htmlspecialchars($producto['cantidad']) . '">';
-                    echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][precio][]" value="' . htmlspecialchars($producto['Valor_P']) . '">';
+                <?php
+                foreach ($productosPorRestaurante as $id_restaurante => $datos) {
+                    echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][nombre]" value="' . htmlspecialchars($datos['nombre_restaurante']) . '">';
+                    foreach ($datos['productos'] as $producto) {
+                        echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][productos][]" value="' . htmlspecialchars($producto['ID_Producto']) . '">';
+                        echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][cantidad][]" value="' . htmlspecialchars($producto['cantidad']) . '">';
+                        echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][precio][]" value="' . htmlspecialchars($producto['Valor_P']) . '">';
+                    }
                 }
-            }
-            ?>
-            <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
-            <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
-        </form>
+                ?>
+                <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
+                <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
+            </form>
 
 
 
