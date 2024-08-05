@@ -1,12 +1,12 @@
 <?php
 
-/**
- * Autor: Ricardo Rivera (Flexzay)
- * Autor: salvador Pores (Demon)
- * Redirecciona a la sección de inicio del sitio.
- *
- */
-
+    /**
+     * Autor: Ricardo Rivera (Flexzay)
+     * Autor: salvador Pores (Demon)
+     * Redirecciona a la sección de inicio del sitio.
+     *
+     */
+    
 
 // Configuración de la base de datos
 $servername = "127.0.0.1";
@@ -20,13 +20,11 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Si la conexión se realiza correctamente, redirige al controlador
-    header("location: Controladores/controlador.php");
+    header( "location: Controladores/controlad  or.php" );
     exit;
-} catch (PDOException $e) {
+} catch(PDOException $e) {
     // Si hay un error de conexión, redirige al instalador
     header("location: ../instalar/instalador.php");
     exit;
 }
-
-
-
+    
