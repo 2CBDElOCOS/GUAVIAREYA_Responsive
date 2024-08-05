@@ -1,6 +1,7 @@
 <?php
 include("../Modelos/guardar_pedido.php");
-require_once("../Modelos/conexion.php");
+include_once("../config/Conexion.php");
+
 
 session_start();
 
@@ -24,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Inicializar el objeto GuardarPedido
-        $guardarPedido = new GuardarPedido(Conexion());
+        $guardarPedido = new GuardarPedido(Conexion::conectar());
 
         $total = 0;
 
@@ -45,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $total += $subtotal;
 
                 try {
-                    $guardarPedido->insertarPedido($correo, $id_restaurante, $producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio);
+                    $guardarPedido->insertarPedido($correo, $id_restaurante, $producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio,$total);
                 } catch (Exception $e) {
                     header("Location: ../Controladores/controlador.php?seccion=facturacion&error=3");
                     exit();
