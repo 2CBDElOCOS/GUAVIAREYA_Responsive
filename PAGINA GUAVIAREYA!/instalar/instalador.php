@@ -9,7 +9,7 @@
         <label for="host">Host:</label>
         <input type="text" id="host" name="host" value="127.0.0.1" required><br><br>
         <label for="db_name">Nombre de la Base de Datos:</label>
-        <input type="text" id="db_name" name="db_name" value="db_guaviareya" required><br><br>
+        <input type="text" id="db_name" name="db_name" value="bd_guaviareya" required><br><br>
         <label for="username">Usuario:</label>
         <input type="text" id="username" name="username" value="root" required><br><br>
         <label for="password">Contraseña:</label>

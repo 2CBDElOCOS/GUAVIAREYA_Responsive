@@ -25,7 +25,7 @@ if ($conn->query($sql) === TRUE) {
 $conn->select_db($db_name);
 
 // Leer el archivo de volcado de datos
-$dump_file = 'bd_guaviareya.sql'; // Asegúrate de tener el archivo dump.sql en el mismo directorio
+$dump_file = 'bd_guaviareya!.sql'; // Asegúrate de tener el archivo dump.sql en el mismo directorio
 $sql = file_get_contents($dump_file);
 
 if ($conn->multi_query($sql)) {
@@ -41,5 +41,5 @@ if ($conn->multi_query($sql)) {
 
 $conn->close();
 
-echo '<a href="index.php">Volver a la página principal</a>';
+echo '<a href="../index.php">Volver a la página principal</a>';
 ?>
