@@ -21,7 +21,9 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         $seccion == 'home' || $seccion == 'shop' || $seccion == 'comida' || $seccion == 'bebidas' ||
         $seccion == 'productos' || $seccion == 'carrito' || $seccion == 'tarjeta' || $seccion == 'pago' ||
         $seccion == 'facturacion' || $seccion == 'confirmacion' || $seccion == 'ADMI_Shop_A' || $seccion == 'ADMI_Productos_A' ||
-        $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A' || $seccion == 'SuperAdmin_Panel' || $seccion == 'SUPER_add' || $seccion == 'SUPER_add_administrador' || $seccion == 'Perfil_Restaurantes'
+        $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A' ||
+        $seccion == 'SuperAdmin_Panel' || $seccion == 'SUPER_add' || $seccion == 'SUPER_add_administrador' ||
+         $seccion == 'Perfil_Restaurantes' || $seccion =='verificacion'
     ) {
     ?>
         <link rel="stylesheet" href="<?php echo $cssFile; ?>" />

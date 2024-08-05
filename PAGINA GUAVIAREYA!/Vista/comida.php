@@ -30,7 +30,7 @@ $likeDislike = new LikeDislike();
             <div class="row">
                 <div class="col-12 text-center mb-4">
                 <div class="d-flex justify-content-end mb-4 ico-footer1">
-                <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+                <a href="controlador.php?seccion=shop"><i class="fa-solid fa-tent-arrow-turn-left" style="color: #fff;"></i></a>
                  </div>
 
                 </div>

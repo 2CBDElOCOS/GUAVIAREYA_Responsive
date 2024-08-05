@@ -11,26 +11,15 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
 
 require_once "../Modelos/Direccion_Entregas.php";
 require_once "../Modelos/mostrar_productos.php";
-require_once '../Modelos/Cupones.php';
 
 // Obtener las direcciones de entrega del usuario.
 $addresses = Modelo_Direccion_Entregas::obtenerDireccionesPorUsuario($_SESSION['correo']);
+'Dirección Seleccionada en la Sesión: ' . (isset($_SESSION['direccion_seleccionada']) ? $_SESSION['direccion_seleccionada'] : 'No definida') . '<br>';
+'Correo en la Sesión: ' . (isset($_SESSION['correo']) ? $_SESSION['correo'] : 'No definido') . '<br>';
+
 // Inicializar el objeto para obtener los nombres de los restaurantes
 $mostrarProductos = new mostrar_productos();
-// Obtener el cupón asociado con el correo del usuario
-$cupon = Cupones::ObtenerCuponPorCorreo($_SESSION['correo']);
-
-// Verifica si el cupón se ha obtenido correctamente
-if ($cupon) {
-    // Guarda el cupón en la sesión
-    $_SESSION['cupon'] = $cupon;
-    echo '<p>Código del cupón obtenido: ' . htmlspecialchars($cupon['codigo']) . '</p>';
-} else {
-    echo '<p>No se encontró ningún cupón para el correo: ' . htmlspecialchars($_SESSION['correo']) . '</p>';
-}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -67,7 +56,6 @@ if ($cupon) {
                                                 <th scope="col">Dirección</th>
                                                 <th scope="col">Barrio</th>
                                                 <th scope="col">Descripción</th>
-                                                <th scope="col">Check</th> <!-- Nueva columna para el checkbox -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -80,11 +68,8 @@ if ($cupon) {
                                                     echo '<td>' . htmlspecialchars($address['Barrio']) . '</td>';
                                                     echo '<td>' . htmlspecialchars($address['Descripcion']) . '</td>';
                                                     echo '<td>
-                            <label class="checkbox-container">
-                                <input class="custom-checkbox" checked="" type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-                          </td>'; // Añadir el checkbox aquí
+
+                                                    </td>'; // Añadir el checkbox aquí
                                                     echo '</tr>';
                                                 }
                                                 echo '<tr><td colspan="5"><button type="submit" class="btn-pagar">Seleccionar Dirección</button></td></tr>'; // Ajustar colspan
@@ -179,21 +164,15 @@ if ($cupon) {
                 </div>
             </div>
 
-            <form method="post" action="../Controladores/controlador_validar_cupon.php">
-                <input type="text" name="codigo_cupon" placeholder="Código del cupón"> <!-- Asegúrate de que el nombre del campo sea 'codigo_cupon' -->
-                <button type="submit" class="btn-pagar">Validar</button>
-                <p id="mensaje_cupon">
-                    <?php
-                    // Muestra el mensaje del cupón si está disponible
-                    if (isset($_SESSION['mensaje_cupon'])) {
-                        echo htmlspecialchars($_SESSION['mensaje_cupon']);
-                        unset($_SESSION['mensaje_cupon']);
-                    }
-                    ?>
-                </p>
-            </form>
 
 
+
+            <div class="cupones">
+                <h6>🎫 Cupónes</h6>
+                <input type="text" id="codigo_cupon" placeholder="xxxx-xxxx-xxxx" class="form-control form-control-lg bg-light fs-6">
+                <button class="btn-pagar" onclick="validarCupon()">Validar</button>
+                <p id="mensaje_cupon"></p>
+            </div>
 
         </div>
 
@@ -211,13 +190,6 @@ if ($cupon) {
                             <div class="accordion-body">
                                 <div class="resumen_total">
                                     <?php
-                                    // Obtener el descuento del cupón, si existe
-                                    $descuentoCupon = 0;
-                                    if ($cupon) {
-                                        $descuentoCupon = $cupon['descuento']; // Porcentaje de descuento
-                                    }
-
-                                    // Calcular el subtotal, costos de envío, impuestos y tarifas
                                     $subtotal = 0;
                                     foreach ($_SESSION['carrito'] as $restaurante) {
                                         foreach ($restaurante['productos'] as $producto) {
@@ -227,39 +199,34 @@ if ($cupon) {
                                     $costoEnvio = 3000;
                                     $impuestosTarifas = 2000;
 
-                                    // Calcular el total antes de aplicar el descuento
+                                    // Calcula el total incluyendo el costo de envío y los impuestos
                                     $total = $subtotal + $costoEnvio + $impuestosTarifas;
 
-                                    // Aplicar el descuento del cupón
-                                    $totalConDescuento = $total - ($total * ($descuentoCupon / 100));
+                                    // Calcula el total incluyendo el costo de envío y los impuestos
+                                    $total = $subtotal + $costoEnvio + $impuestosTarifas;
                                     ?>
-
                                     <div class="resumen">
                                         <h6>Costo de productos</h6>
                                         <i>
-                                            <p class="subtotal">$<?php echo number_format($subtotal, 0, ',', '.'); ?>
-                                            </p>
+                                            <p class="subtotal">$<?php echo number_format($subtotal, 0, ',', '.'); ?></p>
                                         </i>
                                     </div>
                                     <div class="resumen">
                                         <h6>Envío</h6>
                                         <i>
-                                            <p class="costo-envio">
-                                                +$<?php echo number_format($costoEnvio, 0, ',', '.'); ?></p>
+                                            <p class="costo-envio">+$<?php echo number_format($costoEnvio, 0, ',', '.'); ?></p>
                                         </i>
                                     </div>
                                     <div class="resumen">
                                         <h6>Impuestos y tarifas</h6>
                                         <i>
-                                            <p class="impuestos">
-                                                +$<?php echo number_format($impuestosTarifas, 0, ',', '.'); ?></p>
+                                            <p class="impuestos">+$<?php echo number_format($impuestosTarifas, 0, ',', '.'); ?></p>
                                         </i>
                                     </div>
                                     <div class="resumen">
                                         <h6>Total</h6>
                                         <i>
-                                            <p class="total">
-                                                $<?php echo number_format($totalConDescuento, 0, ',', '.'); ?></p>
+                                            <p class="total">$<?php echo number_format($total, 0, ',', '.'); ?></p>
                                         </i>
                                     </div>
                                 </div>
@@ -268,41 +235,31 @@ if ($cupon) {
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="col-12">
-            <form method="post" action="../Controladores/controlador_pedidos.php">
-                <input type="hidden" name="costo_envio" id="costo_envio" value="<?php echo $costoEnvio;?>">
-                <input type="hidden" name="total" id="total" value="<?php echo $totalConDescuento; ?>">
-                <input type="hidden" name="descuento_cupon" id="descuento_cupon" value="<?php echo $descuentoCupon; ?>">
-                <input type="hidden" name="cupon" id="cupon" value="<?php echo htmlspecialchars($_SESSION['cupon']['codigo'] ?? ''); ?>">
-
-                <?php
-                foreach ($productosPorRestaurante as $id_restaurante => $datos) {
-                    echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][nombre]" value="' . htmlspecialchars($datos['nombre_restaurante']) . '">';
-                    foreach ($datos['productos'] as $producto) {
-                        echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][productos][]" value="' . htmlspecialchars($producto['ID_Producto']) . '">';
-                        echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][cantidad][]" value="' . htmlspecialchars($producto['cantidad']) . '">';
-                        echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][precio][]" value="' . htmlspecialchars($producto['Valor_P']) . '">';
+            <div class="col-12">
+                <form method="post" action="../Controladores/controlador_pedidos.php" onsubmit="return verificarDireccion()">
+                    <input type="hidden" name="costo_envio" id="costo_envio" value="<?php echo $costoEnvio; ?>">
+                    <input type="hidden" name="total" id="total" value="<?php echo $total; ?>">
+                    <?php
+                    foreach ($productosPorRestaurante as $id_restaurante => $datos) {
+                        echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][nombre]" value="' . htmlspecialchars($datos['nombre_restaurante']) . '">';
+                        foreach ($datos['productos'] as $producto) {
+                            echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][productos][]" value="' . htmlspecialchars($producto['ID_Producto']) . '">';
+                            echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][cantidad][]" value="' . htmlspecialchars($producto['cantidad']) . '">';
+                            echo '<input type="hidden" name="restaurantes[' . $id_restaurante . '][precio][]" value="' . htmlspecialchars($producto['Valor_P']) . '">';
+                        }
                     }
-                }
-                ?>
-                <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
-                <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
-            </form>
-
-
-
+                    ?>
+                    <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
+                    <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
+                </form>
+            </div>
         </div>
-    </div>
-    </div>
+        
 
-
-
-    <script src="../JS/actualizar_tiempo_entrega.js"></script>
-    <script src="../JS/guardar_direccion_seleccionada.js"></script>
-    <script src="../JS/confirmar_pedido.js"></script>
+        <script src="../JS/actualizar_tiempo_entrega.js"></script>
+        <script src="../JS/guardar_direccion_seleccionada.js"></script>
+        <script src="../JS/confirmar_pedido.js"></script>
 
 
 </body>
