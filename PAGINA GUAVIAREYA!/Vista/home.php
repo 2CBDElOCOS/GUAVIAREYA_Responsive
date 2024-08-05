@@ -23,6 +23,7 @@ include '../Vista/include_style_plantilla.php';
           <a href="controlador.php?seccion=login" target="_blank">Nuestra tienda</a>
           <a href="#contactanos">Contactanos </a>
           <a href="https://youtu.be/ZFf1asGqP_g?si=TSlNtdGUMVBZSdx8" target="_blank">video</a>
+          <a href="../Manual_uso/Manual De Usuario Final.pdf" download="manual.pdf">Manual</a>
         </nav>
       </div>
     </div>
