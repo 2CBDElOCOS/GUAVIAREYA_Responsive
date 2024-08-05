@@ -26,12 +26,15 @@
                         <input type="email" name="correo" class="form-control form-control-lg bg-light" placeholder="Correo" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input  id="Contrasena" type="password" name="contrasena" class="form-control form-control-lg bg-light" placeholder="Contraseña" required>
+                        <input id="Contrasena" type="password" name="contrasena" class="form-control form-control-lg bg-light" placeholder="Contraseña" required>
                     </div>
 
-                    <?php if (isset($_GET['error'])) : ?>
-                        <div class="alert alert-danger mt-2" role="alert">
-                            <?php echo htmlspecialchars($_GET['error']); ?>
+                    <!-- Mensaje de error -->
+                    <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
+                        <div class="w-100">
+                            <div class="alert alert-danger mt-2 w-100" role="alert">
+                                Correo o contraseña incorrectos. Por favor, inténtalo de nuevo.
+                            </div>
                         </div>
                     <?php endif; ?>
 
@@ -53,8 +56,9 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../JS/mostrar_contraseña.js"></script>
-
+    <script src="../JS/alerta_bloqueo.js"></script>
 </body>
 
 </html>
