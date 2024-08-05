@@ -1,5 +1,5 @@
 <?php
-include '../config/Conexion.php';
+include 'Conexion.php';
 
 /**
  * Clase para manejar operaciones relacionadas con los usuarios
@@ -8,11 +8,11 @@ Class DataUser {
     private $conn;
 
     public function __construct() {
-        $this->conn = Conexion::conectar();
+        $this->conn = Conexion();
     }
 
     public static function getUserByEmail($email) {
-        $conn = Conexion::conectar();
+        $conn = Conexion();
 
         $user = null;
 
@@ -48,7 +48,7 @@ Class DataUser {
      */
     public static function updateUser($email, $nombre, $apellido, $telefono) {
         // Crear conexión
-        $conn = Conexion::conectar();
+        $conn = Conexion();
 
         // Preparar y ejecutar la consulta SQL para actualizar el usuario por correo electrónico
         $stmt = $conn->prepare("UPDATE Usuarios SET Nombre = ?, Apellido = ?, Telefono = ? WHERE Correo = ?");
@@ -123,7 +123,7 @@ Class DataUser {
      * @throws Exception Si hay un error preparando la consulta SQL
      */
     public static function updatePassword($email, $newPassword) {
-        $conn = Conexion::conectar();
+        $conn = Conexion();
     
         $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
         if ($stmt === false) {
@@ -187,14 +187,14 @@ Class DataUser {
     }
 
     public static function eliminarCuenta($email) {
-        $conn = Conexion::conectar();
+        $conn = Conexion();
+    
         // Iniciar una transacción
         $conn->begin_transaction();
     
         try {
             // Identificar y eliminar registros en tablas dependientes
             $tablasDependientes = [
-                'likes_dislikes',
                 'Documentos_Identificacion',
                 'Cupones',
                 'Pedidos_factura',
