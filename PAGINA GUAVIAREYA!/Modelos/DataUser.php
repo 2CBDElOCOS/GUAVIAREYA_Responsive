@@ -188,14 +188,13 @@ Class DataUser {
 
     public static function eliminarCuenta($email) {
         $conn = Conexion::conectar();
-    
         // Iniciar una transacción
         $conn->begin_transaction();
     
         try {
             // Identificar y eliminar registros en tablas dependientes
             $tablasDependientes = [
-                'Likes_Dislikes',
+                'likes_dislikes',
                 'Documentos_Identificacion',
                 'Cupones',
                 'Pedidos_factura',

@@ -1,5 +1,5 @@
 <?php
-require_once '../config/Conexion.php';
+include '../config/Conexion.php';
 
 /**
  * Clase Login
@@ -77,7 +77,5 @@ class Login {
             return 0; // Indicar que los datos de inicio de sesión son incorrectos
         }
     }
-
-    
 }
 ?>

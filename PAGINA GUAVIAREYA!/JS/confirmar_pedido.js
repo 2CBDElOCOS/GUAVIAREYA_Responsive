@@ -7,9 +7,3 @@ function verificarDireccion() {
     }
     return true; // Permite que el formulario se envíe
 }
-
-document.getElementById('confirmarPedidoBtn').addEventListener('click', function(event) {
-    if (!verificarDireccion()) {
-        event.preventDefault(); // Evita el envío del formulario si la dirección no está seleccionada
-    }
-});

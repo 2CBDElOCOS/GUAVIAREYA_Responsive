@@ -25,7 +25,7 @@ if ($conn->query($sql) === TRUE) {
 $conn->select_db($db_name);
 
 // Leer el archivo de volcado de datos
-$dump_file = 'bd_guaviareya!.sql'; // Asegúrate de tener el archivo dump.sql en el mismo directorio
+$dump_file = 'bd_guaviareya.sql'; // Asegúrate de tener el archivo dump.sql en el mismo directorio
 $sql = file_get_contents($dump_file);
 
 if ($conn->multi_query($sql)) {
@@ -41,5 +41,34 @@ if ($conn->multi_query($sql)) {
 
 $conn->close();
 
+// Guardar los datos de conexión en el archivo de configuración
+$config_file = '../config/conexion.php';
+$config_content = "<?php
+class Conexion {
+    public static function conectar() {
+        \$servidor = '$host';
+        \$usuario = '$username';
+        \$password = '$password';
+        \$base_datos = '$db_name';
+
+        \$conn = new mysqli(\$servidor, \$usuario, \$password, \$base_datos);
+
+        if (\$conn->connect_error) {
+            die('La conexión ha fallado: ' . \$conn->connect_error);
+        }
+
+        return \$conn;
+    }
+}
+?>";
+
+if (file_put_contents($config_file, $config_content)) {
+    echo "Archivo de configuración actualizado con éxito.<br>";
+} else {
+    echo "Error actualizando el archivo de configuración.<br>";
+}
+
 echo '<a href="../index.php">Volver a la página principal</a>';
+?>
+
 ?>
