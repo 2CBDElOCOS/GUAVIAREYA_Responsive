@@ -1,17 +1,18 @@
 <?php
-function Conexion() {
-    $servername = "localhost";
-    $username = "root"; // O el nombre de usuario que utilices
-    $password = ""; // O la contraseña que utilices
-    $dbname = "bd_guaviareya"; // Asegúrate de que esta base de datos exista
+class Conexion {
+    public static function conectar() {
+        $servidor = "localhost";
+        $usuario = "root";
+        $password = "";
+        $base_datos = "bd_guaviareya";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli($servidor, $usuario, $password, $base_datos);
 
-    // Verificar si la conexión tuvo éxito
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
+        if ($conn->connect_error) {
+            die("La conexión ha fallado: " . $conn->connect_error);
+        }
+
+        return $conn;
     }
-
-    return $conn;
 }
 ?>

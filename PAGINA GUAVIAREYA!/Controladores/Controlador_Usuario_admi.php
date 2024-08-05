@@ -9,6 +9,14 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
 
+    // Verificar si el administrador está bloqueado temporalmente
+    if (isset($_SESSION['bloqueado_hasta_admi']) && $_SESSION['bloqueado_hasta_admi'] > time()) {
+        $tiempoRestante = $_SESSION['bloqueado_hasta_admi'] - time();
+        // Administrador bloqueado temporalmente, redirigir con información de bloqueo
+        header("location: ../Controladores/controlador.php?seccion=ADMI_login_A&error=blocked&time=$tiempoRestante");
+        exit;
+    }
+
     if (!empty($correo) && !empty($contrasena)) {
         $rol = Login::IniciarSesion($correo, $contrasena);
 
@@ -22,6 +30,7 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
             }
             exit;
         } else {
+            // Manejo de error de inicio de sesión fallido
             header("location: ../Controladores/controlador.php?seccion=ADMI_login_A&error=Correo o contraseña incorrectos");
             exit;
         }

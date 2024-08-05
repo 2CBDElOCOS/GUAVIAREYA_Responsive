@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Inicializar el objeto GuardarPedido
         $guardarPedido = new GuardarPedido();
 
+        $total = 0; // Inicializar el total
+
         foreach ($restaurantes as $id_restaurante => $datos_restaurante) {
             // Verificar si el restaurante existe
             if (!$guardarPedido->verificarRestaurante($id_restaurante)) {
@@ -38,15 +40,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cantidad = intval($cantidades[$index]);
                 $precio = floatval($precios[$index]);
                 $subtotal = $cantidad * $precio;
+                $total += $subtotal; // Acumulando el subtotal en el total
 
                 try {
-                    $guardarPedido->insertarPedido($correo, $id_restaurante, $producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio);
+                    $guardarPedido->insertarPedido($correo, $id_restaurante, $producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio, $total);
                 } catch (Exception $e) {
                     echo "Error al guardar el pedido: " . $e->getMessage();
                     exit();
                 }
             }
         }
+
+        // Agregar costos adicionales (envío, impuestos, etc.)
+        $costoEnvio = $tipo_envio === 'Prioritaria' ? 5000 : 3000;
+        $impuestosTarifas = 2000;
+        $total += $costoEnvio + $impuestosTarifas;
+
+        // Aquí podrías guardar el total en la base de datos si es necesario
 
         // Limpiar el carrito después de realizar el pedido
         unset($_SESSION['carrito']);
