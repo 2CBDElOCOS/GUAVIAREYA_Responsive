@@ -31,7 +31,7 @@ class Login {
             return false; // Indicar que está bloqueado
         }
 
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         if ($conn->connect_error) {
             die("Conexión fallida: " . $conn->connect_error);

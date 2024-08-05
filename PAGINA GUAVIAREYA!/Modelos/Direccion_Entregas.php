@@ -16,7 +16,7 @@ class Modelo_Direccion_Entregas {
      */
     private static function initConnection() {
         if (!self::$conn) {
-            self::$conn = Conexion();
+            self::$conn = Conexion::conectar();
         }
     }
 

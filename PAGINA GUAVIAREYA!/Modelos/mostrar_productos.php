@@ -9,8 +9,7 @@ class mostrar_productos {
      * @return array Arreglo de productos obtenidos
      */
     public function obtenerProductosPorRestaurante($id_restaurante) {
-        $conn = Conexion();
-
+        $conn = Conexion::conectar();
         // Verificar la conexión
         if ($conn->connect_error) {
             die("Conexión fallida: " . $conn->connect_error);
@@ -52,7 +51,7 @@ class mostrar_productos {
      * @return string Nombre del restaurante
      */
     public function obtenerNombreRestaurante($id_restaurante) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         // Verificar la conexión
         if ($conn->connect_error) {
@@ -92,7 +91,7 @@ class mostrar_productos {
      * @return array|null Arreglo asociativo con los datos del producto o null si no se encuentra
      */
     public function obtenerProductoPorId($id_producto) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         // Verificar la conexión
         if ($conn->connect_error) {
@@ -128,7 +127,7 @@ class mostrar_productos {
 
     public function buscarProductos($searchTerm) {
         // Asegúrate de que tu consulta esté bien construida y proteja contra SQL Injection
-        $conexion = Conexion();
+        $conexion = Conexion::conectar();
         $searchTerm = mysqli_real_escape_string($conexion, $searchTerm);
         
         // Construir la consulta SQL para buscar en múltiples campos

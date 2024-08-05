@@ -20,7 +20,7 @@ class Registrar {
             $hashed_password = md5($contrasena);
 
             // Crear conexión usando la función Conexion
-            $conn = Conexion();
+            $conn = Conexion::conectar();
 
             // Verificar la conexión
             if ($conn->connect_error) {

@@ -25,7 +25,7 @@ class add_administrador {
             $restaurante_id = $_POST['ID_Restaurante'];
 
             // Crear conexión
-            $conn = Conexion();
+            $conn = Conexion::conectar();
 
             // Verificar conexión
             if ($conn->connect_error) {

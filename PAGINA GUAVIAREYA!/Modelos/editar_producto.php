@@ -20,7 +20,7 @@ class editar_producto {
      * @throws Exception Si hay un error en la preparación de la consulta SQL.
      */
     public function editarProducto($id_producto, $nombre, $descripcion, $valor, $imagen) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         // Actualizar los datos del producto
         $query = "UPDATE Productos SET Nombre_P = ?, Descripcion = ?, Valor_P = ?";

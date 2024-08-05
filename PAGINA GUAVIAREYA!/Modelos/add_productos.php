@@ -31,7 +31,7 @@ class add_productos {
                 $id_restaurante = $_SESSION['id_restaurante'];
 
                 // Crear conexión
-                $conn = Conexion();
+                $conn = Conexion::conectar();
 
                 // Verificar conexión
                 if ($conn->connect_error) {

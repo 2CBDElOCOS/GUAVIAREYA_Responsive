@@ -21,7 +21,7 @@ class delete_productos {
             $id_producto = $_POST['ID_Producto'];
 
             // Crear conexión
-            $conn = Conexion();
+            $conn = Conexion::conectar();
 
             // Verificar conexión
             if ($conn->connect_error) {

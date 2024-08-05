@@ -7,7 +7,7 @@ class mostrar_restaurantes {
 
     // Constructor para inicializar la conexión
     public function __construct() {
-        $this->conn = Conexion(); // Utilizar la función Conexion para establecer la conexión
+        $this->conn = Conexion::conectar(); // Utilizar la función Conexion para establecer la conexión
     }
 
     /**

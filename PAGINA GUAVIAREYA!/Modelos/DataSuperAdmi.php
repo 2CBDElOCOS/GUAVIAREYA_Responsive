@@ -1,11 +1,21 @@
 <?php
 require_once '../config/Conexion.php';
 
+/**
+ * Clase para gestionar operaciones relacionadas con los superadministradores y estadísticas.
+ */
 class DataSuperAdmi {
 
+    /**
+     * Obtiene la información de un superadministrador basado en el correo electrónico.
+     *
+     * @param string $email El correo electrónico del superadministrador.
+     * @return array|null Información del superadministrador o null si no existe.
+     * @throws Exception Si ocurre un error al preparar la consulta.
+     */
     public static function obteneremail($email)
     {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
         $user = null;
 
         $stmt = $conn->prepare("
@@ -35,9 +45,16 @@ class DataSuperAdmi {
         return $user;
     }
 
+    /**
+     * Actualiza la contraseña de un superadministrador basado en el correo electrónico.
+     *
+     * @param string $email El correo electrónico del superadministrador.
+     * @param string $newPassword La nueva contraseña.
+     * @return bool Verdadero si la actualización fue exitosa, falso en caso contrario.
+     */
     public static function updatePassword($email, $newPassword)
     {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         $stmt = $conn->prepare("UPDATE administradores SET contrasena = ? WHERE correo = ? AND rol = 'super_administrador'");
         if ($stmt === false) {
@@ -53,29 +70,27 @@ class DataSuperAdmi {
         return $success;
     }
 
-        static function borrar_restaurante() {
+    /**
+     * Borra un producto basado en su ID y elimina su imagen asociada.
+     *
+     * @return void
+     */
+    static function borrar_restaurante() {
         // Verificar si se ha enviado el ID del producto a borrar
         if (isset($_POST['ID_Producto'])) {
-            // Obtener el ID del producto a borrar
             $id_producto = $_POST['ID_Producto'];
+            $conn = Conexion::conectar();
 
-            // Crear conexión
-            $conn = Conexion();
-
-            // Verificar conexión
             if ($conn->connect_error) {
-                // Terminar la ejecución y mostrar un mensaje de error si la conexión falló
                 die("Conexión fallida: " . $conn->connect_error);
             }
 
             // Obtener el nombre del archivo de imagen del producto
             $sql = $conn->prepare("SELECT img_P FROM Productos WHERE ID_Producto = ?");
             if ($sql === false) {
-                // Terminar la ejecución y mostrar un mensaje de error si hay un error preparando la consulta
                 die("Error preparando la consulta: " . $conn->error);
             }
 
-            // Vincular el parámetro $id_producto a la consulta preparada
             $sql->bind_param("i", $id_producto);
             $sql->execute();
             $result = $sql->get_result();
@@ -85,41 +100,40 @@ class DataSuperAdmi {
             // Borrar el archivo de imagen
             $image_path = "../media_productos/" . $img_P;
             if (file_exists($image_path)) {
-                // Eliminar el archivo de imagen si existe
                 unlink($image_path);
             }
 
-            // Preparar la consulta SQL para borrar el producto de la tabla Productos
+            // Preparar la consulta SQL para borrar el producto
             $sql = $conn->prepare("DELETE FROM Productos WHERE ID_Producto = ?");
             if ($sql === false) {
-                // Terminar la ejecución y mostrar un mensaje de error si hay un error preparando la consulta
                 die("Error preparando la consulta: " . $conn->error);
             }
 
-            // Vincular el parámetro $id_producto a la consulta preparada
             $sql->bind_param("i", $id_producto);
 
-            // Ejecutar la consulta
             if ($sql->execute()) {
-                // Redirigir a otra página después de borrar el producto
                 $conn->close();
                 header("location: controlador.php?seccion=ADMI_Productos_A");
-                exit(); // Salir del script después de redirigir
+                exit();
             } else {
-                // Mostrar un mensaje de error si no se pudo borrar el producto
                 echo "Error al borrar el producto: " . $conn->error;
             }
 
-            // Cerrar la conexión
             $conn->close();
         } else {
-            // Mostrar un mensaje si no se recibió el ID del producto a borrar
             echo "No se recibió el ID del producto a borrar";
         }
     }
 
+    /**
+     * Obtiene estadísticas de pedidos por restaurante en un rango de fechas opcional.
+     *
+     * @param string|null $fecha_inicio Fecha de inicio para el rango de fechas (opcional).
+     * @param string|null $fecha_fin Fecha de fin para el rango de fechas (opcional).
+     * @return array Un array con el nombre del restaurante y el número de pedidos.
+     */
     public static function obtenerEstadisticasPedidosPorRestaurante($fecha_inicio = null, $fecha_fin = null) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
         $sql = "SELECT r.Nombre_R AS Restaurante, COUNT(p.ID_pedido) AS Numero_Pedidos
                 FROM Restaurantes r
                 LEFT JOIN Pedidos p ON r.ID_Restaurante = p.ID_Restaurante";
@@ -160,8 +174,16 @@ class DataSuperAdmi {
         $conn->close();
         return $data;
     }
+
+    /**
+     * Obtiene el producto más popular basado en el número de ventas en un rango de fechas opcional.
+     *
+     * @param string|null $fecha_inicio Fecha de inicio para el rango de fechas (opcional).
+     * @param string|null $fecha_fin Fecha de fin para el rango de fechas (opcional).
+     * @return array Un array con el nombre del producto y el número de ventas.
+     */
     public static function obtenerProductoMasPopular($fecha_inicio = null, $fecha_fin = null) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
         $sql = "SELECT p.Nombre_P AS Producto, COUNT(d.ID_Producto) AS Numero_Ventas
                 FROM Productos p
                 JOIN Pedidos d ON p.ID_Producto = d.ID_Producto";
@@ -202,9 +224,16 @@ class DataSuperAdmi {
         $conn->close();
         return $data;
     }
-    
+
+    /**
+     * Obtiene el usuario con más pedidos en un rango de fechas opcional.
+     *
+     * @param string|null $fecha_inicio Fecha de inicio para el rango de fechas (opcional).
+     * @param string|null $fecha_fin Fecha de fin para el rango de fechas (opcional).
+     * @return array Información del usuario con más pedidos o un array vacío si no hay resultados.
+     */
     public static function obtenerUsuarioMasPedidos($fecha_inicio = null, $fecha_fin = null) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
         $sql = "SELECT u.Nombre AS Usuario, COUNT(p.ID_pedido) AS Numero_Pedidos
                 FROM Usuarios u
                 JOIN Pedidos p ON u.Correo = p.Correo";
@@ -243,7 +272,5 @@ class DataSuperAdmi {
         $conn->close();
         return $data;
     }
-    
-    
-    
-}    
+}
+?>

@@ -29,7 +29,7 @@ class add_restaurantes
             $img_temp = $_FILES['img_R']['tmp_name'];
 
             // Crear conexión
-            $conn = Conexion();
+            $conn = Conexion::conectar();
 
             // Verificar conexión
             if ($conn->connect_error) {

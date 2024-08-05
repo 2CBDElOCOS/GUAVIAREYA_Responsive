@@ -13,7 +13,7 @@ class DataAdmi
      */
     public function __construct()
     {
-        $this->conn = Conexion(); // Establecer la conexión en el constructor
+        $this->conn = Conexion::conectar(); // Establecer la conexión en el constructor
     }
 
     /**
@@ -25,7 +25,7 @@ class DataAdmi
      */
     public static function getUserByEmail($email)
 {
-    $conn = Conexion();
+    $conn = Conexion::conectar();
     $user = null;
 
     $stmt = $conn->prepare("
@@ -73,7 +73,7 @@ class DataAdmi
      */
     public static function updateadmi($email, $nombre, $telefono, $direccion) {
     // Crear conexión
-    $conn = Conexion();
+    $conn = Conexion::conectar();
 
     // Obtener el ID del restaurante asociado al administrador
     $stmt = $conn->prepare("SELECT ID_Restaurante FROM administradores WHERE correo = ?");
@@ -167,7 +167,7 @@ class DataAdmi
      */
     public static function updatePassword($email, $newPassword)
     {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
     
         // Cifrar la nueva contraseña con md5
         $hashedPassword = md5($newPassword);
@@ -186,7 +186,7 @@ class DataAdmi
         return $success;
     }
     public static function obtenerOrdenes($correo) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
     
         // Obtener el ID del restaurante asociado al administrador
         $stmt = $conn->prepare("SELECT ID_Restaurante FROM administradores WHERE correo = ?");
@@ -233,7 +233,7 @@ class DataAdmi
     
 
 public static function actualizarEstadoPedido($pedido_id, $estado) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
         
         $stmt = $conn->prepare("UPDATE Pedidos SET Estado = ? WHERE ID_pedido = ?");
         if ($stmt === false) {
@@ -253,7 +253,7 @@ public static function actualizarEstadoPedido($pedido_id, $estado) {
 
     public static function updateRestaurantStatus($id_restaurante, $estado)
     {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         $stmt = $conn->prepare("UPDATE Restaurantes SET Estado = ? WHERE ID_Restaurante = ?");
         if ($stmt === false) {
@@ -271,7 +271,7 @@ public static function actualizarEstadoPedido($pedido_id, $estado) {
 
     public static function eliminarAdministrador($idRestaurante) {
         // Obtener la conexión a la base de datos
-        $conexion = Conexion();
+        $conexion = Conexion::conectar();
         
         // Consulta para eliminar el administrador
         $query = "DELETE FROM Administradores WHERE ID_Restaurante = ?";
@@ -298,7 +298,7 @@ public static function actualizarEstadoPedido($pedido_id, $estado) {
     // Función para eliminar un restaurante
     public static function eliminarRestaurante($idRestaurante) {
         // Obtener la conexión a la base de datos
-        $conexion = Conexion();
+        $conexion = Conexion::conectar();
         
         // Consulta para eliminar el restaurante
         $query = "DELETE FROM Restaurantes WHERE ID_Restaurante = ?";
