@@ -1,17 +1,13 @@
 <?php
 include("../Modelos/guardar_pedido.php");
-include_once("../config/Conexion.php");
-
 
 session_start();
 
-// Verifica si el usuario está autenticado
 if (!isset($_SESSION['correo']) || empty($_SESSION['correo'])) {
     header("Location: ../Controladores/controlador.php?seccion=login");
     exit();
 }
 
-// Verifica si la solicitud es POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['tipo_envio'], $_POST['restaurantes'])) {
         $tipo_envio = $_POST['tipo_envio'];
@@ -21,17 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $correo = $_SESSION['correo'];
 
         if ($id_direccion_entrega === null) {
-            exit();
+            die('Dirección de entrega no seleccionada.');
         }
 
         // Inicializar el objeto GuardarPedido
-        $guardarPedido = new GuardarPedido(Conexion::conectar());
+        $guardarPedido = new GuardarPedido();
 
-        $total = 0;
+        $total = 0; // Inicializar el total
 
         foreach ($restaurantes as $id_restaurante => $datos_restaurante) {
+            // Verificar si el restaurante existe
             if (!$guardarPedido->verificarRestaurante($id_restaurante)) {
-                header("Location: ../Controladores/controlador.php?seccion=facturacion&error=2");
+                echo "El restaurante con ID $id_restaurante no existe.";
                 exit();
             }
 
@@ -43,12 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cantidad = intval($cantidades[$index]);
                 $precio = floatval($precios[$index]);
                 $subtotal = $cantidad * $precio;
-                $total += $subtotal;
+                $total += $subtotal; // Acumulando el subtotal en el total
 
                 try {
-                    $guardarPedido->insertarPedido($correo, $id_restaurante, $producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio,$total);
+                    $guardarPedido->insertarPedido($correo, $id_restaurante, $producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio, $total);
                 } catch (Exception $e) {
-                    header("Location: ../Controladores/controlador.php?seccion=facturacion&error=3");
+                    echo "Error al guardar el pedido: " . $e->getMessage();
                     exit();
                 }
             }
@@ -59,19 +56,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $impuestosTarifas = 2000;
         $total += $costoEnvio + $impuestosTarifas;
 
+        // Aquí podrías guardar el total en la base de datos si es necesario
+
         // Limpiar el carrito después de realizar el pedido
         unset($_SESSION['carrito']);
         unset($_SESSION['direccion_seleccionada']);
 
         // Redirigir al usuario a la página de confirmación
-        header("Location: ../Controladores/controlador.php?seccion=tarjeta");
+        header("Location: controlador.php?seccion=tarjeta");
         exit();
     } else {
-        header("Location: ../Controladores/controlador.php?seccion=facturacion&error=1");
+        header("Location: controlador.php?seccion=facturacion&error=1");
         exit();
     }
 } else {
-    header("Location: ../Controladores/controlador.php?seccion=facturacion&error=4");
-    exit();
+    die('Método de solicitud no permitido.');
 }
 ?>

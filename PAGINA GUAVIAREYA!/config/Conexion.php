@@ -1,7 +1,7 @@
 <?php
 class Conexion {
     public static function conectar() {
-        $servidor = "localhost";
+        $servidor = "127.0.0.1";
         $usuario = "root";
         $password = "";
         $base_datos = "bd_guaviareya";
