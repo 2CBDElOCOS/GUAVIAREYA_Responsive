@@ -2,6 +2,7 @@
 	CREATE SCHEMA bd_guaviareya;
 	USE bd_guaviareya;
 
+
 	-- Tabla Usuarios
 	CREATE TABLE Usuarios (
 		Correo VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -11,7 +12,6 @@
 		Contrasena VARCHAR(255) NOT NULL,  -- Aumentado para mayor longitud
 		Telefono VARCHAR(15) NOT NULL,
 		Fec_Regis TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-        	aviso_cupon_visto BOOLEAN DEFAULT FALSE,
 		img_U VARCHAR(200) NOT NULL
 	);
 
@@ -87,54 +87,30 @@
 
 	-- Tabla Pedidos
 	CREATE TABLE Pedidos (
-		ID_pedido INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-		ID_Restaurante INT NOT NULL,
-		ID_Producto INT NOT NULL,
-		cantidad INT NOT NULL,
-		Sub_total DOUBLE NOT NULL,
-		ID_Dire_Entre INT NOT NULL,
-		Correo VARCHAR(50) NOT NULL,
-		fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		Tipo_Envio ENUM('Prioritaria', 'Básica') NOT NULL DEFAULT 'Básica',
-		Estado ENUM('Pendiente', 'Enviado', 'Entregado', 'Cancelado') NOT NULL DEFAULT 'Pendiente',
-		CONSTRAINT FK_Productos_Pedidos FOREIGN KEY (ID_Producto) REFERENCES Productos (ID_Producto),
-		CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante),
-		CONSTRAINT FK_Direccion_Entregas_Pedidos FOREIGN KEY (ID_Dire_Entre) REFERENCES Direccion_Entregas (ID_Dire_Entre),
-		CONSTRAINT FK_Usuarios_Pedidos FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
-	);
+    ID_pedido INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    ID_Restaurante INT NOT NULL,
+    ID_Producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    Sub_total DOUBLE NOT NULL,
+    ID_Dire_Entre INT NOT NULL,
+    Correo VARCHAR(50) NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Tipo_Envio ENUM('Prioritaria', 'Básica') NOT NULL DEFAULT 'Básica',
+    Estado ENUM('Pendiente', 'Enviado', 'Entregado', 'Cancelado') NOT NULL DEFAULT 'Pendiente',
+    total DOUBLE NOT NULL,  -- Campo total añadido para la facturación
+    CONSTRAINT FK_Productos_Pedidos FOREIGN KEY (ID_Producto) REFERENCES Productos (ID_Producto),
+    CONSTRAINT FK_Restaurantes_Pedidos FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante),
+    CONSTRAINT FK_Direccion_Entregas_Pedidos FOREIGN KEY (ID_Dire_Entre) REFERENCES Direccion_Entregas (ID_Dire_Entre),
+    CONSTRAINT FK_Usuarios_Pedidos FOREIGN KEY (Correo) REFERENCES Usuarios (Correo)
+);
 
-	-- Crear índices en columnas que se usan en las búsquedas
-	CREATE INDEX idx_ID_Restaurante_Pedidos ON Pedidos (ID_Restaurante);
-	CREATE INDEX idx_ID_Producto_Pedidos ON Pedidos (ID_Producto);
-	CREATE INDEX idx_Correo_Pedidos ON Pedidos (Correo);
-
+-- Crear índices en columnas que se usan en las búsquedas
+CREATE INDEX idx_ID_Restaurante_Pedidos ON Pedidos (ID_Restaurante);
+CREATE INDEX idx_ID_Producto_Pedidos ON Pedidos (ID_Producto);
+CREATE INDEX idx_Correo_Pedidos ON Pedidos (Correo);
 	-- Tabla Pedidos_factura
-	CREATE TABLE Pedidos_factura (
-		ID_Pedifac INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-		ID_pedido INT NOT NULL,
-		Correo VARCHAR(50) NOT NULL,
-		ID_Restaurante INT NOT NULL,
-		ID_Producto INT NOT NULL,
-		ID_Dire_Entre INT NOT NULL,
-		id_pago INT NOT NULL,
-		Estado_Pedido VARCHAR(50) NOT NULL,
-		Subtotal INT NOT NULL,
-		Valor_Domi INT NOT NULL DEFAULT 5000,
-		Valor_Pagar INT NOT NULL,
-		CONSTRAINT FK_Pedidos_Pedidos_factura FOREIGN KEY (ID_pedido) REFERENCES Pedidos (ID_pedido),
-		CONSTRAINT FK_Usuarios_Pedidos_factura FOREIGN KEY (Correo) REFERENCES Usuarios (Correo),
-		CONSTRAINT FK_Direccion_Entregas_Pedidos_factura FOREIGN KEY (ID_Dire_Entre) REFERENCES Direccion_Entregas (ID_Dire_Entre),
-		CONSTRAINT FK_Productos_Pedidos_factura FOREIGN KEY (ID_Producto) REFERENCES Productos (ID_Producto),
-		CONSTRAINT FK_Restaurantes_Pedidos_factura FOREIGN KEY (ID_Restaurante) REFERENCES Restaurantes (ID_Restaurante),
-		CONSTRAINT FK_Pagos_Pedidos_factura FOREIGN KEY (id_pago) REFERENCES metodos_pago (id_pago)
-	);
+    
 
-	-- Crear índices en columnas que se usan en las búsquedas
-	CREATE INDEX idx_Correo_Pedidos_factura ON Pedidos_factura (Correo);
-	CREATE INDEX idx_ID_Restaurante_Pedidos_factura ON Pedidos_factura (ID_Restaurante);
-	CREATE INDEX idx_ID_Producto_Pedidos_factura ON Pedidos_factura (ID_Producto);
-	CREATE INDEX idx_ID_Dire_Entre_Pedidos_factura ON Pedidos_factura (ID_Dire_Entre);
-	CREATE INDEX idx_id_pago_Pedidos_factura ON Pedidos_factura (id_pago);
 
 	-- Tabla de cupones
 	CREATE TABLE Cupones (
@@ -250,14 +226,14 @@ CREATE INDEX idx_Correo_Documentos_Identificacion ON Documentos_Identificacion (
 
 
 	-- Seleccionar todas las tablas
-		
+	SELECT * FROM Usuarios;
 	SELECT * FROM Restaurantes;
 	SELECT * FROM administradores;
 	SELECT * FROM Productos;
 	SELECT * FROM Direccion_Entregas;
 	SELECT * FROM metodos_pago;
 	SELECT * FROM Pedidos;
-	SELECT * FROM Pedidos_factura;
+	SELECT * FROM factura;
 	SELECT * FROM Cupones;
     SELECT * FROM Likes_Dislikes;
     SELECT * FROM  Documentos_Identificacion;
