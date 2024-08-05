@@ -1,5 +1,5 @@
 <?php
-include 'Conexion.php';
+include '../config/Conexion.php';
 
 /**
  * Clase para manejar operaciones relacionadas con los usuarios
@@ -8,11 +8,11 @@ Class DataUser {
     private $conn;
 
     public function __construct() {
-        $this->conn = Conexion();
+        $this->conn = Conexion::conectar();
     }
 
     public static function getUserByEmail($email) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         $user = null;
 
@@ -48,7 +48,7 @@ Class DataUser {
      */
     public static function updateUser($email, $nombre, $apellido, $telefono) {
         // Crear conexión
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         // Preparar y ejecutar la consulta SQL para actualizar el usuario por correo electrónico
         $stmt = $conn->prepare("UPDATE Usuarios SET Nombre = ?, Apellido = ?, Telefono = ? WHERE Correo = ?");
@@ -123,7 +123,7 @@ Class DataUser {
      * @throws Exception Si hay un error preparando la consulta SQL
      */
     public static function updatePassword($email, $newPassword) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
     
         $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
         if ($stmt === false) {
@@ -187,7 +187,7 @@ Class DataUser {
     }
 
     public static function eliminarCuenta($email) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
     
         // Iniciar una transacción
         $conn->begin_transaction();

@@ -1,9 +1,9 @@
 <?php
-require_once 'Conexion.php';
+require_once '../config/Conexion.php';
 
 class Cupones {
     public static function ObtenerCuponPorCorreo($correo) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
         $sql = "SELECT Codigo_Cupon, Descuento FROM Cupones WHERE Correo = ? AND Fecha_Usado IS NULL AND Fecha_Expiracion > NOW()";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
@@ -27,7 +27,7 @@ class Cupones {
     }
 
     public static function validarCupon($codigoCupon, $correoUsuario) {
-        $conn = Conexion();
+        $conn = Conexion::conectar();
         $sql = "SELECT Descuento FROM Cupones WHERE Codigo_Cupon = ? AND Correo = ? AND Fecha_Usado IS NULL AND Fecha_Expiracion > NOW()";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ss', $codigoCupon, $correoUsuario);

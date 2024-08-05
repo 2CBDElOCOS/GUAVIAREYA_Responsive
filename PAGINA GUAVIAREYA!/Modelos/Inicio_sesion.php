@@ -1,5 +1,5 @@
 <?php
-require_once 'Conexion.php';
+require_once '../config/Conexion.php';
 
 /**
  * Clase Login
@@ -32,7 +32,7 @@ class Login {
         }
 
         // Crear conexión usando la función Conexion
-        $conn = Conexion();
+        $conn = Conexion::conectar();
 
         // Preparar la consulta SQL para seleccionar los datos del usuario
         $sql = "SELECT Apodo, Nombre, Contrasena FROM Usuarios WHERE Correo = ?";
