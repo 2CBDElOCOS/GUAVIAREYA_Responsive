@@ -2,7 +2,7 @@
 // verificador.php
 
 $host = '127.0.0.1'; // Host de la base de datos
-$db_name = 'db_guaviareya'; // Nombre de la base de datos
+$db_name = 'bd_guaviareya'; // Nombre de la base de datos
 $username = 'root'; // Usuario de la base de datos
 $password = ''; // Contraseña de la base de datos
 
