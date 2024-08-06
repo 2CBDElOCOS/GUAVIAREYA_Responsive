@@ -1238,8 +1238,7 @@ input:checked+.slider:before {
   }
 
   .custom-nav ul li a i.icono-grande {
-    font-size: 50px; /* Ajusta el tamaño del icono */
-
+    font-size: 35px; /* Ajusta el tamaño del icono */
     align-items: center;
     justify-content: center;
 }
@@ -1258,7 +1257,7 @@ input:checked+.slider:before {
   }
   
   .custom-nav #logo {
-    font-size: 1.2em;
+    font-size: 30px;
     font-weight: 600;
   }
   
