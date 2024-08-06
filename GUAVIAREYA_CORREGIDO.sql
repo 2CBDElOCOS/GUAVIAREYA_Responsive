@@ -12,6 +12,7 @@
 		Contrasena VARCHAR(255) NOT NULL,  -- Aumentado para mayor longitud
 		Telefono VARCHAR(15) NOT NULL,
 		Fec_Regis TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+		aviso_cupon_visto BOOLEAN DEFAULT FALSE,
 		img_U VARCHAR(200) NOT NULL
 	);
 
