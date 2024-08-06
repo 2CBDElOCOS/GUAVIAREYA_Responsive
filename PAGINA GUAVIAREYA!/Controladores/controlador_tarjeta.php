@@ -5,6 +5,17 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Incluir el modelo
 include('../Modelos/add_metodo_pago.php');
+require_once '../Modelos/Cupones.php';  
+$cupon = Cupones::ObtenerCuponPorCorreo($_SESSION['correo']);
+// Verifica si el cupón se ha obtenido correctamente
+if ($cupon) {
+// Guarda el cupón en la sesión
+$_SESSION['cupon'] = $cupon;
+echo '<p>Código del cupón obtenido: ' . htmlspecialchars($cupon['codigo']) . '</p>';
+} else {
+echo '<p>No se encontró ningún cupón para el correo: ' . htmlspecialchars($_SESSION['correo']) . '</p>';
+}
+$_SESSION['cupon_descuento'] = $cupon;
 
 // Verificar si los datos del formulario se han enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -28,15 +39,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'expiracion' => $expiracion,
             'cvv' => $cvv
         ];
-
         // Redirigir a facturacion.php
-        header("Location: ../Controladores/controlador.php?seccion=verificacion");
+        header("Location: ../Controladores/controlador.php?seccion=facturacion");
         exit;
     } else {
-        echo "Error al agregar el método de pago.";
+        header("Location: ../Controladores/controlador.php?seccion=tarjeta&error");
         // Manejar el error
     }
 } else {
-    echo "Acceso no autorizado.";
+    header("Location: ../Controladores/controlador.php?seccion=tarjeta&error1");
 }
 ?>

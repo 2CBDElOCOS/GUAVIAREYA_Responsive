@@ -31,7 +31,7 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
             exit;
         } else {
             // Manejo de error de inicio de sesión fallido
-            header("location: ../Controladores/controlador.php?seccion=ADMI_login_A&error=Correo o contraseña incorrectos");
+            header("location: ../Controladores/controlador.php?seccion=ADMI_login_A&error=1");
             exit;
         }
     } else {

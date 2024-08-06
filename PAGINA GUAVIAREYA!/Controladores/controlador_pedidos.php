@@ -1,5 +1,6 @@
 <?php
 include("../Modelos/guardar_pedido.php");
+include_once("../config/Conexion.php");
 
 session_start();
 
@@ -12,23 +13,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['tipo_envio'], $_POST['restaurantes'])) {
         $tipo_envio = $_POST['tipo_envio'];
         $restaurantes = $_POST['restaurantes'];
+        $cuponCodigo = isset($_SESSION['Codigo_Cupon']) ? (string)$_SESSION['Codigo_Cupon'] : null;
+        $cuponDescuento = isset($_SESSION['cupon_descuento']) ? (int)$_SESSION['cupon_descuento'] : 0;
 
         $id_direccion_entrega = isset($_SESSION['direccion_seleccionada']) ? intval($_SESSION['direccion_seleccionada']) : null;
         $correo = $_SESSION['correo'];
 
         if ($id_direccion_entrega === null) {
-            die('Dirección de entrega no seleccionada.');
+            header("Location: ../Controladores/controlador.php?seccion=facturacion&error=1");
+            exit();
         }
 
-        // Inicializar el objeto GuardarPedido
-        $guardarPedido = new GuardarPedido();
+        $guardarPedido = new GuardarPedido(Conexion::conectar());
 
-        $total = 0; // Inicializar el total
+        $total = 0;
 
         foreach ($restaurantes as $id_restaurante => $datos_restaurante) {
-            // Verificar si el restaurante existe
             if (!$guardarPedido->verificarRestaurante($id_restaurante)) {
-                echo "El restaurante con ID $id_restaurante no existe.";
+                header("Location: ../Controladores/controlador.php?seccion=facturacion&error=2");
                 exit();
             }
 
@@ -40,36 +42,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cantidad = intval($cantidades[$index]);
                 $precio = floatval($precios[$index]);
                 $subtotal = $cantidad * $precio;
-                $total += $subtotal; // Acumulando el subtotal en el total
-
-                try {
-                    $guardarPedido->insertarPedido($correo, $id_restaurante, $producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio, $total);
-                } catch (Exception $e) {
-                    echo "Error al guardar el pedido: " . $e->getMessage();
-                    exit();
-                }
+                $total += $subtotal;
             }
         }
 
-        // Agregar costos adicionales (envío, impuestos, etc.)
+        if ($cuponCodigo && $cuponDescuento > 0) {
+            $descuento = $total * ($cuponDescuento / 100);
+            $totalConDescuento = $total - $descuento;
+        } else {
+            $totalConDescuento = $total;
+        }
+
         $costoEnvio = $tipo_envio === 'Prioritaria' ? 5000 : 3000;
         $impuestosTarifas = 2000;
-        $total += $costoEnvio + $impuestosTarifas;
+        $totalConDescuento += $costoEnvio + $impuestosTarifas;
 
-        // Aquí podrías guardar el total en la base de datos si es necesario
-
-        // Limpiar el carrito después de realizar el pedido
         unset($_SESSION['carrito']);
         unset($_SESSION['direccion_seleccionada']);
+        unset($_SESSION['Codigo_Cupon']);
+        unset($_SESSION['cupon_descuento']);
 
-        // Redirigir al usuario a la página de confirmación
-        header("Location: controlador.php?seccion=tarjeta");
+        foreach ($restaurantes as $id_restaurante => $datos_restaurante) {
+            $productos = $datos_restaurante['productos'];
+            $cantidades = $datos_restaurante['cantidad'];
+            $precios = $datos_restaurante['precio'];
+
+            foreach ($productos as $index => $producto) {
+                $cantidad = intval($cantidades[$index]);
+                $precio = floatval($precios[$index]);
+                $subtotal = $cantidad * $precio;
+
+                $guardarPedido->insertarPedido($correo, $id_restaurante, $producto, $cantidad, $subtotal, $id_direccion_entrega, $tipo_envio, $totalConDescuento);
+            }
+        }
+
+        // Actualiza la fecha de uso del cupón si es necesario
+        if ($cuponCodigo && $cuponDescuento > 0) {
+            $guardarPedido->actualizarFechaUsoCupon($cuponCodigo);
+            header("Location: ../Controladores/controlador.php?seccion=verificacion");
+        } else {
+            header("Location: ../Controladores/controlador.php?seccion=facturacion&error=1");
+        }
         exit();
     } else {
-        header("Location: controlador.php?seccion=facturacion&error=1");
+        header("Location: ../Controladores/controlador.php?seccion=facturacion&error=4");
         exit();
     }
-} else {
-    die('Método de solicitud no permitido.');
 }
 ?>
