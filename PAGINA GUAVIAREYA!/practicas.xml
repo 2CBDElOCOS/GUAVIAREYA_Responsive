@@ -1,0 +1,14 @@
+<pruebas>
+    <prueba>
+        <tipo>Unitaria</tipo>
+        <nombre>testIniciarSesion</nombre>
+        <resultado>Exitoso</resultado>
+        <detalles>La prueba de inicio de sesión pasó correctamente.</detalles>
+    </prueba>
+    <prueba>
+        <tipo>Integración</tipo>
+        <nombre>testAgregarProducto</nombre>
+        <resultado>Exitoso</resultado>
+        <detalles>La prueba de agregar producto pasó correctamente.</detalles>
+    </prueba>
+</pruebas>
