@@ -66,10 +66,12 @@ $_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
                                     <input type="checkbox" name="estado" value="Abierto" <?php echo $user['Estado'] === 'Abierto' ? 'checked' : ''; ?>>
                                     <span class="slider round"></span>
                                 </label>
+                           
                                 <input type="hidden" name="id_restaurante"
                                     value="<?php echo htmlspecialchars($user['ID_Restaurante']); ?>">
                                 <button type="submit" class="btn btn-primary mt-3">Aceptar</button>
                             </form>
+                            <br>
                             <!-- Mostrar la imagen del restaurante -->
                             <div style="height: 140px; width: 140px; margin: 0 auto;">
                                 <?php if ($user['img_R']): ?>
@@ -79,6 +81,7 @@ $_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
                                     <p>No se ha encontrado ninguna foto de perfil.</p>
                                 <?php endif; ?>
                             </div>
+                            
                             <div class="mt-3 file-upload">
                                 <form method="POST" action="Controlador_FotoAdmi.php" enctype="multipart/form-data">
                                     <label for="img_U" class="file-upload-icon">

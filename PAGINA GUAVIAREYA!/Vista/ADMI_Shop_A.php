@@ -2,93 +2,79 @@
 <html lang="en">
 
 <head>
-
-  <title>Admi shop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admi Shop</title>
 
 </head>
 
 <body class="body">
 
-  <div class="container">
-    <!--header-->
-    <header class="fixed-top bg-dark">
-        <div class="row align-items-center">
-          <div class="col-md-3">
-            <a href="controlador.php?seccion=home" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
-          </div>
-          <div class="col-md-9 d-md-flex justify-content-md-end align-items-center">
-            <nav class="navlist">
-              <a href="#hero" class="active">Administrar</a>
-              <a href="#contactanos">Contactanos </a>
-            </nav>
-            <div class="nav-icons">
-              <a href="#"><i class="bx bx-search"></i></a>
-              <a href="controlador.php?seccion=ADMI_Perfil_A"><i class="bx bx-user-circle"></i></a>
-            </div>
-          </div>
-        </div>
-
-      </header>
-  </div>
+  <nav class="custom-nav"> <!-- Clase específica para el nav -->
+    <a href="#home" id="logo" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
+    <input type="checkbox" id="hamburger" />
+    <label for="hamburger">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <ul>
+      <li><a href="#hero" class="active">Administrar</a></li>
+      <li><a href="#contactanos">Contactanos </a></li>
+      <li><a href="controlador.php?seccion=ADMI_Perfil_A"><i class="bx bx-user-circle icono-grande"></i></a></li>
+    </ul>
+  </nav>
 
   <section id="hero">
     <div class="subcontainer">
-      <div class="row hero1">
+      <div class="row hero">
         <div class="col-md-12 text-hero">
           <h1>Hola <?php echo $_SESSION['apodo']; ?>, Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
-          <a href="controlador.php?seccion=ADMI_Productos_A" target="_blank"><i class='bx bx-restaurant' ></i></a>
+          <a href="controlador.php?seccion=ADMI_Productos_A" target="_blank"><i class='bx bx-restaurant'></i></a>
         </div>
       </div>
     </div>
   </section>
 
- <!--Contactanos-->
- <section id="contactanos">
-  <div class="contactanos1">
-    <div class="row">
-      <div class="col-md-12 tu-domi">
-        <h6>¿Tu Domicilio?</h6>
+  <section id="contactanos">
+    <div class="contactanos1">
+      <div class="row">
+        <div class="col-md-12 tu-domi">
+          <h6>¿Tu Domicilio?</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 tu-domi">
+          <h2>¡En Camino!</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5 correo">
+          <h4>Guaviareya@gmail.com</h4>
+        </div>
+        <div class="col-md-2 go-store"></div>
+        <div class="col-md-5 tlf">
+          <h4>+57 3143920233</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <center><hr style="color: rgb(255, 255, 255); width: 50%;"></center>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 ico-footer">
+          <a href="https://www.youtube.com/" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://web.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://web.whatsapp.com/" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="row">
-      <div class="col-md-12 tu-domi">
-        <h2>¡En Camino!</h2>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-5 correo">
-        <h4>Guaviareya@gmail.com</h4>
-      </div>
-      <div class="col-md-2 go-store">
-          
-      </div>
-      <div class="col-md-5 tlf">
-        <h4>+57 3143920233</h4>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <center><hr style="color: rgb(255, 255, 255); width: 50%;"></center>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 ico-footer">
-        <a href="https://www.youtube.com/" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-        <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://web.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-        <a href="https://web.whatsapp.com/" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
