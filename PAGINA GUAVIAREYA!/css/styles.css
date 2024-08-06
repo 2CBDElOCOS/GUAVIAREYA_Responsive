@@ -110,6 +110,7 @@ header {
 
 /* Estilos de los íconos de navegación */
 .nav-icons {
+    
     display: flex;
     align-items: center;
     padding: 8px 15px;
@@ -180,7 +181,7 @@ header {
 }
 
 button {
-    font-size: 2.5em;
+    font-size: 10;
     font-weight: bold;
     padding: 10px 30px;
     border-radius: 30px;
@@ -340,6 +341,7 @@ button:hover {
 
 /*header*/
 .nav-icons1 {
+    
     display: flex;
     align-items: center;
     padding: 8px 15px;
@@ -1216,5 +1218,112 @@ input:checked+.slider:before {
   
   .card-title, .card-text {
     margin-bottom: 10px;
+  }
+  
+  /* nav-styles.css */
+
+/* Estilos específicos para el nav */
+.custom-nav {
+    position: fixed; /* O absolute, dependiendo de tu diseño */
+    top: 0; /* Ajusta esto según sea necesario */
+    left: 0;
+    width: 100%;
+    height: 104px;
+    background-color: #000000; /* Color de fondo si es necesario */
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    padding: 10px 14%; /* Ajusta el padding según sea necesario */
+    box-sizing: border-box;
+    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+  }
+
+  .custom-nav ul li a i.icono-grande {
+    font-size: 50px; /* Ajusta el tamaño del icono */
+
+    align-items: center;
+    justify-content: center;
+}
+  
+  .custom-nav a {
+    
+    color: #fff; /* Color del texto */
+    text-decoration: none;
+    padding: 0 15px; /* Espaciado entre los enlaces */
+  }
+    .custom-nav a {
+    
+    color: #fff; /* Color del texto */
+    text-decoration: none;
+    padding: 0 15px; /* Espaciado entre los enlaces */
+  }
+  
+  .custom-nav #logo {
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+  
+  .custom-nav input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  
+  .custom-nav label {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .custom-nav ul {
+    display: flex; /* Alinea horizontalmente los elementos de la lista */
+    list-style: none; /* Elimina los puntos de la lista */
+    margin: 0;
+    padding: 0;
+    margin-left: auto; /* Empuja el menú a la derecha */
+  }
+  .custom-nav ul li {
+    margin-right: 20px; /* Añade un margen derecho de 20px a cada <li> */
+}
+
+.custom-nav ul li:last-child {
+    margin-right: 0; /* Elimina el margen derecho del último <li> */
+}
+
+  .custom-nav ul a {
+    padding: 0.5em;
+  }
+  
+  .custom-nav ul a:hover {
+    margin: 5px;
+    background-color: #333333;
+    border-radius: 0.5em;
+  }
+  
+  .custom-nav .active {
+    border-bottom: 2px solid #ffffff;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .custom-nav label {
+      display: block;
+    }
+    
+    .custom-nav ul {
+      font-size: 1.2em;
+      position: absolute;
+      left: -100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #333333;
+      gap: 2em;
+      top: 104px;
+      width: 100%;
+      height: calc(100vh - 60px);
+      transition: 0.5s;
+    }
+  
+    .custom-nav input[type="checkbox"]:checked ~ ul {
+      left: 0;
+    }
+  
   }
   
