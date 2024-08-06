@@ -5,41 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Administrador</title>
-
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f8f9fa;
-        }
-
-        .card {
-            max-width: 500px;
-            width: 100%;
-            padding: 1.5rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h1 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .card h4 {
-            margin-bottom: .5rem;
-        }
-
-        .form-control {
-            margin-bottom: 1rem;
-        }
-
-        .btn-primary {
-            width: 100%;
-        }
-    </style>
 </head>
 
 <body>

@@ -84,6 +84,7 @@ if ($user === null) {
         </div>
     </section>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-rbsA0UkP0NQUp+nOtEPO6r/Y4X9kJ8i1PQ/3CIMxtmZR3eK/jHcFCE3P9AXMyjb" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

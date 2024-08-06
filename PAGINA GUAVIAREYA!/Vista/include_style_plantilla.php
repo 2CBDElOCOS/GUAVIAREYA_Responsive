@@ -60,9 +60,10 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <link rel="stylesheet" href="<?php echo $cssFile; ?>" />
 
         <!-- link bootstrap-->
-       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+        
         <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
 
     <?php
@@ -113,6 +114,10 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
     } elseif ($seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Shop_A' || $seccion == 'bebidas' || $seccion == 'comida' || $seccion == 'productos' || $seccion == 'Perfil_Restaurantes')
     ?>
     <link rel="stylesheet" href="../css/style2.css">
+    <!-- link bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
 </head>

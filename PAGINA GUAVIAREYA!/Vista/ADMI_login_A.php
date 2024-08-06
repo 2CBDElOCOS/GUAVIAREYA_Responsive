@@ -59,6 +59,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../JS/mostrar_contraseña.js"></script>
     <script src="../JS/alerta_bloqueo.js"></script>
+    
 </body>
 
 </html>

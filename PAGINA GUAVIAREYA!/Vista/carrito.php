@@ -69,7 +69,7 @@
                         ?>
 
                         <div class="col-12 text-center">
-                            <a href="controlador.php?seccion=facturacion">
+                            <a href="controlador.php?seccion=tarjeta">
                                 <button class="btn-pagar <?php echo $isEmpty ? 'btn-disabled' : ''; ?>" <?php echo $isEmpty ? 'disabled' : ''; ?>>Pagar</button>
                             </a>
                         </div>

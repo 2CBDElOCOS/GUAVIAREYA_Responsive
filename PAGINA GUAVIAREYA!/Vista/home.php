@@ -9,26 +9,22 @@ include '../Vista/include_style_plantilla.php';
   echo $seccion;?></title>
 </head>
 
-<div class="container">
-  <!--header-->
-  <header class="fixed-top bg-dark">
-    <div class="row align-items-center">
-      <div class="col-md-3">
-        <a href="#" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
-      </div>
-      <div class="col-md-9 d-md-flex justify-content-md-end align-items-center">
-        <nav class="navlist">
-          <a href="#hero" class="active">Inicio</a>
-          <a href="#sobre">Sobre nosotros</a>
-          <a href="controlador.php?seccion=login" target="_blank">Nuestra tienda</a>
-          <a href="#contactanos">Contactanos </a>
-          <a href="../Manual_uso/Manual De Usuario Final.pdf"download="manual.pdf">Manual </a>
-          <a href="https://youtu.be/ZFf1asGqP_g?si=TSlNtdGUMVBZSdx8" target="_blank">video</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-</div>
+<nav class="custom-nav"> <!-- Clase específica para el nav -->
+    <a href="#home" id="logo" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
+    <input type="checkbox" id="hamburger" />
+    <label for="hamburger">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <ul>
+
+      <li><a href="#hero" class="active">Inicio</a></li>
+      <li><a href="#sobre">Sobre nosotros</a></li>
+      <li><a href="controlador.php?seccion=login" target="_blank">Nuestra tienda</a></li>
+      <li><a href="#contactanos">Contactanos </a></li>
+      <li><a href="../Manual_uso/Manual De Usuario Final.pdf"download="manual.pdf">Manual </a></li>
+      <li><a href="https://youtu.be/ZFf1asGqP_g?si=TSlNtdGUMVBZSdx8" target="_blank">video</a></li>
+    </ul>
+  </nav>
 
 <section id="hero">
   <div class="subcontainer">

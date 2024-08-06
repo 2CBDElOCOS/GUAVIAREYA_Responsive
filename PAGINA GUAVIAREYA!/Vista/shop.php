@@ -8,6 +8,7 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
   header("location: ../Controladores/controlador.php?seccion=login");
   exit(); // Asegúrate de salir después de redirigir
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -21,27 +22,22 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
 </head>
 
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header class="fixed-top bg-dark">
-      <div class="row align-items-center">
-        <div class="col-6 col-md-3">
-          <a href="controlador.php?seccion=home" class="logo"><i class="bx bxs-home"></i> GuaviareYa</a>
-        </div>
-        <div class="col-6 col-md-9 d-md-flex justify-content-md-end align-items-center">
-          <nav class="navlist d-none d-md-flex">
-            <a href="controlador.php?seccion=home">Inicio</a>
-            <a href="controlador.php?seccion=home">Sobre nosotros</a>
-            <a href="#" target="_blank" class="active">Nuestra tienda</a>
-            <a href="#contactanos">Contáctanos</a>
-          </nav>
-          <div class="nav-icons1 d-flex">
-            <a href="#" id="search-icon"><i class="bx bx-search"></i></a>
-            <a href="controlador.php?seccion=carrito"><i class="bx bx-cart"></i></a>
-            <a href="controlador.php?seccion=perfil"><i class="bx bx-user-circle"></i></a>
-          </div>
-        </div>
-      </div>
+<nav class="custom-nav"> <!-- Clase específica para el nav -->
+    <a href="#home" id="logo" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
+    <input type="checkbox" id="hamburger" />
+    <label for="hamburger">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <ul>
+
+      <li><a href="controlador.php?seccion=home">Sobre nosotros</a></li>
+      <li><a href="#" target="_blank" class="active">Nuestra tienda</a></li>
+      <li><a href="#contactanos">Contáctanos</a></li>
+      <li><a href="#" id="search-icon"><i class="bx bx-search icono-grande"></i></a></li>
+      <li><a href="controlador.php?seccion=carrito"><i class="bx bx-cart icono-grande"></i></a></a></li>
+      <li><a href="controlador.php?seccion=perfil"><i class="bx bx-user-circle icono-grande"></i></a></li>
+    </ul>
+  </nav>
 
       <div id="search-box">
         <form action="controlador_busqueda.php" method="post">
@@ -56,10 +52,10 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
     <div class="subcontainer">
       <div class="row hero">
         <div class="col-md-12 text-hero">
-          <h1 id="mensaje_dinamico">Hola <?php echo htmlspecialchars($_SESSION['Apodo'], ENT_QUOTES, 'UTF-8'); ?>, Bienvenido 😀</h1>
+          <h1>Hola <?php echo $_SESSION['Apodo']; ?>, Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
-          <a href="controlador.php?seccion=comida" target="_blank"><i class='bx bx-restaurant'></i></a>
+          <a href="controlador.php?seccion=ADMI_Productos_A" target="_blank"><i class='bx bx-restaurant'></i></a>
         </div>
       </div>
     </div>
@@ -121,39 +117,30 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
   </div>
   </section>
 
-  <!-- Contactanos -->
-  <!--Contactanos-->
   <section id="contactanos">
-    <div class="contactanos">
+    <div class="contactanos1">
       <div class="row">
         <div class="col-md-12 tu-domi">
           <h6>¿Tu Domicilio?</h6>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-12 tu-domi">
           <h2>¡En Camino!</h2>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-5 correo">
           <h4>Guaviareya@gmail.com</h4>
         </div>
-        <div class="col-md-2 go-store">
-          <a href="controlador.php?seccion=login" target="_blank"><button style="border-radius: 30px;">Tienda</button></a>
-        </div>
+        <div class="col-md-2 go-store"></div>
         <div class="col-md-5 tlf">
           <h4>+57 3143920233</h4>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-12">
-          <center>
-            <hr style="color: rgb(255, 255, 255); width: 50%;">
-          </center>
+          <center><hr style="color: rgb(255, 255, 255); width: 50%;"></center>
         </div>
       </div>
       <div class="row">
@@ -162,12 +149,11 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
           <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
           <a href="https://web.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
           <a href="https://web.whatsapp.com/" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
         </div>
       </div>
     </div>
   </section>
-
 
 
   <script src="../JS/barra_busqueda.js"></script>
