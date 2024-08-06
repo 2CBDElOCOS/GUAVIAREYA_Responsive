@@ -30,6 +30,9 @@ class Cupones {
         $conn = Conexion::conectar();
         $sql = "SELECT Descuento FROM Cupones WHERE Codigo_Cupon = ? AND Correo = ? AND Fecha_Usado IS NULL AND Fecha_Expiracion > NOW()";
         $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die("Error en la preparación de la consulta: " . $conn->error);
+        }
         $stmt->bind_param('ss', $codigoCupon, $correoUsuario);
         $stmt->execute();
         $stmt->bind_result($descuento);
