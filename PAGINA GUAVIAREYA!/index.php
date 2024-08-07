@@ -19,10 +19,10 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Si la conexión se realiza correctamente, redirige al controlador
-    header("location: ../Controladores/controlador.php");
+    header("location: Controladores/controlador.php");
     exit;
 } catch(PDOException $e) {
     // Si hay un error de conexión, redirige al instalador
-    header("location: ../instalar/instalador.php");
+    header("location: instalar/instalador.php");
     exit;
 }
