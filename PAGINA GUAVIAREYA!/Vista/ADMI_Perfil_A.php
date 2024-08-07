@@ -69,7 +69,7 @@ $_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
                            
                                 <input type="hidden" name="id_restaurante"
                                     value="<?php echo htmlspecialchars($user['ID_Restaurante']); ?>">
-                                <button type="submit" class="btn btn-primary mt-3">Aceptar</button>
+                                <button type="submit" class="btn btn-primary mt-3">Estado</button>
                             </form>
                             <br>
                             <!-- Mostrar la imagen del restaurante -->
@@ -88,7 +88,7 @@ $_SESSION['ID_Restaurante'] = $user['ID_Restaurante'];
                                         <i class="fas fa-upload"></i>
                                     </label>
                                     <br>
-                                    <input type="file" id="img_U" name="img_U" accept="image/*">
+                                    <input type="file" id="img_U" name="img_U" accept="image/*"> 
                                     <button type="submit" class="btn btn-primary mt-2">Aceptar</button>
                                 </form>
                             </div>

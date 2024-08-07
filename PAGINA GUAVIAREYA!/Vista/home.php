@@ -19,7 +19,7 @@ include '../Vista/include_style_plantilla.php';
 
       <li><a href="#hero" class="active">Inicio</a></li>
       <li><a href="#sobre">Sobre nosotros</a></li>
-      <li><a href="controlador.php?seccion=login" target="_blank">Nuestra tienda</a></li>
+      <li><a href="controlador.php?seccion=login">Nuestra tienda</a></li>
       <li><a href="#contactanos">Contactanos </a></li>
       <li><a href="../Manual_uso/Manual De Usuario Final.pdf"download="manual.pdf">Manual </a></li>
       <li><a href="https://youtu.be/ZFf1asGqP_g?si=TSlNtdGUMVBZSdx8" target="_blank">video</a></li>
@@ -32,7 +32,7 @@ include '../Vista/include_style_plantilla.php';
       <div class="col-md">
         <h1>GuaviareYa</h1>
         <div id="countdown" style="font-size: 20px; color: #FFFFFF;"></div> <!-- Contenedor para el contador -->
-        <a href="controlador.php?seccion=login" target="_blank"><button style="border-radius: 30px;">Tienda</button></a>
+        <a href="controlador.php?seccion=login"><button style="border-radius: 30px;">Tienda</button></a>
       </div>
     </div>
   </div>
@@ -81,7 +81,7 @@ include '../Vista/include_style_plantilla.php';
         <h4>Guaviareya@gmail.com</h4>
       </div>
       <div class="col-md-2 go-store">
-        <a href="controlador.php?seccion=login" target="_blank"><button style="border-radius: 30px;">Tienda</button></a>
+        <a href="controlador.php?seccion=login"><button style="border-radius: 30px;">Tienda</button></a>
       </div>
       <div class="col-md-5 tlf">
         <h4>+57 3143920233</h4>

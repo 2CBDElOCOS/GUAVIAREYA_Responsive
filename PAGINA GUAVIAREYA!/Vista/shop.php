@@ -31,7 +31,7 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
     <ul>
 
       <li><a href="controlador.php?seccion=home">Sobre nosotros</a></li>
-      <li><a href="#" target="_blank" class="active">Nuestra tienda</a></li>
+      <li><a href="#"class="active">Nuestra tienda</a></li>
       <li><a href="#contactanos">Contáctanos</a></li>
       <li><a href="#" id="search-icon"><i class="bx bx-search icono-grande"></i></a></li>
       <li><a href="controlador.php?seccion=carrito"><i class="bx bx-cart icono-grande"></i></a></a></li>
@@ -55,7 +55,7 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
           <h1>Hola <?php echo $_SESSION['Apodo']; ?>, Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
-          <a href="controlador.php?seccion=ADMI_Productos_A" target="_blank"><i class='bx bx-restaurant'></i></a>
+          <a href="controlador.php?seccion=comida"><i class='bx bx-restaurant'></i></a>
         </div>
       </div>
     </div>
