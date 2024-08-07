@@ -2,7 +2,6 @@
 // Incluir el archivo de conexión a la base de datos
 include '../config/Conexion.php';
 
-// Clase para manejar el registro de usuarios
 class Registrar {
     // Método estático para registrar un usuario
     static function registrarUsuario() {
@@ -25,6 +24,20 @@ class Registrar {
             // Verificar la conexión
             if ($conn->connect_error) {
                 die("Conexión fallida: " . $conn->connect_error);
+            }
+
+            // Verificar si el correo ya existe
+            $checkEmailSql = "SELECT * FROM Usuarios WHERE Correo = ?";
+            $checkStmt = $conn->prepare($checkEmailSql);
+            $checkStmt->bind_param("s", $correo);
+            $checkStmt->execute();
+            $result = $checkStmt->get_result();
+
+            if ($result->num_rows > 0) {
+                // El correo ya existe
+                $checkStmt->close();
+                $conn->close();
+                return "Usuario ya existente";
             }
 
             // Preparar la consulta SQL para insertar los datos en la tabla Usuarios
@@ -55,4 +68,3 @@ class Registrar {
         }
     }
 }
-?>
