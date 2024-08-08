@@ -18,14 +18,16 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
     <?php
 
     if (
-        $seccion == 'comida' ||$seccion == 'bebidas' ||
+        $seccion == 'comida' || $seccion == 'bebidas' ||
         $seccion == 'productos' || $seccion == 'carrito' || $seccion == 'tarjeta' || $seccion == 'pago' ||
         $seccion == 'facturacion' || $seccion == 'confirmacion' || $seccion == 'ADMI_Productos_A' ||
         $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A' || $seccion == 'SUPER_add' || $seccion == 'SUPER_add_administrador' ||
-         $seccion == 'Perfil_Restaurantes' || $seccion =='verificacion'
+        $seccion == 'Perfil_Restaurantes' || $seccion == 'verificacion'
     ) {
     ?>
         <link rel="stylesheet" href="<?php echo $cssFile; ?>" />
+        <link rel="stylesheet" href="../css/style2.css">
+
         <!-- box icons-->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
 
@@ -50,10 +52,9 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <script src="path/to/bootstrap.bundle.min.js"></script> <!-- Asegúrate de incluir Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <link rel="stylesheet" href="../css/styles.css" />
 
     <?php
-    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A' || $seccion == 'Cambiar_clave' || $seccion == 'pedidos_per' || $seccion == 'ADMI_Editar_A' || $seccion == 'ADMI_CambiarPass' || $seccion == 'Perfil_Direcciones' || $seccion == 'Perfil_SuperAdmi' || $seccion == 'CambiarClave_SuperAdmi'|| $seccion == 'Estadisticas') {
+    } else if ($seccion == 'perfil' || $seccion == 'Perfil_P' || $seccion == 'perfil_E' || $seccion == 'ADMI_Perfil_A' || $seccion == 'Cambiar_clave' || $seccion == 'pedidos_per' || $seccion == 'ADMI_Editar_A' || $seccion == 'ADMI_CambiarPass' || $seccion == 'Perfil_Direcciones' || $seccion == 'Perfil_SuperAdmi' || $seccion == 'CambiarClave_SuperAdmi' || $seccion == 'Estadisticas') {
     ?>
         <link rel="stylesheet" href="../css/style3.css" />
         <link rel="stylesheet" href="<?php echo $cssFile; ?>" />
@@ -62,11 +63,11 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        
+
         <script src="https://kit.fontawesome.com/c8b5889ad4.js" crossorigin="anonymous"></script>
 
     <?php
-    } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A'|| $seccion == 'terminos' || $seccion=='politicas') {
+    } else  if ($seccion == 'registro' || $seccion == 'Olvidaste' || $seccion == 'Olvidaste2' || $seccion == 'login' || $seccion == 'ADMI_login_A' || $seccion == 'terminos' || $seccion == 'politicas') {
     ?>
         <!-- SCRIPT DEL CAPTCHA-->
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -76,9 +77,9 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-       
 
-        
+
+
     <?php
     } elseif ($seccion == 'ADMI_Agregar_P' || $seccion == 'ADMI_editar_Producto') {
     ?>
@@ -110,29 +111,28 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <?php
-    } elseif ($seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A'  || $seccion == 'bebidas' || $seccion == 'productos' || $seccion == 'Perfil_Restaurantes'||$seccion == 'comida') {
-        ?>
-            <link rel="stylesheet" href="../css/style2.css">
-            <!-- link bootstrap-->
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <?php
-        } elseif ($seccion == 'home'|| $seccion == 'shop'|| $seccion == 'ADMI_Shop_A'||
-        $seccion == 'SuperAdmin_Panel') {
-        ?>
-              <!-- Vendor CSS Files -->
-                <link href="../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-                <link href="../css/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-             <!-- Main CSS File -->
-            <link href="../css/main.css" rel="stylesheet">
-            <!-- ICONOS FONT AWESOME -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-            <!-- box icons-->
-             <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+    } elseif ( $seccion == 'comida'|| $seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Shop_A' || $seccion == 'bebidas'  || $seccion == 'productos' || $seccion == 'Perfil_Restaurantes') {
+    ?>
+        <link rel="stylesheet" href="../css/style2.css">
+        <!-- link bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <?php
+    } elseif ($seccion == 'home' || $seccion == 'shop' || $seccion == 'ADMI_Shop_A' || $seccion == 'SuperAdmin_Panel') {
+    ?>
+        <!-- Vendor CSS Files -->
+        <link href="../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <!-- Main CSS File -->
+        <link href="../css/main.css" rel="stylesheet">
+        <!-- ICONOS FONT AWESOME -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <!-- box icons-->
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+    <?php
 
-        <?php
-        }
-        ?>
+    }
+    ?>
 
 </head>
