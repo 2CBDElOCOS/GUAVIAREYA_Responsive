@@ -30,7 +30,9 @@ if ($user === null) {
         <div class="container">
             <div class="d-flex justify-content-between mb-4">
             <div class="col-md-12 ico-footer1">
-                <a href="controlador.php?seccion=SuperAdmin_Panel"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
+            <a href="controlador.php?seccion=SuperAdmin_Panel">
+    <i class="fa-solid fa-tent-arrow-turn-left" style="color: black;"></i>
+</a>
             </div>
             </div>
 
@@ -84,7 +86,5 @@ if ($user === null) {
         </div>
     </section>
     
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

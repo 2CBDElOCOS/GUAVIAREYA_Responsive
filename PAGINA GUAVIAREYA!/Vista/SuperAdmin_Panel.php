@@ -12,46 +12,56 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
     exit();
 }?>
 
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <title><?php $seccion = 'SuperAdmin_Panel';
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title><?php $seccion = 'home';
   echo $seccion; ?></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
 </head>
 
-<div class="container">
-  <!--header-->
-  <nav class="custom-nav"> <!-- Clase específica para el nav -->
+<body class="index-page">
+
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+
     <a href="#home" id="logo" class="logo"><i class="bx bxs-home"></i>GuaviareYa</a>
-    <input type="checkbox" id="hamburger" />
-    <label for="hamburger">
-      <i class="fa-solid fa-bars"></i>
-    </label>
-    <ul>
 
-      <li> <a href="controlador.php?seccion=SUPER_add" target="_blank">Agregar Restaurante </a</li>
-      <li><a href="controlador.php?seccion=Perfil_SuperAdmi"><i class='bx bx-user-circle icono-grande' ></i></i></a></li>
-      <li><a class="" href="../Controladores/controlador_cerrar_session.php"><i class='bx bxs-door-open icono-grande' ></i></a></li>
-    </ul>
-  </nav>
-</div>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+        <li> <a href="controlador.php?seccion=SUPER_add" class="active">Agregar Restaurante </a</li>
+        <li><a href="controlador.php?seccion=Perfil_SuperAdmi"><i class='bx bx-user-circle icono-grande' ></i></i></a></li>
+        <li><a class="" href="../Controladores/controlador_cerrar_session.php"><i class='bx bxs-door-open icono-grande' ></i></a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
 
 
-<section id="hero">
-    <div class="subcontainer">
-      <div class="row hero">
+
+  <main class="main">
+
+    <section id="hero" class="hero section dark-background text-center">
+      <img src="../media/hero.jpg" alt="" data-aos="fade-in">
+
+      <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-md-8">
         <div class="col-md-12 text-hero">
           <h1>Hola <?php echo $_SESSION['apodo']; ?>, Bienvenido</h1>
         </div>
         <div class="col-md-12 ico-hero">
           <a href="controlador.php?seccion=SUPER_add" target="_blank"><i class='bx bx-restaurant'></i></a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  
-<div class="container">
-  <!--About us-->
-  <section id="sobre">
+        </div> <!-- Cierre de div col-md-8 -->
+      </div> <!-- Cierre de div container -->
+    </section>
+    <section id="sobre">
     <div class="subcontainer">
       <div class="row">
         <div class="col-md-6 img-sobre">
@@ -70,51 +80,63 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
       </div>
     </div>
   </section>
-</div>
+    <!--Contactanos-->
+    <section id="contactanos">
+      <div class="contactanos">
+        <div class="row">
+          <div class="col-md-12 tu-domi">
+            <h6>¿Tu Domicilio?</h6>
+          </div>
+        </div>
 
-<!--Contactanos-->
-<section id="contactanos">
-  <div class="contactanos">
-    <div class="row">
-      <div class="col-md-12 tu-domi">
-        <h6>¿Tu Domicilio?</h6>
-      </div>
-    </div>
+        <div class="row">
+          <div class="col-md-12 tu-domi">
+            <h2>¡En Camino!</h2>
+          </div>
+        </div>
 
-    <div class="row">
-      <div class="col-md-12 tu-domi">
-        <h2>¡En Camino!</h2>
-      </div>
-    </div>
+        <div class="row">
+          <div class="col-md-5 correo">
+            <h4>Guaviareya@gmail.com</h4>
+          </div>
+          <div class="col-md-2 go-store">
+            <a href="controlador.php?seccion=login"><button style="border-radius: 30px;">Tienda</button></a>
+          </div>
+          <div class="col-md-5 tlf">
+            <h4>+57 3143920233</h4>
+          </div>
+        </div>
 
-    <div class="row">
-      <div class="col-md-5 correo">
-        <h4>Guaviareya@gmail.com</h4>
+        <div class="row">
+          <div class="col-md-12">
+            <center>
+              <hr style="color: rgb(255, 255, 255); width: 50%;">
+            </center>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 ico-footer">
+            <a href="https://www.youtube.com/" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://web.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://web.whatsapp.com/" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+          </div>
+        </div>
       </div>
-      <div class="col-md-2 go-store">
-        <a href="controlador.php?seccion=SUPER_add" target="_blank"><button style="border-radius: 30px;">Agregar
-            Restaurante</button></a>
-      </div>
-      <div class="col-md-5 tlf">
-        <h4>+57 3143920233</h4>
-      </div>
-    </div>
+    </section>
 
-    <div class="row">
-      <div class="col-md-12">
-        <center>
-          <hr style="color: rgb(255, 255, 255); width: 50%;">
-        </center>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 ico-footer">
-        <a href="https://www.youtube.com/" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-        <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://web.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-        <a href="https://web.whatsapp.com/" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
+  </main>
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../css/vendor/aos/aos.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../JS/main.js"></script>
+
+</body>
+
+</html>

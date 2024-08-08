@@ -18,11 +18,10 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
     <?php
 
     if (
-        $seccion == 'home' || $seccion == 'shop' || $seccion == 'comida' || $seccion == 'bebidas' ||
+        $seccion == 'comida' ||$seccion == 'bebidas' ||
         $seccion == 'productos' || $seccion == 'carrito' || $seccion == 'tarjeta' || $seccion == 'pago' ||
-        $seccion == 'facturacion' || $seccion == 'confirmacion' || $seccion == 'ADMI_Shop_A' || $seccion == 'ADMI_Productos_A' ||
-        $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A' ||
-        $seccion == 'SuperAdmin_Panel' || $seccion == 'SUPER_add' || $seccion == 'SUPER_add_administrador' ||
+        $seccion == 'facturacion' || $seccion == 'confirmacion' || $seccion == 'ADMI_Productos_A' ||
+        $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Bebida_A' || $seccion == 'ADMI_Comida_A' || $seccion == 'SUPER_add' || $seccion == 'SUPER_add_administrador' ||
          $seccion == 'Perfil_Restaurantes' || $seccion =='verificacion'
     ) {
     ?>
@@ -111,13 +110,29 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <?php
-    } elseif ($seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Shop_A' || $seccion == 'bebidas' || $seccion == 'comida' || $seccion == 'productos' || $seccion == 'Perfil_Restaurantes')
-    ?>
-    <link rel="stylesheet" href="../css/style2.css">
-    <!-- link bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    } elseif ($seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A'  || $seccion == 'bebidas' || $seccion == 'productos' || $seccion == 'Perfil_Restaurantes'||$seccion == 'comida') {
+        ?>
+            <link rel="stylesheet" href="../css/style2.css">
+            <!-- link bootstrap-->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <?php
+        } elseif ($seccion == 'home'|| $seccion == 'shop'|| $seccion == 'ADMI_Shop_A'||
+        $seccion == 'SuperAdmin_Panel') {
+        ?>
+              <!-- Vendor CSS Files -->
+                <link href="../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+                <link href="../css/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+             <!-- Main CSS File -->
+            <link href="../css/main.css" rel="stylesheet">
+            <!-- ICONOS FONT AWESOME -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+            <!-- box icons-->
+             <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
 
+        <?php
+        }
+        ?>
 
 </head>

@@ -7,7 +7,12 @@
     <title>Mostrar Cupón</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 
-
+    <style>
+        /* Estilo para cambiar la fuente de la alerta a sans-serif */
+        .swal2-popup {
+            font-family: Arial, Helvetica, sans-serif !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +25,7 @@
         function mostrarCupon(codigoCupon) {
             Swal.fire({
                 title: '¡Felicidades!',
-                html: `Tienes un 10% de descuento en tu primera compra. Usa el código de cupón que encontraras en tu perfil.`,
+                html: `Tienes un 10% de descuento en tu primera compra. Usa el código de cupón que encontrarás en tu perfil.`,
                 icon: 'info',
                 width: 600,
                 padding: '3em',
