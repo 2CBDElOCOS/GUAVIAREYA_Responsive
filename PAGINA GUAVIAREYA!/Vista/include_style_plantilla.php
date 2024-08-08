@@ -111,7 +111,7 @@ $cssFile = $eventoEnCurso ? '../css/evento.css' : '../css/styles.css';
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <?php
-    } elseif ( $seccion == 'comida'|| $seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A' || $seccion == 'ADMI_Shop_A' || $seccion == 'bebidas'  || $seccion == 'productos' || $seccion == 'Perfil_Restaurantes') {
+    } elseif ( $seccion == 'comida'|| $seccion == 'ADMI_Productos_A' || $seccion == 'ADMI_Bebidas_A' || $seccion == 'bebidas'  || $seccion == 'productos' || $seccion == 'Perfil_Restaurantes') {
     ?>
         <link rel="stylesheet" href="../css/style2.css">
         <!-- link bootstrap-->
