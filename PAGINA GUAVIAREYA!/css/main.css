@@ -507,14 +507,12 @@ button {
 
 .sobre {
   padding: 3% 5%; /* Ajustar el padding para mejorar el espaciado */
-  background-color: #f8f9fa; /* Color de fondo claro */
-  color: #333; /* Color del texto */
   text-align: left; /* Alinear el texto a la izquierda */
 }
 
-.sobre h3 {
-  color: #ff9f0d; /* Color del título */
-}
+.color-acento {
+  color: #ff9f0d;
+} 
 
 .img-sobre img {
   width: 80%; /* Imagen responsiva */
