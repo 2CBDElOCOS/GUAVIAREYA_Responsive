@@ -1,6 +1,7 @@
 <?php
 include("../Modelos/guardar_pedido.php");
 include_once("../config/Conexion.php");
+include("../Modelos/Cupones.php");
 
 session_start();
 
@@ -46,9 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        if ($cuponCodigo && $cuponDescuento > 0) {
-            $descuento = $total * ($cuponDescuento / 100);
-            $totalConDescuento = $total - $descuento;
+        // Verificar y aplicar el descuento del cupón
+        if ($cuponCodigo) {
+            $cupon = Cupones::validarCupon($cuponCodigo, $correo);
+            if ($cupon['valido']) {
+                $cuponDescuento = $cupon['descuento'];
+                $descuento = $total * ($cuponDescuento / 100);
+                $totalConDescuento = $total - $descuento;
+            } else {
+                $cuponDescuento = 0;
+                $totalConDescuento = $total;
+            }
         } else {
             $totalConDescuento = $total;
         }
@@ -76,12 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Actualiza la fecha de uso del cupón si es necesario
+        // Actualizar la fecha de uso del cupón si es necesario
         if ($cuponCodigo && $cuponDescuento > 0) {
             $guardarPedido->actualizarFechaUsoCupon($cuponCodigo);
             header("Location: ../Controladores/controlador.php?seccion=verificacion");
         } else {
-            header("Location: ../Controladores/controlador.php?seccion=facturacion&error=1");
+            header("Location: ../Controladores/controlador.php?seccion=verificacion"); // Cambiado el redireccionamiento al de verificación
         }
         exit();
     } else {
