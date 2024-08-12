@@ -1,4 +1,23 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
+    header("location: ../Controladores/controlador.php?seccion=login");
+    exit();
+}
+
+// Incluir el archivo del modelo
+include '../Modelos/DataAdmi.php';
+
+// Obtener la información del usuario desde la base de datos
+$user = DataAdmi::getUserByEmail($_SESSION['correo']);
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -17,27 +36,33 @@
             <h4 class="mb-4">EDITAR DATOS</h4>
 
             <!-- Formulario de edición de perfil -->
-            <form action="Controlador_AdmiP.php" method="POST">
+            <form action="../Controladores/Controlador_AdmiP.php" method="POST">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row mb-3">
                             <label class="col-sm-12 col-md-3 col-form-label">Nombre</label>
                             <div class="col-sm-12 col-md-9">
-                                <input type="text" name="Nombre_R" class="form-control form-control-lg bg-light" placeholder="Nombre">
+                                <input type="text" name="Nombre_R" class="form-control form-control-lg bg-light" 
+                                    placeholder="Nombre" 
+                                    value="<?php echo htmlspecialchars($user['Nombre_R']); ?>">
                             </div>
                         </div>
                         <hr>
                         <div class="row mb-3">
-                            <label class="col-sm-12 col-md-3 col-form-label">Telefono</label>
+                            <label class="col-sm-12 col-md-3 col-form-label">Teléfono</label>
                             <div class="col-sm-12 col-md-9">
-                                <input type="text" name="Telefono" class="form-control form-control-lg bg-light" placeholder="Telefono">
+                                <input type="text" name="Telefono" class="form-control form-control-lg bg-light" 
+                                    placeholder="Teléfono" 
+                                    value="<?php echo htmlspecialchars($user['Telefono']); ?>">
                             </div>
                         </div>
                         <hr>
                         <div class="row mb-3">
-                            <label class="col-sm-12 col-md-3 col-form-label">Direccion</label>
+                            <label class="col-sm-12 col-md-3 col-form-label">Dirección</label>
                             <div class="col-sm-12 col-md-9">
-                                <input type="tel" name="Direccion" class="form-control form-control-lg bg-light" placeholder="Direccion">
+                                <input type="text" name="Direccion" class="form-control form-control-lg bg-light" 
+                                    placeholder="Dirección" 
+                                    value="<?php echo htmlspecialchars($user['Direccion']); ?>">
                             </div>
                         </div>
                         <hr>

@@ -52,7 +52,7 @@ if ($cupon) {
                     Validar cupón
                 </button>
             </div>
-   
+
             <div class="col-12 mb-4">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
@@ -183,7 +183,7 @@ if ($cupon) {
                 </div>
             </div>
 
-        
+
 
 
             <!-- Modal -->
@@ -196,21 +196,21 @@ if ($cupon) {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                        <form method="POST" action="../Controladores/controlador_validar_cupon.php">
-    <div class="mb-3">
-        <input type="text" class="form-control" name="Codigo_Cupon" placeholder="Código del cupón" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Validar</button>
-    <p id="mensaje_cupon" class="mt-3">
-        <?php
-        // Muestra el mensaje del cupón si está disponible
-        if (isset($_SESSION['mensaje_cupon'])) {
-            echo htmlspecialchars($_SESSION['mensaje_cupon']);
-            unset($_SESSION['mensaje_cupon']);
-        }
-        ?>
-    </p>
-</form>
+                            <form method="POST" action="../Controladores/controlador_validar_cupon.php">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" name="Codigo_Cupon" placeholder="Código del cupón" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Validar</button>
+                                <p id="mensaje_cupon" class="mt-3">
+                                    <?php
+                                    // Muestra el mensaje del cupón si está disponible
+                                    if (isset($_SESSION['mensaje_cupon'])) {
+                                        echo htmlspecialchars($_SESSION['mensaje_cupon']);
+                                        unset($_SESSION['mensaje_cupon']);
+                                    }
+                                    ?>
+                                </p>
+                            </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -236,8 +236,8 @@ if ($cupon) {
                         <div id="collapseSummary" class="accordion-collapse collapse show"
                             data-bs-parent="#accordionSummary">
                             <div class="accordion-body">
-                            <div class="resumen_total">
-                                     <?php
+                                <div class="resumen_total">
+                                    <?php
                                     // Obtener el descuento del cupón, si existe
                                     $descuentoCupon = 0;
                                     if ($cupon) {
@@ -299,25 +299,25 @@ if ($cupon) {
         </div>
 
         <div class="col-12">
-        <form method="post" action="../Controladores/controlador_pedidos.php">
-    <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
-    <input type="hidden" name="total" id="total" value="<?php echo htmlspecialchars($totalConDescuento); ?>">
-    <input type="hidden" name="descuento_cupon" id="descuento_cupon" value="<?php echo htmlspecialchars($descuentoCupon); ?>">
-    <input type="hidden" name="cupon" id="cupon" value="<?php echo htmlspecialchars($_SESSION['cupon']['codigo'] ?? ''); ?>">
+            <form method="post" action="../Controladores/controlador_pedidos.php">
+                <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
+                <input type="hidden" name="total" id="total" value="<?php echo htmlspecialchars($totalConDescuento); ?>">
+                <input type="hidden" name="descuento_cupon" id="descuento_cupon" value="<?php echo htmlspecialchars($descuentoCupon); ?>">
+                <input type="hidden" name="cupon" id="cupon" value="<?php echo htmlspecialchars($_SESSION['cupon']['codigo'] ?? ''); ?>">
 
-    <?php
-    foreach ($productosPorRestaurante as $id_restaurante => $datos) {
-        echo '<input type="hidden" name="restaurantes[' . htmlspecialchars($id_restaurante) . '][nombre]" value="' . htmlspecialchars($datos['nombre_restaurante']) . '">';
-        foreach ($datos['productos'] as $producto) {
-            echo '<input type="hidden" name="restaurantes[' . htmlspecialchars($id_restaurante) . '][productos][]" value="' . htmlspecialchars($producto['ID_Producto']) . '">';
-            echo '<input type="hidden" name="restaurantes[' . htmlspecialchars($id_restaurante) . '][cantidad][]" value="' . htmlspecialchars($producto['cantidad']) . '">';
-            echo '<input type="hidden" name="restaurantes[' . htmlspecialchars($id_restaurante) . '][precio][]" value="' . htmlspecialchars($producto['Valor_P']) . '">';
-        }
-    }
-    ?>
-    <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
-    <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
-</form>
+                <?php
+                foreach ($productosPorRestaurante as $id_restaurante => $datos) {
+                    echo '<input type="hidden" name="restaurantes[' . htmlspecialchars($id_restaurante) . '][nombre]" value="' . htmlspecialchars($datos['nombre_restaurante']) . '">';
+                    foreach ($datos['productos'] as $producto) {
+                        echo '<input type="hidden" name="restaurantes[' . htmlspecialchars($id_restaurante) . '][productos][]" value="' . htmlspecialchars($producto['ID_Producto']) . '">';
+                        echo '<input type="hidden" name="restaurantes[' . htmlspecialchars($id_restaurante) . '][cantidad][]" value="' . htmlspecialchars($producto['cantidad']) . '">';
+                        echo '<input type="hidden" name="restaurantes[' . htmlspecialchars($id_restaurante) . '][precio][]" value="' . htmlspecialchars($producto['Valor_P']) . '">';
+                    }
+                }
+                ?>
+                <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
+                <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
+            </form>
 
         </div>
     </div>

@@ -85,7 +85,7 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
             <h4>Guaviareya@gmail.com</h4>
           </div>
           <div class="col-md-2 go-store">
-            <a href="controlador.php?seccion=login"><button style="border-radius: 30px;">Tienda</button></a>
+            
           </div>
           <div class="col-md-5 tlf">
             <h4>+57 3143920233</h4>

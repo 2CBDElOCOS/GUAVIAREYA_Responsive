@@ -18,7 +18,7 @@ $restaurantes = $mostrarProductos->obtenerRestaurantes();
             <div class="col-md-12 ico-footer">
                     <a href="controlador.php?seccion=SuperAdmin_Panel"><i class="fa-solid fa-tent-arrow-turn-left"></i></a>
                 </div>
-                <h1 class="text-center">RESTAURANTES</h1>
+                <h1 class="text-center" style="color:white;">RESTAURANTES</h1>
                 <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
                     <?php
                     foreach ($restaurantes as $restaurante) {
