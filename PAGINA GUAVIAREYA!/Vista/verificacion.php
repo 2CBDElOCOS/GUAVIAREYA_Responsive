@@ -3,6 +3,7 @@
 
 <head>
     <title>Verificación</title>
+   
 </head>
 
 <body class="bg-light d-flex justify-content-center align-items-center min-vh-100">
@@ -30,9 +31,18 @@
                 <input type="file" id="img_P" name="img_P" class="form-control" accept="image/*" required>
             </div>
 
+            <!-- Mensaje de error -->
+            <?php if (isset($_GET['error'])): ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo htmlspecialchars($_GET['error']); ?>
+                </div>
+            <?php endif; ?>
+
             <button type="submit" class="btn btn-primary w-100">Agregar</button>
         </form>
     </div>
+
+
 </body>
 
 </html>

@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <form action="controlador_tarjeta.php" method="post">
+            <form action="../Controladores/controlador_tarjeta.php" method="post">
                 <div class="row">
                     <div class="col-12 col-md-6 di-na">
                         <label for="tarjeta">Número de la tarjeta</label>
