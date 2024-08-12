@@ -197,7 +197,6 @@ Class DataUser {
                 'likes_dislikes',
                 'Documentos_Identificacion',
                 'Cupones',
-                'Pedidos_factura',
                 'metodos_pago',
                 'Pedidos',
                 'Direccion_Entregas',

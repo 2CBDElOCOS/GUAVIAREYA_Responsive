@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'cvv' => $cvv
         ];
         // Redirigir a facturacion.php
-        header("Location: ../Controladores/controlador.php?seccion=facturacion");
+        header("Location: ../Controladores/controlador.php?seccion=verificacion");
         exit;
     } else {
         header("Location: ../Controladores/controlador.php?seccion=tarjeta&error");

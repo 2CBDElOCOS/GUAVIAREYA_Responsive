@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Actualiza la fecha de uso del cupón si es necesario
         if ($cuponCodigo && $cuponDescuento > 0) {
             $guardarPedido->actualizarFechaUsoCupon($cuponCodigo);
-            header("Location: ../Controladores/controlador.php?seccion=verificacion");
+            header("Location: ../Controladores/controlador.php?seccion=confirmacion");
         } else {
             header("Location: ../Controladores/controlador.php?seccion=facturacion&error=1");
         }
