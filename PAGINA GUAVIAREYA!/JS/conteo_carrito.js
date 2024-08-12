@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Función para manejar el clic en el botón Agregar
-    $('.btn-agregar').click(function(event) {
+    $('.gp-btn-agregar').click(function(event) {
         event.preventDefault(); // Prevenir el envío del formulario
 
         var form = $(this).closest('form'); // Obtener el formulario más cercano
@@ -14,7 +14,7 @@ $(document).ready(function() {
             // Verificar si la respuesta fue exitosa
             if (data.success) {
                 // Actualizar el contador del carrito
-                $('#contador-carrito').text(data.contador);
+                $('#gp-contador-carrito').text(data.contador);
 
                 // Opcional: Puedes mostrar un mensaje de éxito o una notificación al usuario
                 console.log('Producto agregado al carrito con éxito.');
