@@ -55,28 +55,30 @@ $likeDislike = new LikeDislike();
 
                         echo '
                         <div class="col">
-                            <a style="text-decoration:none" href="' . $link . '" ' . ($estado !== 'Abierto' ? 'onclick="return false;"' : '') . '>
-                                <div class="card h-100">
-                                    <img style="object-fit: cover; width: 100%; height: 200px;" src="../media_restaurantes/' . $restaurante['img_R'] . '" class="card-img-top" alt="Imagen de ' . $restaurante['Nombre_R'] . '">
-                                    <div class="card-body">
-                                        <h5 class="card-title"> NOMBRE: '. $restaurante['Nombre_R'] . '</h5> 
-                                        <p class="card-text"> Dirección: ' . $restaurante['Direccion'] . '</p>
-                                        <p class="card-text"> Teléfono: '  . $restaurante['Telefono'] . '</p>
-                                        <p class="card-text ' . $estadoClase . '"> Estado: '  . $estado . '</p>
-                                        <div class="like-dislike-container d-flex justify-content-between">
-                                            <button class="btn btn-outline-success like-btn" data-id="' . $id_restaurante . '">
-                                                <i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i> 
-                                                <span class="like-count">' . $likes . '</span>
-                                            </button>
-                                            <button class="btn btn-outline-danger dislike-btn" data-id="' . $id_restaurante . '">
-                                                <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
-                                                <span class="dislike-count">' . $dislikes . '</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>';
+    <a style="text-decoration:none" href="' . $link . '" ' . ($estado !== 'Abierto' ? 'onclick="return false;"' : '') . '>
+        <div class="card h-100">
+            <div class="card-img-container">
+                <img src="../media_restaurantes/' . $restaurante['img_R'] . '" class="card-img-top" alt="Imagen de ' . $restaurante['Nombre_R'] . '">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"> NOMBRE: ' . $restaurante['Nombre_R'] . '</h5> 
+                <p class="card-text"> Dirección: ' . $restaurante['Direccion'] . '</p>
+                <p class="card-text"> Teléfono: ' . $restaurante['Telefono'] . '</p>
+                <p class="card-text ' . $estadoClase . '"> Estado: ' . $estado . '</p>
+                <div class="like-dislike-container d-flex justify-content-between">
+                    <button class="btn btn-outline-success like-btn" data-id="' . $id_restaurante . '">
+                        <i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i> 
+                        <span class="like-count">' . $likes . '</span>
+                    </button>
+                    <button class="btn btn-outline-danger dislike-btn" data-id="' . $id_restaurante . '">
+                        <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+                        <span class="dislike-count">' . $dislikes . '</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>';
                     }
                     ?>
                 </div>
