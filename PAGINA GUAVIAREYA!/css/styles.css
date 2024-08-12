@@ -537,46 +537,48 @@ header {
 }
 
 /*PRODUCTOS*/
-.card-img-top {
+.productos-container .gp-card-img-top {
     border-radius: 50px;
     padding: 20px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
-.card {
+.productos-container .gp-card {
     border-radius: 30px;
-    box-shadow: #b4caca;
-
+    box-shadow: 0 4px 8px rgba(180, 202, 202, 0.5);
+    background-color: #ffffff;
 }
 
-.card-body {
+.productos-container .gp-card-body {
     padding: 25px;
     margin-top: -15px;
+    display: flex;
+    flex-direction: column;
 }
 
-h3,
-h5 {
-    color: rgb(0, 0, 0, 0.8);
+.productos-container .gp-card-title,
+.productos-container .gp-card-text,
+.productos-container h3 {
+    color: rgba(0, 0, 0, 0.8);
     font-weight: bold;
 }
 
-
-
-.ico-header,
-.ico-carro {
+.productos-container .gp-ico-header,
+.productos-container .gp-ico-carro {
     padding-top: 3%;
     padding-bottom: 3%;
     text-align: center;
-    /* Alineación centrada para el contenedor de íconos */
 }
 
-.ico-hader a,
-.ico-carro a {
+.productos-container .gp-ico-header a,
+.productos-container .gp-ico-carro a {
     display: inline-block;
-    /* Convertir en bloque en línea para aplicar alineación */
     margin: 0 10px;
 }
 
-.ico-header i {
+.productos-container .gp-ico-header i {
     font-size: 30px;
     color: rgb(255, 255, 255);
     border-radius: 50%;
@@ -585,17 +587,39 @@ h5 {
     padding: 10px;
 }
 
-.ico-header .bx {
+.productos-container .gp-ico-header .bx {
     margin-left: 50%;
 }
 
-.contador-carrito {
+.productos-container .gp-contador-carrito {
     background-color: orange;
     color: white;
     border-radius: 50%;
     padding: 1px 6px;
     font-size: 1em;
+}
 
+/* Asegúrate de que las imágenes en las tarjetas sean responsivas */
+.gp-card-img-top {
+    max-width: 100%;
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+/* Asegúrate de que las tarjetas se adapten en pantallas más pequeñas */
+.gp-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajusta el tamaño de las tarjetas en diferentes pantallas */
+@media (max-width: 768px) {
+    .productos-container .row {
+        row-gap: 1rem; /* Añade espacio entre filas en pantallas más pequeñas */
+    }
 }
 
 /*carrito*/
