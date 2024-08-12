@@ -73,7 +73,7 @@ class add_foto {
                 if ($sql->execute()) {
                     // Cerrar la conexión y redirigir en caso de éxito
                     $conn->close();
-                    header("location: controlador.php?seccion=facturacion");
+                    header("location: controlador.php?seccion=confirmacion");
                     exit;
                 } else {
                     // Redirigir si hay un error al insertar en la base de datos
