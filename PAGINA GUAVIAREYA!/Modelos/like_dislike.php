@@ -20,7 +20,7 @@ class LikeDislike {
      */
     public function insertarLikeDislike($correo, $id_restaurante, $tipo) {
         // Verificar si ya existe un registro para este usuario y restaurante
-        $sql = "SELECT * FROM Likes_Dislikes WHERE Correo = ? AND ID_Restaurante = ?";
+        $sql = "SELECT Tipo FROM Likes_Dislikes WHERE Correo = ? AND ID_Restaurante = ?";
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta: " . $this->conn->error);
@@ -28,15 +28,22 @@ class LikeDislike {
         $stmt->bind_param("si", $correo, $id_restaurante);
         $stmt->execute();
         $result = $stmt->get_result();
-
+        $row = $result->fetch_assoc();
+    
         if ($result->num_rows > 0) {
-            // Si ya existe, actualizar el tipo de like/dislike
-            $sql = "UPDATE Likes_Dislikes SET Tipo = ?, Fecha = CURRENT_TIMESTAMP WHERE Correo = ? AND ID_Restaurante = ?";
-            $stmt = $this->conn->prepare($sql);
-            if (!$stmt) {
-                throw new Exception("Error al preparar la consulta: " . $this->conn->error);
+            // Si ya existe, comprobar si el tipo es el mismo
+            if ($row['Tipo'] === $tipo) {
+                // Si es el mismo, eliminar el like/dislike
+                return $this->eliminarLikeDislike($correo, $id_restaurante);
+            } else {
+                // Si es diferente, actualizar el tipo
+                $sql = "UPDATE Likes_Dislikes SET Tipo = ?, Fecha = CURRENT_TIMESTAMP WHERE Correo = ? AND ID_Restaurante = ?";
+                $stmt = $this->conn->prepare($sql);
+                if (!$stmt) {
+                    throw new Exception("Error al preparar la consulta: " . $this->conn->error);
+                }
+                $stmt->bind_param("ssi", $tipo, $correo, $id_restaurante);
             }
-            $stmt->bind_param("ssi", $tipo, $correo, $id_restaurante);
         } else {
             // Si no existe, insertar un nuevo registro
             $sql = "INSERT INTO Likes_Dislikes (Correo, ID_Restaurante, Tipo) VALUES (?, ?, ?)";
@@ -46,14 +53,14 @@ class LikeDislike {
             }
             $stmt->bind_param("sis", $correo, $id_restaurante, $tipo);
         }
-
+    
         if ($stmt->execute()) {
             return "Success";
         } else {
             throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
         }
     }
-
+    
     /**
      * Obtiene el conteo de likes para un restaurante específico.
      * 
@@ -96,6 +103,20 @@ class LikeDislike {
 
     public function __destruct() {
         $this->conn->close();
+    }
+    public function eliminarLikeDislike($correo, $id_restaurante) {
+        // Elimina el registro de like/dislike para el usuario y restaurante dado
+        $sql = "DELETE FROM Likes_Dislikes WHERE Correo = ? AND ID_Restaurante = ?";
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta: " . $this->conn->error);
+        }
+        $stmt->bind_param("si", $correo, $id_restaurante);
+        if ($stmt->execute()) {
+            return "Success";
+        } else {
+            throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
+        }
     }
 }
 ?>
