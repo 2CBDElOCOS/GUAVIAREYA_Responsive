@@ -12,7 +12,7 @@
         <div class="productos-container">
             <div class="col-md-12 gp-ico-header d-flex justify-content-between mb-4">
                 <a href="controlador.php?seccion=comida"><i class="fa fa-circle-arrow-left"></i></a>
-                <a style="text-decoration: none;" href="controlador.php?seccion=carrito">
+                <a style="text-decoration: none;" href="controlador.php?seccion=carrito" class="gp-icon-container d-flex align-items-center">
                     <i class="bx bx-cart"></i>
                     <span id="gp-contador-carrito" class="gp-contador-carrito">
                         <?php
