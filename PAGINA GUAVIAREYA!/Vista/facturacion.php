@@ -27,8 +27,6 @@ if ($cupon) {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -36,8 +34,6 @@ if ($cupon) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GuaviareYa!</title>
-
-
 </head>
 
 <body>
@@ -95,19 +91,19 @@ if ($cupon) {
                                         </tbody>
                                     </table>
                                 </form>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
             <div class="col-12 mb-4">
                 <div class="accordion" id="accordionExample">
                     <?php
+                    // Inicializar la variable para productos por restaurante
+                    $productosPorRestaurante = [];
+
                     if (!empty($_SESSION['carrito'])) {
-                        $productosPorRestaurante = [];
                         foreach ($_SESSION['carrito'] as $ID_Restaurante => $restaurante) {
                             $nombre_restaurante = $mostrarProductos->obtenerNombreRestaurante($ID_Restaurante);
                             $productosPorRestaurante[$ID_Restaurante] = [
@@ -147,15 +143,12 @@ if ($cupon) {
                 </div>
             </div>
 
-
             <div class="col-12 estimada">
                 <h6 class="esti">Entrega estimada:</h6>
                 <b>
                     <p class="esti-tiempo">35-50 minutos</p>
                 </b>
             </div>
-
-
 
             <div class="col-12 esti-tiempo">
                 <div class="flex-container">
@@ -182,9 +175,6 @@ if ($cupon) {
                     </div>
                 </div>
             </div>
-
-
-
 
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -214,16 +204,12 @@ if ($cupon) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <!-- Botón "Validar" no necesario en el pie del modal, ya que hay un botón de envío en el formulario -->
+                            <button type="button" class="btn btn-primary">Guardar cambios</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-
-
-        </div>
-        <div class="row">
             <div class="col-12 mb-4">
                 <div class="accordion" id="accordionSummary">
                     <div class="accordion-item">
@@ -238,21 +224,23 @@ if ($cupon) {
                             <div class="accordion-body">
                                 <div class="resumen_total">
                                     <?php
-                                    // Obtener el descuento del cupón, si existe
+                                    // Inicializar variables para el resumen
                                     $descuentoCupon = 0;
+                                    $subtotal = 0;
+                                    $costoEnvio = 3000;
+                                    $impuestosTarifas = 2000;
+
                                     if ($cupon) {
                                         $descuentoCupon = $cupon['descuento']; // Porcentaje de descuento
                                     }
 
-                                    // Calcular el subtotal, costos de envío, impuestos y tarifas
-                                    $subtotal = 0;
-                                    foreach ($_SESSION['carrito'] as $restaurante) {
-                                        foreach ($restaurante['productos'] as $producto) {
-                                            $subtotal += $producto['Valor_P'] * $producto['cantidad'];
+                                    if (!empty($productosPorRestaurante)) {
+                                        foreach ($productosPorRestaurante as $restaurante) {
+                                            foreach ($restaurante['productos'] as $producto) {
+                                                $subtotal += $producto['Valor_P'] * $producto['cantidad'];
+                                            }
                                         }
                                     }
-                                    $costoEnvio = 3000;
-                                    $impuestosTarifas = 2000;
 
                                     // Calcular el total antes de aplicar el descuento
                                     $total = $subtotal + $costoEnvio + $impuestosTarifas;
@@ -260,7 +248,6 @@ if ($cupon) {
                                     // Aplicar el descuento del cupón
                                     $totalConDescuento = $total - ($total * ($descuentoCupon / 100));
                                     ?>
-
 
                                     <div class="resumen">
                                         <h6>Costo de productos</h6>
@@ -296,9 +283,7 @@ if ($cupon) {
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12">
             <form method="post" action="../Controladores/controlador_pedidos.php">
                 <input type="hidden" name="costo_envio" id="costo_envio" value="3000">
                 <input type="hidden" name="total" id="total" value="<?php echo htmlspecialchars($totalConDescuento); ?>">
@@ -318,16 +303,31 @@ if ($cupon) {
                 <input type="hidden" name="tipo_envio" id="tipo_envio" value="Básica">
                 <button type="submit" id="confirmarPedidoBtn" class="btn-pagar">Confirmar pedido</button>
             </form>
-
         </div>
     </div>
 
+    <script>
+        function updateEstimatedTimeAndFees() {
+            const tipoEnvio = document.querySelector('input[name="envio"]:checked').value;
+            const costoEnvioInput = document.getElementById('costo_envio');
+            const totalInput = document.getElementById('total');
 
-    <script src="../JS/actualizar_tiempo_entrega.js"></script>
-    <script src="../JS/guardar_direccion_seleccionada.js"></script>
-    <script src="../JS/confirmar_pedido.js"></script>
+            let costoEnvio = 3000;
+            if (tipoEnvio === 'Prioritaria') {
+                costoEnvio += 5000;
+            }
 
+            const subtotal = parseFloat(totalInput.value) - (costoEnvioInput.value - 3000);
+            const total = subtotal + costoEnvio;
 
+            costoEnvioInput.value = costoEnvio;
+            totalInput.value = total;
+        }
+    </script>
 </body>
+
+<script src="../JS/actualizar_tiempo_entrega.js"></script>
+<script src="../JS/guardar_direccion_seleccionada.js"></script>
+<script src="../JS/confirmar_pedido.js"></script>
 
 </html>
