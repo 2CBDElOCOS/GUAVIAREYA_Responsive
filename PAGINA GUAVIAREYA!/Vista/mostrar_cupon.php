@@ -38,6 +38,9 @@
                     no-repeat
                 `,
                 confirmButtonText: 'Continuar',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showCloseButton: false
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Marcar el cupón como usado
