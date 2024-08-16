@@ -7,7 +7,7 @@ require_once("../Modelos/Registrar.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $captchaResponse = $_POST['cf-turnstile-response'];
-    $secretKey = '0x4AAAAAAAgDs52B4mxcqN8Dogf2JgT5KTg';
+    $secretKey = '0x4AAAAAAAhLS4rBfBsSh4OwfLfZ9N_Wm-M';
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://challenges.cloudflare.com/turnstile/v0/siteverify");
