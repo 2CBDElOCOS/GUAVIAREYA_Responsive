@@ -67,7 +67,7 @@
                         <div class="input-group mb-3">
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Registrarse</button>
                         </div>
-                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAgDs9tR8EZ6iKVr" data-language="es" data-theme="light"></div>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAhLS0Gj3wcsL0MO" data-language="es" data-theme="light"></div>
                     </form>
                 </div>
             </div>
