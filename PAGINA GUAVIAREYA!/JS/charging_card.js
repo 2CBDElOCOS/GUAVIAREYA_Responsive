@@ -1,10 +1,1 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector("form");
-    const loadingCard = document.getElementById("loading-card");
-    const contentCard = document.getElementById("content-card");
-
-    form.addEventListener("submit", function() {
-        loadingCard.style.display = "block";
-        contentCard.style.display = "none";
-    });
-});
+document.addEventListener("DOMContentLoaded",(function(){const e=document.querySelector("form"),t=document.getElementById("loading-card"),n=document.getElementById("content-card");e.addEventListener("submit",(function(){t.style.display="block",n.style.display="none"}))}));
