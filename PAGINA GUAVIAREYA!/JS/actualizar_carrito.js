@@ -1,1 +1,24 @@
-$(document).ready((function(){function a(a,t,r,o){a=(a+"").replace(",","").replace(" ","");var i=isFinite(+a)?+a:0,e=isFinite(+t)?Math.abs(t):0,n=void 0===o?",":o,c=void 0===r?".":r,l="";return l=(e?function(a,t){var r=Math.pow(10,t);return""+Math.round(a*r)/r}(i,e):""+Math.round(i)).split("."),l[0].length>3&&(l[0]=l[0].replace(/\B(?=(?:\d{3})+(?!\d))/g,n)),(l[1]||"").length<e&&(l[1]=l[1]||"",l[1]+=new Array(e-l[1].length+1).join("0")),l.join(c)}console.log("JavaScript cargado"),$(".cantidad").on("change",(function(){var t,r,o,i;t=$(this),r=t.val(),o=t.data("id"),i=t.closest(".row"),$.ajax({url:"controlador_actualizar_carrito.php",type:"POST",data:{id_producto:o,cantidad:r},success:function(t){console.log("Respuesta recibida:",t);var r=JSON.parse(t);r.success?(i.find(".precio-unitario").text("COP "+a(r.precio_unitario,0,",",".")),$("#subtotal").text("COP "+a(r.subtotal,0,",","."))):alert("Error al actualizar el carrito.")}})}))}));
+$(document).ready(function() {
+    $('.cantidad').on('change', function() {
+        var idProducto = $(this).data('id');
+        var cantidad = $(this).val();
+
+        $.ajax({
+            url: '../Controladores/controlador_actualizar_carrito.php',
+            type: 'POST',
+            data: { id_producto: idProducto, cantidad: cantidad },
+            dataType: 'json',
+            success: function(response) {
+                if (response.error) {
+                    console.error('Error en el servidor:', response.error);
+                } else {
+                    $('#subtotal').text('COP ' + new Intl.NumberFormat().format(response.subtotal));
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al actualizar el carrito:', status, error);
+                console.error('Respuesta del servidor:', xhr.responseText); // Muestra la respuesta completa para depuración
+            }
+        });
+    });
+});
