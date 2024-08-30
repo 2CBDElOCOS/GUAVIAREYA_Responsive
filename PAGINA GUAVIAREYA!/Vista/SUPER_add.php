@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Restaurante - Administrador</title>
+
 </head>
 <body>
     <form id="productForm" enctype="multipart/form-data" method="POST" action="controlador_Super.php" class="card">
@@ -37,8 +38,14 @@
             <input type="file" id="img_R" name="img_R" class="form-control-file" accept="image/*" required>
         </div>
 
+        <!-- Alerta de error -->
+        <?php if (isset($_GET['error'])): ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo htmlspecialchars($_GET['error']); ?>
+            </div>
+        <?php endif; ?>
+
         <button type="submit" class="btn btn-primary">Agregar</button>
     </form>
-
 </body>
 </html>

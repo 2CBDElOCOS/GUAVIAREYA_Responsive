@@ -1,26 +1,13 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-
-if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
-    header("location: ../Controladores/controlador.php?seccion=login");
-    exit();
-}?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GuaviareYa!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="../JS/actualizar_carrito.js"></script>
 </head>
-
 <body>
     <div class="container mt-4">
         <div class="row">
@@ -36,15 +23,12 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
                         <h3 class="text-center mb-4">Tu Carrito</h3>
 
                         <?php
-                        if (session_status() == PHP_SESSION_NONE) {
-                            session_start();
-                        }
-
                         include('../Modelos/mostrar_productos.php');
                         $mostrarProductos = new mostrar_productos();
+                        include('../Modelos/carrito.php');
 
                         $isEmpty = !isset($_SESSION['carrito']) || empty($_SESSION['carrito']);
-                        $subtotal = 0;
+                        $subtotal = CarritoModelo::calcularSubtotal($_SESSION['carrito']);
 
                         if ($isEmpty) {
                             echo '<div class="col-12 text-center"><h3 class="name-car">Tu carrito está vacío</h3></div>';
@@ -52,22 +36,23 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
                             foreach ($_SESSION['carrito'] as $ID_Restaurante => $restaurante) {
                                 echo '<div class="col-12"><h6 class="fw-bold text-uppercase pt-3">' . htmlspecialchars($restaurante['Nombre_Restaurante']) . '</h6></div>';
                                 foreach ($restaurante['productos'] as $producto) {
-                                    $subtotal += $producto['Valor_P'] * $producto['cantidad'];
                                     echo '
                                     <div class="row carrito" data-id="' . htmlspecialchars($producto['ID_Producto']) . '">
-                                        <div class="col-4 col-md-2">
+                                        <div class="col-md-2">
                                             <img src="../media_productos/' . htmlspecialchars($producto['img_P']) . '" alt="' . htmlspecialchars($producto['Nombre_P']) . '" class="img-fluid">
                                         </div>
-                                        <div class="col-8 col-md-5">
+                                        <div class="col-md-3">
                                             <p>' . htmlspecialchars($producto['Descripcion']) . '</p>
                                         </div>
-                                        <div class="col-12 col-md-2">
-                                            <input type="number" name="cantidad" min="1" max="20" value="' . $producto['cantidad'] . '" class="form-control cantidad" data-id="' . $producto['ID_Producto'] . '">
+                                        <div class="col-md-2">
+                                            <input type="number" name="cantidad" min="1" max="20" value="' . htmlspecialchars($producto['cantidad']) . '" class="form-control cantidad" data-id="' . htmlspecialchars($producto['ID_Producto']) . '" data-precio="' . htmlspecialchars($producto['Valor_P']) . '">
                                         </div>
-                                        <div class="col-12 col-md-3 text-end">
-                                            <p class="precio-unitario" data-precio="' . $producto['Valor_P'] . '">COP ' . number_format($producto['Valor_P'], 0, ',', '.') . '</p>
-                                            <a href="controlador_eliminar_procarrito.php?id_producto=' . $producto['ID_Producto'] . '&id_restaurante=' . $ID_Restaurante . '">
-                                                <i class="fa-solid fa-trash" style="color: orange; font-size: 25px;"></i>
+                                        <div class="col-md-2 text-end">
+                                            <p class="precio-unitario" data-precio="' . htmlspecialchars($producto['Valor_P']) . '">COP ' . number_format($producto['Valor_P'], 0, ',', '.') . '</p>
+                                        </div>
+                                        <div class="col-md-2 text-end">
+                                            <a href="controlador_eliminar_procarrito.php?id_producto=' . htmlspecialchars($producto['ID_Producto']) . '&id_restaurante=' . htmlspecialchars($ID_Restaurante) . '">
+                                            <i class="bx bxs-trash-alt" style="color:#fd8307; font-size:25px;" ></i>
                                             </a>
                                         </div>
                                     </div>';
@@ -94,7 +79,5 @@ if (!isset($_SESSION['correo']) || $_SESSION['correo'] == "") {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../JS/actualizar_carrito.js"></script>
 </body>
-
 </html>

@@ -20,6 +20,21 @@
                     <div class="header-text mb-4">
                         <h2 style="text-align: center;">INICIA SESIÓN</h2>
                     </div>
+                    <!-- Alerta de cuenta eliminada -->
+                    <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'cuenta_eliminada'): ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>¡Cuenta eliminada con éxito!</strong> Lamentamos verte partir. Esperamos que regreses pronto. ¡Te estaremos esperando!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Alerta de registro exitoso -->
+                    <?php if (isset($_GET['registro_exitoso']) && $_GET['registro_exitoso'] == 1): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>¡Registro exitoso!</strong> Tu cuenta se registró correctamente. Por favor, inicia sesión.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
 
                     <form method="POST" action="Controlador_Usuario.php">
                         <div class="input-group mb-3">
@@ -33,13 +48,19 @@
                         </div>
 
                         <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
-                        <div class="w-100">
-                            <div class="alert alert-danger mt-2 w-100" role="alert">
-                                Contraseña o correo incorrectos. Por favor, inténtalo de nuevo.
+                            <div class="w-100">
+                                <div class="alert alert-danger mt-2 w-100" role="alert">
+                                    Contraseña o correo incorrectos. Por favor, inténtalo de nuevo.
+                                </div>
                             </div>
-                        </div>
+                        <?php elseif (isset($_GET['error']) && $_GET['error'] == 2): ?>
+                            <div class="w-100">
+                                <div class="alert alert-warning mt-2 w-100" role="alert">
+                                    Correo no registrado. Por favor, regístrate.
+                                </div>
+                            </div>
                         <?php endif; ?>
-                        
+
                         <div class="d-flex justify-content-between mb-3">
                             <small><a href="controlador.php?seccion=Olvidaste">¿Olvidaste tu contraseña?</a></small>
                         </div>
@@ -56,6 +77,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../JS/alerta_bloqueo.js"></script>
     <script src="../JS/mostrar_contraseña.js"></script>

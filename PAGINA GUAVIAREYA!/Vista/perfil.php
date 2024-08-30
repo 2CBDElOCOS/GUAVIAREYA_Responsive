@@ -73,7 +73,7 @@ $cupon = Cupones::ObtenerCuponPorCorreo($_SESSION['correo']);
                             <div class="mt-3 file-upload">
                                 <form method="POST" action="Controlador_Foto.php" enctype="multipart/form-data">
                                     <label for="img_U" class="file-upload-icon">
-                                        <i class="fas fa-upload"></i> 
+                                        <i class="fas fa-upload"></i>
                                     </label>
                                     <br>
                                     <input type="file" id="img_U" name="img_U" accept="image/*">
@@ -91,11 +91,15 @@ $cupon = Cupones::ObtenerCuponPorCorreo($_SESSION['correo']);
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li><a class="dropdown-item" href="controlador.php?seccion=perfil_E">Editar datos</a></li>
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Cambiar_clave">Cambiar Contraseña</a></li>
-                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_P">Tus pedidos</a></li>
                                         <li><a class="dropdown-item" href="controlador.php?seccion=Perfil_Direcciones">Dirección de entregas</a></li>
                                         <li><a class="dropdown-item" href="../Controladores/controlador_cerrar_session.php">Cerrar sesión</a></li>
-                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
                                         <li><a class="dropdown-item" href="../Controladores/Controlador_EliminarCuenta.php" onclick="return confirmarEliminacion();">Eliminar Cuenta</a></li>
                                     </ul>
                                 </div>
@@ -168,6 +172,14 @@ $cupon = Cupones::ObtenerCuponPorCorreo($_SESSION['correo']);
                                     ?>
                                 </div>
                             </div>
+
+                            <!-- Mensaje de éxito -->
+                            <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>¡Éxito!</strong> Tu contraseña se ha cambiado correctamente.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

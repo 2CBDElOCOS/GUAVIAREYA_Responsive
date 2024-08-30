@@ -306,24 +306,6 @@ if ($cupon) {
         </div>
     </div>
 
-    <script>
-        function updateEstimatedTimeAndFees() {
-            const tipoEnvio = document.querySelector('input[name="envio"]:checked').value;
-            const costoEnvioInput = document.getElementById('costo_envio');
-            const totalInput = document.getElementById('total');
-
-            let costoEnvio = 3000;
-            if (tipoEnvio === 'Prioritaria') {
-                costoEnvio += 5000;
-            }
-
-            const subtotal = parseFloat(totalInput.value) - (costoEnvioInput.value - 3000);
-            const total = subtotal + costoEnvio;
-
-            costoEnvioInput.value = costoEnvio;
-            totalInput.value = total;
-        }
-    </script>
 </body>
 
 <script src="../JS/actualizar_tiempo_entrega.js"></script>

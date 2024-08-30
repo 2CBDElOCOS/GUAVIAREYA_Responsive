@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -28,6 +26,7 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="row">
+
                                     <div class="col-sm-3">
                                         <br>
                                         <h6 class="mb-0">Contraseña anterior</h6>
@@ -98,12 +97,15 @@
                             echo "<div class='alert alert-danger' role='alert'>$error_message</div>";
                         }
                         ?>
+
+                       
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
-<script src="../JS/mostrar_contraseña.js"></script>
+    <script src="../JS/mostrar_contraseña.js"></script>
 </body>
 
 </html>

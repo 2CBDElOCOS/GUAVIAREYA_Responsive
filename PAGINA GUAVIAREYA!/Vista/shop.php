@@ -122,8 +122,6 @@ if (isset($_GET['search'])) {
   } else {
     echo "<h3>No se encontraron resultados para '<strong>" . htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8') . "</strong>'</h3>";
   }
-} else {
-  echo "<h3>Introduce un término de búsqueda.</h3>";
 }
 ?>
 </div>
