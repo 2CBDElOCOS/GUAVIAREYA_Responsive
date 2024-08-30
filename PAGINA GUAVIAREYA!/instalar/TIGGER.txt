@@ -1,78 +1,78 @@
--- Elimina el trigger si existe
-DROP TRIGGER IF EXISTS `after_usuario_insert`;
+    -- Elimina el trigger si existe
+    DROP TRIGGER IF EXISTS `after_usuario_insert`;
 
--- Crea el trigger después de insertar en la tabla Usuarios
-DELIMITER //
-CREATE TRIGGER `after_usuario_insert`
-AFTER INSERT ON `Usuarios`
-FOR EACH ROW
-BEGIN
-    DECLARE cupon_codigo VARCHAR(50);
-    DECLARE cupon_descuento INT;
-    DECLARE cupon_expiracion DATE;
+    -- Crea el trigger después de insertar en la tabla Usuarios
+    DELIMITER //
+    CREATE TRIGGER `after_usuario_insert`
+    AFTER INSERT ON `Usuarios`
+    FOR EACH ROW
+    BEGIN
+        DECLARE cupon_codigo VARCHAR(50);
+        DECLARE cupon_descuento INT;
+        DECLARE cupon_expiracion DATE;
 
-    -- Generar un código de cupón único
-    SET cupon_codigo = CONCAT('CUPON', LEFT(MD5(NEW.Correo), 10), UNIX_TIMESTAMP() % 100000);
-    -- Establecer el descuento y la fecha de expiración
-    SET cupon_descuento = 10; -- Descuento del 10%
-    SET cupon_expiracion = DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY); -- 30 días de validez
+        -- Generar un código de cupón único
+        SET cupon_codigo = CONCAT('CUPON', LEFT(MD5(NEW.Correo), 10), UNIX_TIMESTAMP() % 100000);
+        -- Establecer el descuento y la fecha de expiración
+        SET cupon_descuento = 10; -- Descuento del 10%
+        SET cupon_expiracion = DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY); -- 30 días de validez
 
-    -- Insertar el nuevo cupón en la tabla Cupones
-    INSERT INTO `Cupones` (Correo, Codigo_Cupon, Descuento, Fecha_Expiracion)
-    VALUES (NEW.Correo, cupon_codigo, cupon_descuento, cupon_expiracion);
-END;
-//
-DELIMITER ;
+        -- Insertar el nuevo cupón en la tabla Cupones
+        INSERT INTO `Cupones` (Correo, Codigo_Cupon, Descuento, Fecha_Expiracion)
+        VALUES (NEW.Correo, cupon_codigo, cupon_descuento, cupon_expiracion);
+    END;
+    //
+    DELIMITER ;
 
--- Elimina la función si existe
-DROP FUNCTION IF EXISTS `verificar_estado_restaurante`;
+    -- Elimina la función si existe
+    DROP FUNCTION IF EXISTS `verificar_estado_restaurante`;
 
--- Crea la función para verificar el estado del restaurante
-DELIMITER //
-CREATE FUNCTION `verificar_estado_restaurante`(id_restaurante INT) 
-RETURNS VARCHAR(15)
-BEGIN
-    DECLARE estado VARCHAR(15);
+    -- Crea la función para verificar el estado del restaurante
+    DELIMITER //
+    CREATE FUNCTION `verificar_estado_restaurante`(id_restaurante INT) 
+    RETURNS VARCHAR(15)
+    BEGIN
+        DECLARE estado VARCHAR(15);
 
-    SELECT Estado INTO estado
-    FROM `Restaurantes`
-    WHERE ID_Restaurante = id_restaurante;
+        SELECT Estado INTO estado
+        FROM `Restaurantes`
+        WHERE ID_Restaurante = id_restaurante;
 
-    IF estado IS NULL THEN
-        RETURN 'No encontrado';
-    ELSE
-        RETURN estado;
-    END IF;
-END;
-//
-DELIMITER ;
+        IF estado IS NULL THEN
+            RETURN 'No encontrado';
+        ELSE
+            RETURN estado;
+        END IF;
+    END;
+    //
+    DELIMITER ;
 
--- Elimina el procedimiento si existe
-DROP PROCEDURE IF EXISTS `insertar_administrador`;
+    -- Elimina el procedimiento si existe
+    DROP PROCEDURE IF EXISTS `insertar_administrador`;
 
--- Crea el procedimiento para insertar un administrador
-DELIMITER //
-CREATE PROCEDURE `insertar_administrador`(
-    IN p_correo VARCHAR(50),
-    IN p_apodo VARCHAR(50),
-    IN p_contrasena VARCHAR(255),
-    IN p_rol VARCHAR(20),
-    IN p_ID_Restaurante INT,
-    IN p_img_A VARCHAR(200)
-)
-BEGIN
-    INSERT INTO `Administradores` (correo, apodo, contrasena, rol, ID_Restaurante, img_A)
-    VALUES (p_correo, p_apodo, MD5(p_contrasena), p_rol, p_ID_Restaurante, p_img_A);
-END;
-//
-DELIMITER ;
+    -- Crea el procedimiento para insertar un administrador
+    DELIMITER //
+    CREATE PROCEDURE `insertar_administrador`(
+        IN p_correo VARCHAR(50),
+        IN p_apodo VARCHAR(50),
+        IN p_contrasena VARCHAR(255),
+        IN p_rol VARCHAR(20),
+        IN p_ID_Restaurante INT,
+        IN p_img_A VARCHAR(200)
+    )
+    BEGIN
+        INSERT INTO `Administradores` (correo, apodo, contrasena, rol, ID_Restaurante, img_A)
+        VALUES (p_correo, p_apodo, MD5(p_contrasena), p_rol, p_ID_Restaurante, p_img_A);
+    END;
+    //
+    DELIMITER ;
 
--- Llama al procedimiento para insertar un administrador de ejemplo
-CALL `insertar_administrador`(
-    'guaviareya@gmail.com',
-    'GuaviareYa',
-    '12345678Aa@',
-    'super_administrador',
-    NULL, -- Si no hay restaurante asociado
-    NULL  -- Si no hay imagen asociada
-);
+    -- Llama al procedimiento para insertar un administrador de ejemplo
+    CALL `insertar_administrador`(
+        'guaviareya@gmail.com',
+        'GuaviareYa',
+        '12345678Aa@',
+        'super_administrador',
+        NULL, -- Si no hay restaurante asociado
+        NULL  -- Si no hay imagen asociada
+    );
