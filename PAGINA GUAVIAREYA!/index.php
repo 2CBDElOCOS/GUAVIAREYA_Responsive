@@ -21,7 +21,7 @@ try {
     // Si la conexión se realiza correctamente, redirige al controlador
     header("location: Controladores/controlador.php");
     exit;
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     // Si hay un error de conexión, redirige al instalador
     header("location: instalar/instalador.php");
     exit;
