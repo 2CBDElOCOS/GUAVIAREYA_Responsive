@@ -13,13 +13,14 @@ class Busqueda {
      * Establece la conexión a la base de datos.
      */
     public function __construct() {
+        // Establece la conexión a la base de datos utilizando la clase Conexion
         $this->conn = Conexion::conectar();
     }
 
     /**
      * Busca productos en la base de datos según el término de búsqueda proporcionado.
      *
-     * @param string $searchTerm El término de búsqueda.
+     * @param string $searchTerm El término de búsqueda proporcionado por el usuario.
      * @return array Un array con los productos encontrados o un mensaje de error.
      */
     public function buscarProductos($searchTerm) {
@@ -33,10 +34,11 @@ class Busqueda {
         // Verificar si la consulta fue exitosa
         if ($result) {
             $productos = [];
-            // Recuperar los resultados de la consulta
+            // Recuperar los resultados de la consulta y almacenarlos en un array
             while ($row = $result->fetch_assoc()) {
                 $productos[] = $row;
             }
+            // Retornar el array con los productos encontrados
             return $productos;
         } else {
             // Devolver un mensaje de error si la consulta falló

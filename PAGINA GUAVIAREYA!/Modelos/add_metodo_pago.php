@@ -9,6 +9,7 @@ class add_metodo_pago
 {
     // Clave secreta para el cifrado. Cambia esto a una clave secreta segura.
     private static $encryption_key = 'your-secret-encryption-key'; 
+    
     // Algoritmo de cifrado utilizado.
     private static $cipher = 'aes-256-cbc'; 
 
@@ -21,9 +22,11 @@ class add_metodo_pago
     private static function encrypt($data) {
         // Generar un vector de inicialización (IV) aleatorio.
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length(self::$cipher));
-        // Cifrar los datos.
+        
+        // Cifrar los datos utilizando el algoritmo AES-256-CBC.
         $encrypted = openssl_encrypt($data, self::$cipher, self::$encryption_key, 0, $iv);
-        // Codificar el resultado cifrado y el IV en base64.
+        
+        // Codificar el resultado cifrado y el IV en formato base64 para almacenamiento.
         return base64_encode($encrypted . '::' . $iv);
     }
 
@@ -54,7 +57,14 @@ class add_metodo_pago
         $sql = "INSERT INTO metodos_pago (numero, nombre, apellido, expiracion, cvv, correo) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
-        // Vincular los parámetros a la declaración SQL.
+        // Verificar si la preparación de la declaración SQL fue exitosa.
+        if ($stmt === false) {
+            // Cerrar la conexión y devolver false en caso de error.
+            $conn->close();
+            return false;
+        }
+
+        // Vincular los parámetros cifrados a la declaración SQL.
         $stmt->bind_param("ssssss", $numero_encrypted, $nombre_encrypted, $apellido_encrypted, $expiracion_encrypted, $cvv_encrypted, $correo);
 
         // Ejecutar la declaración SQL.
@@ -64,7 +74,7 @@ class add_metodo_pago
             $conn->close();
             return true;
         } else {
-            // Cerrar la declaración y la conexión.
+            // Cerrar la declaración y la conexión en caso de error.
             $stmt->close();
             $conn->close();
             return false;

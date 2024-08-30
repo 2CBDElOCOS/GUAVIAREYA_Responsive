@@ -8,6 +8,9 @@ class Cupones {
     /**
      * Valida un cupón según su código.
      *
+     * Este método verifica si el cupón es válido, es decir, si existe, no ha sido usado
+     * y no ha expirado.
+     *
      * @param string $codigoCupon El código del cupón a validar.
      * @return array Un array con el estado de validez del cupón y mensajes de error si es necesario.
      */
@@ -17,7 +20,10 @@ class Cupones {
         
         // Verificar si hubo un error en la conexión
         if ($conn->connect_error) {
-            return ['valido' => false, 'mensaje' => 'Error en la conexión a la base de datos.'];
+            return [
+                'valido' => false,
+                'mensaje' => 'Error en la conexión a la base de datos.'
+            ];
         }
 
         // Escapar el código del cupón para evitar inyecciones SQL
@@ -29,10 +35,13 @@ class Cupones {
 
         // Verificar si hubo un error al preparar la consulta
         if (!$stmt) {
-            return ['valido' => false, 'mensaje' => 'Error al preparar la consulta.'];
+            return [
+                'valido' => false,
+                'mensaje' => 'Error al preparar la consulta.'
+            ];
         }
 
-        // Vincular el parámetro de la consulta
+        // Vincular el parámetro del cupón a la consulta preparada
         $stmt->bind_param("s", $codigoCupon);
         $stmt->execute();
         $stmt->store_result();
@@ -41,7 +50,10 @@ class Cupones {
         if ($stmt->num_rows === 0) {
             $stmt->close();
             $conn->close();
-            return ['valido' => false, 'mensaje' => 'Código de cupón inválido.'];
+            return [
+                'valido' => false,
+                'mensaje' => 'Código de cupón inválido.'
+            ];
         }
 
         // Obtener los resultados de la consulta
@@ -52,16 +64,25 @@ class Cupones {
         
         // Verificar si el cupón ya ha sido usado
         if ($usado) {
-            return ['valido' => false, 'mensaje' => 'El cupón ya ha sido usado.'];
+            return [
+                'valido' => false,
+                'mensaje' => 'El cupón ya ha sido usado.'
+            ];
         }
         
         // Verificar si el cupón ha expirado
         if (new DateTime() > new DateTime($fechaExpiracion)) {
-            return ['valido' => false, 'mensaje' => 'El cupón ha expirado.'];
+            return [
+                'valido' => false,
+                'mensaje' => 'El cupón ha expirado.'
+            ];
         }
         
         // Si el cupón es válido, devolver el descuento
-        return ['valido' => true, 'descuento' => $descuento];
+        return [
+            'valido' => true,
+            'descuento' => $descuento
+        ];
     }
 }
 ?>

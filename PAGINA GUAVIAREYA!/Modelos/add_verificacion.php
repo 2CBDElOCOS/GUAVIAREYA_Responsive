@@ -7,15 +7,22 @@ include '../config/Conexion.php';
 class add_foto {
     /**
      * Función para agregar una foto de identificación.
+     *
+     * Este método verifica si los datos del formulario y el archivo están presentes,
+     * valida que el usuario ha iniciado sesión y que el correo del formulario coincide con el de la sesión,
+     * y luego mueve la imagen al directorio deseado e inserta la información en la base de datos.
+     *
+     * @return void
      */
     static function add_foto() {
         // Verificar si los datos del formulario y el archivo están presentes
         if (isset($_FILES['img_P']) && isset($_POST['correo']) && isset($_POST['tipo_documento'])) {
+
             // Obtener los datos del formulario y el archivo
-            $correo_formulario = $_POST['correo'];
-            $tipo_documento = $_POST['tipo_documento'];
-            $img_P = $_FILES['img_P']['name'];
-            $img_temp = $_FILES['img_P']['tmp_name'];
+            $correo_formulario = $_POST['correo'];            // Correo electrónico del formulario
+            $tipo_documento = $_POST['tipo_documento'];      // Tipo de documento
+            $img_P = $_FILES['img_P']['name'];               // Nombre del archivo de imagen
+            $img_temp = $_FILES['img_P']['tmp_name'];        // Nombre temporal del archivo en el servidor
 
             // Verificar si el usuario ha iniciado sesión
             if (!isset($_SESSION['correo'])) {
@@ -60,8 +67,9 @@ class add_foto {
             if (move_uploaded_file($img_temp, $img_dest)) {
                 // Preparar la declaración SQL para insertar la información en la base de datos
                 $sql = $conn->prepare("INSERT INTO Documentos_Identificacion (Correo, Tipo_Documento, Foto_Documento) VALUES (?, ?, ?)");
+                
+                // Verificar si la preparación de la consulta fue exitosa
                 if ($sql === false) {
-                    // Redirigir si hay un error al preparar la consulta
                     header("location: controlador.php?seccion=verificacionP&error=Error preparando la consulta: " . $conn->error);
                     exit;
                 }

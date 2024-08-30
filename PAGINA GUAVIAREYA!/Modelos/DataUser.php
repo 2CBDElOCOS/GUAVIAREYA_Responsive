@@ -2,25 +2,37 @@
 include '../config/Conexion.php';
 
 /**
- * Clase para manejar operaciones relacionadas con los usuarios
+ * Clase para manejar operaciones relacionadas con los usuarios.
  */
-Class DataUser {
+class DataUser {
     private $conn;
 
+    /**
+     * Constructor para inicializar la conexión a la base de datos.
+     */
     public function __construct() {
         $this->conn = Conexion::conectar();
     }
 
+    /**
+     * Obtiene un usuario por su correo electrónico.
+     *
+     * @param string $email Correo electrónico del usuario a buscar.
+     * @return array|null Retorna un array asociativo con los datos del usuario si se encuentra, o null si no se encuentra.
+     * @throws Exception Si hay un error preparando la consulta SQL.
+     */
     public static function getUserByEmail($email) {
         $conn = Conexion::conectar();
 
         $user = null;
 
+        // Preparar la consulta SQL para obtener los datos del usuario
         $stmt = $conn->prepare("SELECT Correo, Apodo, Nombre, Apellido, Telefono, img_U, Contrasena FROM Usuarios WHERE Correo = ?");
         if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
+        // Vincular el parámetro y ejecutar la consulta
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -35,49 +47,44 @@ Class DataUser {
         return $user;
     }
 
-
     /**
-     * Método estático para actualizar un usuario por su correo electrónico
+     * Actualiza los datos de un usuario por su correo electrónico.
      *
-     * @param string $email Correo electrónico del usuario a actualizar
-     * @param string $nombre Nuevo nombre del usuario
-     * @param string $apellido Nuevo apellido del usuario
-     * @param string $telefono Nuevo teléfono del usuario
-     * @return bool Retorna true si la actualización fue exitosa, o false si falló
-     * @throws Exception Si hay un error preparando la consulta SQL
+     * @param string $email Correo electrónico del usuario a actualizar.
+     * @param string $nombre Nuevo nombre del usuario.
+     * @param string $apellido Nuevo apellido del usuario.
+     * @param string $telefono Nuevo teléfono del usuario.
+     * @return bool Retorna true si la actualización fue exitosa, o false si falló.
+     * @throws Exception Si hay un error preparando la consulta SQL.
      */
     public static function updateUser($email, $nombre, $apellido, $telefono) {
-        // Crear conexión
         $conn = Conexion::conectar();
 
-        // Preparar y ejecutar la consulta SQL para actualizar el usuario por correo electrónico
+        // Preparar la consulta SQL para actualizar el usuario
         $stmt = $conn->prepare("UPDATE Usuarios SET Nombre = ?, Apellido = ?, Telefono = ? WHERE Correo = ?");
         if ($stmt === false) {
-            // Lanzar una excepción si hay un error preparando la consulta
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
-        // Vincular los parámetros a la consulta preparada
+        // Vincular los parámetros y ejecutar la consulta
         $stmt->bind_param("ssss", $nombre, $apellido, $telefono, $email);
         $success = $stmt->execute();
 
-        // Cerrar la conexión
         $stmt->close();
         $conn->close();
 
-        // Retornar si la actualización fue exitosa
         return $success;
     }
-    
+
     /**
-     * Método para subir la foto de perfil del usuario
+     * Sube la foto de perfil del usuario.
      *
-     * @param string $userEmail Correo electrónico del usuario
-     * @param array $file Array que representa el archivo subido ($_FILES['img_U'])
-     * @return bool|string Retorna true si la subida fue exitosa, o un mensaje de error si falla
+     * @param string $userEmail Correo electrónico del usuario.
+     * @param array $file Array que representa el archivo subido ($_FILES['img_U']).
+     * @return bool|string Retorna true si la subida fue exitosa, o un mensaje de error si falla.
      */
     public function subirFotoPerfil($userEmail, $file) {
-        // Verificar si hay algún error en el archivo subido
+        // Verificar errores en el archivo subido
         if ($file['error'] !== UPLOAD_ERR_OK) {
             return 'Error al subir el archivo.';
         }
@@ -87,7 +94,7 @@ Class DataUser {
             return 'El archivo es demasiado grande. El tamaño máximo permitido es de 5MB.';
         }
 
-        // Verificar el tipo de archivo
+        // Verificar el tipo de archivo permitido
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         if (!in_array($file['type'], $allowedTypes)) {
             return 'Tipo de archivo no permitido. Solo se permiten archivos JPG, PNG y GIF.';
@@ -115,30 +122,39 @@ Class DataUser {
     }
 
     /**
-     * Método estático para actualizar la contraseña de un usuario por su correo electrónico
+     * Actualiza la contraseña de un usuario por su correo electrónico.
      *
-     * @param string $email Correo electrónico del usuario
-     * @param string $newPassword Nueva contraseña del usuario
-     * @return bool Retorna true si la actualización fue exitosa, o false si falló
-     * @throws Exception Si hay un error preparando la consulta SQL
+     * @param string $email Correo electrónico del usuario.
+     * @param string $newPassword Nueva contraseña del usuario (debe estar cifrada).
+     * @return bool Retorna true si la actualización fue exitosa, o false si falló.
+     * @throws Exception Si hay un error preparando la consulta SQL.
      */
     public static function updatePassword($email, $newPassword) {
         $conn = Conexion::conectar();
-    
+
+        // Preparar la consulta SQL para actualizar la contraseña
         $stmt = $conn->prepare("UPDATE Usuarios SET Contrasena = ? WHERE Correo = ?");
         if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
-    
+
+        // Vincular los parámetros y ejecutar la consulta
         $stmt->bind_param("ss", $newPassword, $email);
         $success = $stmt->execute();
-    
+
         $stmt->close();
         $conn->close();
-    
+
         return $success;
     }
 
+    /**
+     * Actualiza la contraseña de un usuario por su correo electrónico con una contraseña cifrada.
+     *
+     * @param string $correo Correo electrónico del usuario.
+     * @param string $hashedPassword Contraseña cifrada.
+     * @return bool Retorna true si la actualización fue exitosa.
+     */
     public function actualizarContrasena($correo, $hashedPassword) {
         $query = "UPDATE Usuarios SET Contrasena = ? WHERE correo = ?";
         $stmt = $this->conn->prepare($query);
@@ -146,12 +162,18 @@ Class DataUser {
         return $stmt->execute();
     }
 
-
+    /**
+     * Obtiene todos los pedidos de un usuario por su correo electrónico.
+     *
+     * @param string $correo Correo electrónico del usuario.
+     * @return array Retorna un array con los pedidos del usuario.
+     * @throws Exception Si hay un error preparando o ejecutando la consulta SQL.
+     */
     public function obtenerPedidosPorUsuario($correo) {
         $query = "SELECT 
                     p.ID_pedido, 
                     p.fecha_creacion, 
-                    p.Estado,  -- Incluimos el estado aquí
+                    p.Estado,
                     prod.Nombre_P AS Nombre_Producto, 
                     r.Nombre_R AS Nombre_Restaurante, 
                     CONCAT(d.Direccion, ' ', d.Barrio) AS Direccion_Entrega,
@@ -186,6 +208,12 @@ Class DataUser {
         return $pedidos;
     }
 
+    /**
+     * Elimina la cuenta de un usuario y todos los registros asociados.
+     *
+     * @param string $email Correo electrónico del usuario a eliminar.
+     * @return bool|string Retorna true si la eliminación fue exitosa, o un mensaje de error si falla.
+     */
     public static function eliminarCuenta($email) {
         $conn = Conexion::conectar();
         // Iniciar una transacción
@@ -213,11 +241,11 @@ Class DataUser {
                 }
             }
     
-            // Si todo fue bien, confirmar la transacción
+            // Confirmar la transacción si todo fue bien
             $conn->commit();
             return true;
         } catch (Exception $e) {
-            // Si hubo un error, revertir la transacción
+            // Revertir la transacción en caso de error
             $conn->rollback();
             return $e->getMessage();
         } finally {
@@ -225,9 +253,5 @@ Class DataUser {
             $conn->close();
         }
     }
-    
-    
-    
-
 }
 ?>

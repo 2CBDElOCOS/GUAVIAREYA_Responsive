@@ -19,25 +19,28 @@ class editar_producto {
      * @return void
      * @throws Exception Si hay un error en la preparación de la consulta SQL.
      */
-    public function editarProducto($id_producto, $nombre, $descripcion, $valor, $imagen) {
+    public function editarProducto($id_producto, $nombre, $descripcion, $valor, $imagen = null) {
+        // Crear conexión
         $conn = Conexion::conectar();
 
-        // Actualizar los datos del producto
+        // Construir la consulta SQL para actualizar los datos del producto
         $query = "UPDATE Productos SET Nombre_P = ?, Descripcion = ?, Valor_P = ?";
-        $types = "ssd";
+        $types = "ssd"; // Tipos de datos para la consulta: s = string, d = double
         $params = [$nombre, $descripcion, $valor];
 
         // Si hay una nueva imagen, agregarla a la consulta
         if ($imagen !== null) {
             $query .= ", img_P = ?";
-            $types .= "s";
+            $types .= "s"; // Agregar tipo string para la imagen
             $params[] = $imagen;
         }
 
+        // Completar la consulta con la cláusula WHERE
         $query .= " WHERE ID_Producto = ?";
-        $types .= "i";
+        $types .= "i"; // Agregar tipo integer para el ID del producto
         $params[] = $id_producto;
 
+        // Preparar la consulta
         $stmt = $conn->prepare($query);
         if ($stmt === false) {
             throw new Exception("Error en la preparación de la consulta: " . $conn->error);
@@ -47,7 +50,9 @@ class editar_producto {
         $stmt->bind_param($types, ...$params);
 
         // Ejecutar la consulta
-        $stmt->execute();
+        if (!$stmt->execute()) {
+            throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
+        }
 
         // Cerrar la consulta y la conexión
         $stmt->close();

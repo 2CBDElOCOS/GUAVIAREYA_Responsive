@@ -4,7 +4,7 @@ include '../config/Conexion.php';
 /**
  * Clase para manejar la eliminación de productos
  */
-class delete_productos {
+class DeleteProductos {
     /**
      * Método estático para borrar productos
      *
@@ -14,7 +14,7 @@ class delete_productos {
      *
      * @return void
      */
-    static function delete_productos() {
+    public static function deleteProducto() {
         // Verificar si se ha enviado el ID del producto a borrar
         if (isset($_POST['ID_Producto'])) {
             // Obtener el ID del producto a borrar
@@ -64,7 +64,7 @@ class delete_productos {
             if ($sql->execute()) {
                 // Redirigir a otra página después de borrar el producto
                 $conn->close();
-                header("location: controlador.php?seccion=ADMI_Productos_A");
+                header("Location: controlador.php?seccion=ADMI_Productos_A");
                 exit(); // Salir del script después de redirigir
             } else {
                 // Mostrar un mensaje de error si no se pudo borrar el producto

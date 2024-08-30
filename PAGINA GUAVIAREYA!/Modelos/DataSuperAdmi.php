@@ -1,32 +1,49 @@
 <?php
-require_once '../config/Conexion.php';
+include '../config/Conexion.php';
 
 /**
- * Clase para gestionar operaciones relacionadas con los superadministradores y estadísticas.
+ * Clase para manejar operaciones relacionadas con los usuarios administradores y sus restaurantes.
  */
-class DataSuperAdmi {
+class DataAdmi
+{
+    private $conn; // Propiedad para almacenar la conexión
 
     /**
-     * Obtiene la información de un superadministrador basado en el correo electrónico.
-     *
-     * @param string $email El correo electrónico del superadministrador.
-     * @return array|null Información del superadministrador o null si no existe.
-     * @throws Exception Si ocurre un error al preparar la consulta.
+     * Constructor para inicializar la conexión a la base de datos.
      */
-    public static function obteneremail($email)
+    public function __construct()
+    {
+        $this->conn = Conexion::conectar(); // Establecer la conexión en el constructor
+    }
+
+    /**
+     * Obtiene un usuario administrador por su correo electrónico.
+     *
+     * @param string $email Correo electrónico del usuario a buscar.
+     * @return array|null Retorna un array asociativo con los datos del usuario si se encuentra, o null si no se encuentra.
+     * @throws Exception Si hay un error preparando la consulta SQL.
+     */
+    public static function getUserByEmail($email)
     {
         $conn = Conexion::conectar();
         $user = null;
 
+        // Consulta SQL para obtener los datos del usuario y del restaurante asociado
         $stmt = $conn->prepare("
             SELECT 
-                apodo AS Apodo,
-                contrasena AS contrasena,  
-                correo AS Correo
+                administradores.correo, 
+                administradores.contrasena, 
+                administradores.ID_Restaurante, 
+                Restaurantes.Estado, 
+                Restaurantes.img_R,  
+                Restaurantes.Nombre_R, 
+                Restaurantes.Direccion, 
+                Restaurantes.Telefono 
             FROM administradores 
-            WHERE correo = ? AND rol = 'super_administrador'
+            JOIN Restaurantes ON administradores.ID_Restaurante = Restaurantes.ID_Restaurante 
+            WHERE administradores.correo = ?
         ");
-
+        
         if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
@@ -46,22 +63,42 @@ class DataSuperAdmi {
     }
 
     /**
-     * Actualiza la contraseña de un superadministrador basado en el correo electrónico.
+     * Actualiza los datos del restaurante asociado a un administrador por su correo electrónico.
      *
-     * @param string $email El correo electrónico del superadministrador.
-     * @param string $newPassword La nueva contraseña.
-     * @return bool Verdadero si la actualización fue exitosa, falso en caso contrario.
+     * @param string $email Correo electrónico del administrador.
+     * @param string $nombre Nuevo nombre del restaurante.
+     * @param string $telefono Nuevo teléfono del restaurante.
+     * @param string $direccion Nueva dirección del restaurante.
+     * @return bool Retorna true si la actualización fue exitosa, o false si falló.
+     * @throws Exception Si hay un error preparando la consulta SQL.
      */
-    public static function updatePassword($email, $newPassword)
+    public static function updateadmi($email, $nombre, $telefono, $direccion)
     {
+        // Establecer la conexión a la base de datos
         $conn = Conexion::conectar();
 
-        $stmt = $conn->prepare("UPDATE administradores SET contrasena = ? WHERE correo = ? AND rol = 'super_administrador'");
+        // Obtener el ID del restaurante asociado al administrador
+        $stmt = $conn->prepare("SELECT ID_Restaurante FROM administradores WHERE correo = ?");
+        if ($stmt === false) {
+            throw new Exception("Error preparando la consulta: " . $conn->error);
+        }
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->bind_result($id_restaurante);
+        $stmt->fetch();
+        $stmt->close();
+
+        if (!$id_restaurante) {
+            throw new Exception("No se encontró un restaurante asociado al administrador.");
+        }
+
+        // Preparar y ejecutar la consulta SQL para actualizar los datos del restaurante
+        $stmt = $conn->prepare("UPDATE Restaurantes SET Nombre_R = ?, Direccion = ?, Telefono = ? WHERE ID_Restaurante = ?");
         if ($stmt === false) {
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
 
-        $stmt->bind_param("ss", $newPassword, $email);
+        $stmt->bind_param("sssi", $nombre, $direccion, $telefono, $id_restaurante);
         $success = $stmt->execute();
 
         $stmt->close();
@@ -71,206 +108,250 @@ class DataSuperAdmi {
     }
 
     /**
-     * Borra un producto basado en su ID y elimina su imagen asociada.
+     * Sube la foto de perfil del restaurante asociado al usuario administrador.
      *
-     * @return void
+     * @param string $userEmail Correo electrónico del administrador.
+     * @param array $file Array que representa el archivo subido ($_FILES['img_U']).
+     * @return bool|string Retorna true si la subida fue exitosa, o un mensaje de error si falla.
      */
-    static function borrar_restaurante() {
-        // Verificar si se ha enviado el ID del producto a borrar
-        if (isset($_POST['ID_Producto'])) {
-            $id_producto = $_POST['ID_Producto'];
-            $conn = Conexion::conectar();
+    public function subirFotoPerfil($userEmail, $file)
+    {
+        // Verificar si hay algún error en el archivo subido
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            return 'Error al subir el archivo.';
+        }
 
-            if ($conn->connect_error) {
-                die("Conexión fallida: " . $conn->connect_error);
-            }
+        // Verificar el tamaño del archivo (máximo 5MB)
+        if ($file['size'] > 5242880) {
+            return 'El archivo es demasiado grande. El tamaño máximo permitido es de 5MB.';
+        }
 
-            // Obtener el nombre del archivo de imagen del producto
-            $sql = $conn->prepare("SELECT img_P FROM Productos WHERE ID_Producto = ?");
-            if ($sql === false) {
-                die("Error preparando la consulta: " . $conn->error);
-            }
+        // Verificar el tipo de archivo
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($file['type'], $allowedTypes)) {
+            return 'Tipo de archivo no permitido. Solo se permiten archivos JPG, PNG y GIF.';
+        }
 
-            $sql->bind_param("i", $id_producto);
-            $sql->execute();
-            $result = $sql->get_result();
-            $row = $result->fetch_assoc();
-            $img_P = $row['img_P'];
+        // Mover el archivo subido a la carpeta de destino
+        $uploadDir = '../media_profiles/';
+        $fileName = basename($file['name']);
+        $uploadFilePath = $uploadDir . $fileName;
 
-            // Borrar el archivo de imagen
-            $image_path = "../media_productos/" . $img_P;
-            if (file_exists($image_path)) {
-                unlink($image_path);
-            }
+        if (!move_uploaded_file($file['tmp_name'], $uploadFilePath)) {
+            return 'Error al mover el archivo subido.';
+        }
 
-            // Preparar la consulta SQL para borrar el producto
-            $sql = $conn->prepare("DELETE FROM Productos WHERE ID_Producto = ?");
-            if ($sql === false) {
-                die("Error preparando la consulta: " . $conn->error);
-            }
+        // Actualizar la base de datos con la nueva ruta de la foto de perfil
+        $sql = "UPDATE Restaurantes SET img_R = ? WHERE ID_Restaurante = (SELECT ID_Restaurante FROM administradores WHERE correo = ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ss', $uploadFilePath, $userEmail);
 
-            $sql->bind_param("i", $id_producto);
-
-            if ($sql->execute()) {
-                $conn->close();
-                header("location: controlador.php?seccion=ADMI_Productos_A");
-                exit();
-            } else {
-                echo "Error al borrar el producto: " . $conn->error;
-            }
-
-            $conn->close();
+        if ($stmt->execute()) {
+            return true; // Subida exitosa
         } else {
-            echo "No se recibió el ID del producto a borrar";
+            return 'Error al actualizar la base de datos.';
         }
     }
 
     /**
-     * Obtiene estadísticas de pedidos por restaurante en un rango de fechas opcional.
+     * Actualiza la contraseña de un administrador por su correo electrónico.
      *
-     * @param string|null $fecha_inicio Fecha de inicio para el rango de fechas (opcional).
-     * @param string|null $fecha_fin Fecha de fin para el rango de fechas (opcional).
-     * @return array Un array con el nombre del restaurante y el número de pedidos.
+     * @param string $email Correo electrónico del administrador.
+     * @param string $newPassword Nueva contraseña del administrador.
+     * @return bool Retorna true si la actualización fue exitosa, o false si falló.
+     * @throws Exception Si hay un error preparando la consulta SQL.
      */
-    public static function obtenerEstadisticasPedidosPorRestaurante($fecha_inicio = null, $fecha_fin = null) {
+    public static function updatePassword($email, $newPassword)
+    {
         $conn = Conexion::conectar();
-        $sql = "SELECT r.Nombre_R AS Restaurante, COUNT(p.ID_pedido) AS Numero_Pedidos
-                FROM Restaurantes r
-                LEFT JOIN Pedidos p ON r.ID_Restaurante = p.ID_Restaurante";
-        
-        if ($fecha_inicio && $fecha_fin) {
-            $sql .= " WHERE DATE(p.fecha_creacion) BETWEEN ? AND ?";
-        }
-        
-        $sql .= " GROUP BY r.ID_Restaurante
-                  ORDER BY Numero_Pedidos DESC";
-        
-        $stmt = $conn->prepare($sql);
-        
+
+        // Cifrar la nueva contraseña con md5
+        $hashedPassword = md5($newPassword);
+
+        // Consulta SQL para actualizar la contraseña
+        $stmt = $conn->prepare("UPDATE administradores SET contrasena = ? WHERE correo = ?");
         if ($stmt === false) {
-            echo "Error preparando la consulta: " . $conn->error;
-            $conn->close();
-            return [];
+            throw new Exception("Error preparando la consulta: " . $conn->error);
         }
-        
-        if ($fecha_inicio && $fecha_fin) {
-            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
-        }
-        
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result === false) {
-            echo "Error en la consulta SQL: " . $conn->error;
-            $conn->close();
-            return [];
-        }
-        
-        $data = [];
-        while ($row = $result->fetch_assoc()) {
-            $data[] = [$row['Restaurante'], (int)$row['Numero_Pedidos']];
-        }
-        
+
+        $stmt->bind_param("ss", $hashedPassword, $email);
+        $success = $stmt->execute();
+
+        $stmt->close();
         $conn->close();
-        return $data;
+
+        return $success;
     }
 
     /**
-     * Obtiene el producto más popular basado en el número de ventas en un rango de fechas opcional.
+     * Obtiene todas las órdenes del restaurante asociado al administrador.
      *
-     * @param string|null $fecha_inicio Fecha de inicio para el rango de fechas (opcional).
-     * @param string|null $fecha_fin Fecha de fin para el rango de fechas (opcional).
-     * @return array Un array con el nombre del producto y el número de ventas.
+     * @param string $correo Correo electrónico del administrador.
+     * @return array Retorna un array con las órdenes del restaurante.
+     * @throws Exception Si hay un error preparando la consulta SQL.
      */
-    public static function obtenerProductoMasPopular($fecha_inicio = null, $fecha_fin = null) {
+    public static function obtenerOrdenes($correo)
+    {
         $conn = Conexion::conectar();
-        $sql = "SELECT p.Nombre_P AS Producto, COUNT(d.ID_Producto) AS Numero_Ventas
-                FROM Productos p
-                JOIN Pedidos d ON p.ID_Producto = d.ID_Producto";
-        
-        if ($fecha_inicio && $fecha_fin) {
-            $sql .= " WHERE DATE(d.fecha_creacion) BETWEEN ? AND ?";
-        }
-        
-        $sql .= " GROUP BY p.ID_Producto
-                  ORDER BY Numero_Ventas DESC";
-        
-        $stmt = $conn->prepare($sql);
-        
+
+        // Obtener el ID del restaurante asociado al administrador
+        $stmt = $conn->prepare("SELECT ID_Restaurante FROM administradores WHERE correo = ?");
         if ($stmt === false) {
-            echo "Error preparando la consulta: " . $conn->error;
-            $conn->close();
-            return [];
+            throw new Exception("Error preparando la consulta: " . $conn->error);
         }
-        
-        if ($fecha_inicio && $fecha_fin) {
-            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+        $stmt->bind_param("s", $correo);
+        $stmt->execute();
+        $stmt->bind_result($id_restaurante);
+        $stmt->fetch();
+        $stmt->close();
+
+        if (!$id_restaurante) {
+            throw new Exception("No se encontró un restaurante asociado al administrador.");
         }
-        
+
+        // Preparar y ejecutar la consulta para obtener las órdenes del restaurante
+        $stmt = $conn->prepare("
+            SELECT 
+                p.ID_pedido, 
+                u.Nombre AS Nombre_Usuario, 
+                u.Correo, 
+                pr.Nombre_P AS Nombre_Producto, 
+                p.cantidad, 
+                d.Direccion, 
+                p.fecha_creacion, 
+                p.Estado, 
+                p.tipo_envio
+            FROM Pedidos p
+            JOIN Usuarios u ON p.Correo = u.Correo
+            JOIN Productos pr ON p.ID_Producto = pr.ID_Producto
+            JOIN Direccion_Entregas d ON p.ID_Dire_Entre = d.ID_Dire_Entre
+            WHERE p.ID_Restaurante = ?
+            ORDER BY p.tipo_envio DESC, p.fecha_creacion DESC
+        ");
+
+        if ($stmt === false) {
+            throw new Exception("Error preparando la consulta: " . $conn->error);
+        }
+
+        $stmt->bind_param("i", $id_restaurante);
         $stmt->execute();
         $result = $stmt->get_result();
-        
-        if ($result === false) {
-            echo "Error en la consulta SQL: " . $conn->error;
-            $conn->close();
-            return [];
-        }
-        
-        $data = [];
-        while ($row = $result->fetch_assoc()) {
-            $data[] = [$row['Producto'], (int)$row['Numero_Ventas']];
-        }
-        
+        $ordenes = $result->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
         $conn->close();
-        return $data;
+
+        return $ordenes;
     }
 
     /**
-     * Obtiene el usuario con más pedidos en un rango de fechas opcional.
+     * Actualiza el estado de un pedido por su ID.
      *
-     * @param string|null $fecha_inicio Fecha de inicio para el rango de fechas (opcional).
-     * @param string|null $fecha_fin Fecha de fin para el rango de fechas (opcional).
-     * @return array Información del usuario con más pedidos o un array vacío si no hay resultados.
+     * @param int $pedido_id ID del pedido a actualizar.
+     * @param string $estado Nuevo estado del pedido.
+     * @return void
+     * @throws Exception Si hay un error preparando la consulta SQL o si no se actualizó el estado.
      */
-    public static function obtenerUsuarioMasPedidos($fecha_inicio = null, $fecha_fin = null) {
+    public static function actualizarEstadoPedido($pedido_id, $estado)
+    {
         $conn = Conexion::conectar();
-        $sql = "SELECT u.Nombre AS Usuario, COUNT(p.ID_pedido) AS Numero_Pedidos
-                FROM Usuarios u
-                JOIN Pedidos p ON u.Correo = p.Correo";
-        
-        if ($fecha_inicio && $fecha_fin) {
-            $sql .= " WHERE DATE(p.fecha_creacion) BETWEEN ? AND ?";
-        }
-        
-        $sql .= " GROUP BY u.Correo
-                  ORDER BY Numero_Pedidos DESC
-                  LIMIT 1";
-        
-        $stmt = $conn->prepare($sql);
-        
+
+        // Consulta SQL para actualizar el estado del pedido
+        $stmt = $conn->prepare("UPDATE Pedidos SET Estado = ? WHERE ID_pedido = ?");
         if ($stmt === false) {
-            echo "Error preparando la consulta: " . $conn->error;
-            $conn->close();
-            return [];
+            throw new Exception("Error preparando la consulta: " . $conn->error);
         }
-        
-        if ($fecha_inicio && $fecha_fin) {
-            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
-        }
-        
+
+        $stmt->bind_param("si", $estado, $pedido_id);
         $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result === false) {
-            echo "Error en la consulta SQL: " . $conn->error;
-            $conn->close();
-            return [];
+
+        if ($stmt->affected_rows === 0) {
+            throw new Exception("No se actualizó el estado del pedido. Verifique el ID del pedido.");
         }
-        
-        $data = $result->fetch_assoc();
-        
+
+        $stmt->close();
         $conn->close();
-        return $data;
+    }
+
+    /**
+     * Actualiza el estado de un restaurante por su ID.
+     *
+     * @param int $id_restaurante ID del restaurante a actualizar.
+     * @param string $estado Nuevo estado del restaurante.
+     * @return bool Retorna true si la actualización fue exitosa, o false si falló.
+     */
+    public static function updateRestaurantStatus($id_restaurante, $estado)
+    {
+        $conn = Conexion::conectar();
+
+        // Consulta SQL para actualizar el estado del restaurante
+        $stmt = $conn->prepare("UPDATE Restaurantes SET Estado = ? WHERE ID_Restaurante = ?");
+        if ($stmt === false) {
+            throw new Exception("Error preparando la consulta: " . $conn->error);
+        }
+
+        $stmt->bind_param("si", $estado, $id_restaurante);
+        $success = $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+        return $success;
+    }
+
+    /**
+     * Elimina un administrador por el ID del restaurante asociado.
+     *
+     * @param int $idRestaurante ID del restaurante asociado al administrador.
+     * @return bool Retorna true si la eliminación fue exitosa, o false si falló.
+     */
+    public static function eliminarAdministrador($idRestaurante)
+    {
+        $conexion = Conexion::conectar();
+
+        // Consulta SQL para eliminar el administrador
+        $query = "DELETE FROM Administradores WHERE ID_Restaurante = ?";
+
+        $stmt = $conexion->prepare($query);
+        if ($stmt === false) {
+            $conexion->close();
+            return false;
+        }
+
+        $stmt->bind_param("i", $idRestaurante);
+        $success = $stmt->execute();
+
+        $stmt->close();
+        $conexion->close();
+
+        return $success;
+    }
+
+    /**
+     * Elimina un restaurante por su ID.
+     *
+     * @param int $idRestaurante ID del restaurante a eliminar.
+     * @return bool Retorna true si la eliminación fue exitosa, o false si falló.
+     */
+    public static function eliminarRestaurante($idRestaurante)
+    {
+        $conexion = Conexion::conectar();
+
+        // Consulta SQL para eliminar el restaurante
+        $query = "DELETE FROM Restaurantes WHERE ID_Restaurante = ?";
+
+        $stmt = $conexion->prepare($query);
+        if ($stmt === false) {
+            $conexion->close();
+            return false;
+        }
+
+        $stmt->bind_param("i", $idRestaurante);
+        $success = $stmt->execute();
+
+        $stmt->close();
+        $conexion->close();
+
+        return $success;
     }
 }
-?>

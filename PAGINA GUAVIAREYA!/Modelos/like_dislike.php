@@ -78,6 +78,7 @@ class LikeDislike {
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
+        $stmt->close();
         return (int)$row['likes'];
     }
 
@@ -98,14 +99,23 @@ class LikeDislike {
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
+        $stmt->close();
         return (int)$row['dislikes'];
     }
 
     public function __destruct() {
         $this->conn->close();
     }
+
+    /**
+     * Elimina un registro de like/dislike para un usuario y restaurante dado.
+     * 
+     * @param string $correo El correo electrónico del usuario.
+     * @param int $id_restaurante El ID del restaurante.
+     * @return string "Success" en caso de éxito, o un mensaje de error en caso contrario.
+     * @throws Exception Si ocurre un error al preparar o ejecutar la consulta.
+     */
     public function eliminarLikeDislike($correo, $id_restaurante) {
-        // Elimina el registro de like/dislike para el usuario y restaurante dado
         $sql = "DELETE FROM Likes_Dislikes WHERE Correo = ? AND ID_Restaurante = ?";
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
@@ -113,6 +123,7 @@ class LikeDislike {
         }
         $stmt->bind_param("si", $correo, $id_restaurante);
         if ($stmt->execute()) {
+            $stmt->close();
             return "Success";
         } else {
             throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
