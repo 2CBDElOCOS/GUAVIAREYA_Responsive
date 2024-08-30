@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = Registrar::registrarUsuario();
         
         if ($result === true) {
-            header("location: ../Controladores/controlador.php?seccion=login");
+            header("location: ../Controladores/controlador.php?seccion=login&registro_exitoso=1");
             exit();
         } else {
             $error = ($result === "Usuario ya existente") ? 1 : 3; // 3 = Error general

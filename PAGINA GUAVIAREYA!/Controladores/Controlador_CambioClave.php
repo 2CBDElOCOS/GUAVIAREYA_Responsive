@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $success = DataUser::updatePassword($email, $nuevaContrasena);
 
     if ($success) {
-        header("location: controlador.php?seccion=perfil");
+        header("location: controlador.php?seccion=perfil&success=1");
         exit();
     } else {
         echo "Error al actualizar la contraseña.";

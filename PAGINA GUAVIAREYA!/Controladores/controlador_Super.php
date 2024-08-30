@@ -6,9 +6,23 @@ if (session_status() == PHP_SESSION_NONE) {
 include('../Modelos/add_restaurantes.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    add_restaurantes::add_restaurantes();
+    $result = add_restaurantes::add_restaurantes();
+
+    if (is_string($result)) {
+        // Codificar el mensaje de error para evitar problemas en la URL
+        $encodedError = urlencode($result);
+        // Redirigir de nuevo al formulario con el mensaje de error
+        header("Location: ../Controladores/controlador.php?seccion=SUPER_add&error=$encodedError");
+        exit;
+    } else {
+        // Si no hay error, obtener el ID del restaurante recién insertado
+        $restaurante_id = $result;
+        header("Location: ../Controladores/controlador.php?seccion=SUPER_add_administrador&ID_Restaurante=$restaurante_id");
+        exit;
+    }
 } else {
-    header("location: SUPER_add.php");
+    header("Location: ../Controladores/controlador.php?seccion=SUPER_add");
     exit;
 }
+
 ?>

@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $success = DataAdmi::updatePassword($email, $nuevaContrasena);
 
     if ($success) {
-        header("location: controlador.php?seccion=ADMI_Perfil_A");
+        header("location: ../Controladores/controlador.php?seccion=ADMI_CambiarPass&success=1");
         exit();
     } else {
         header("location: ../Controladores/controlador.php?seccion=ADMI_CambiarPass&error=4");

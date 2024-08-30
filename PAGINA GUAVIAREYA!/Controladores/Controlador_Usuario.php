@@ -18,7 +18,8 @@ if (isset($_POST['Correo']) && isset($_POST['Contrasena'])) {
         exit;
     }
 
-    if (!empty($correo) && !empty($contrasena)) {
+    // Verificar si el correo existe en la base de datos
+    if (Login::VerificarCorreoExistente($correo)) {
         $resultado = Login::IniciarSesion($correo, $contrasena);
 
         if ($resultado == 1) {
@@ -37,9 +38,14 @@ if (isset($_POST['Correo']) && isset($_POST['Contrasena'])) {
             header("location: ../Controladores/controlador.php?seccion=login&error=1");
             exit;
         } elseif ($resultado == 2) {
+            // Bloquear temporalmente si el usuario está bloqueado
             header("location: ../Controladores/controlador.php?seccion=login&error=blocked");
             exit;
         }
+    } else {
+        // Correo no registrado
+        header("location: ../Controladores/controlador.php?seccion=login&error=2");
+        exit;
     }
 } else {
     header("location: ../Controladores/controlador.php?seccion=login");
